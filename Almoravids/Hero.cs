@@ -101,7 +101,7 @@ namespace Almoravids
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(heroTexture, position, animate.CurrentFrame.SourceRectangle, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(heroTexture, position, animate.CurrentFrame.SourceRectangle, Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
         }
     }
 }

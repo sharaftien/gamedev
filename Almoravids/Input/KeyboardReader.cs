@@ -14,13 +14,28 @@ namespace Almoravids.Input
             var direction = Vector2.Zero;
 
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.Left))
+            // Check for diagonal movement by combining left/right with up/down
+            if (state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.Left))
             {
-                direction = new Vector2(-1, 0);
+                direction.X = -1; // Move left
             }
-            if (state.IsKeyDown(Keys.Right))
+            if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
-                direction = new Vector2(1, 0);
+                direction.X = 1; // Move right
+            }
+            if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
+            {
+                direction.Y = -1; // Move up
+            }
+            if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
+            {
+                direction.Y = 1; // Move down
+            }
+
+            // Normalize movement for consistent speed
+            if (direction.Length() > 1)
+            {
+               direction.Normalize();
             }
 
             return direction;
