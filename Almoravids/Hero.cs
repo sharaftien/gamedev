@@ -19,10 +19,11 @@ namespace Almoravids
         private Vector2 acceleration;
         private Vector2 mouseVector;
         IInputReader inputReader;
+        private bool isMoving;
 
         public Hero(Texture2D texture, IInputReader reader)
         {
-            heroTexture = texture;
+            heroTexture = texture;      //texture when walking
             animate = new Animate();
             for (int i = 0; i < 8; i++)
             {
@@ -39,12 +40,20 @@ namespace Almoravids
 
         public void Update(GameTime gameTime)
         {
+            // get the moving direction (keyboard input)
             var direction = inputReader.ReadInput();
-            direction *= 4;
+            direction *= 2; //speed (*=4 -> 4 times as fast)
+            isMoving = direction != Vector2.Zero;   //boolean isMoving -> true when moving, false when still
+
+            //update position (keyboard input)
             position += direction;
 
-            //Move(GetMouseState());
-            animate.Update(gameTime);
+            if (isMoving)   //so only when moving the sprite will be animated
+            {
+                //Move(GetMouseState());
+                animate.Update(gameTime);
+            }
+            
         }
 
         private Vector2 GetMouseState()
@@ -92,7 +101,7 @@ namespace Almoravids
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(heroTexture, position,animate.CurrentFrame.SourceRectangle, Color.White,0, new Vector2(0,0),1,SpriteEffects.None,0);
+            spriteBatch.Draw(heroTexture, position, animate.CurrentFrame.SourceRectangle, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
         }
     }
 }

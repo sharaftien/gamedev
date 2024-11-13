@@ -26,3 +26,4 @@ D:\Users\KUBA\Desktop\gamedev\Almoravids\obj\Debug\net8.0-windows\Almoravids.pdb
 D:\Users\KUBA\Desktop\gamedev\Almoravids\obj\Debug\net8.0-windows\Almoravids.genruntimeconfig.cache
 D:\Users\KUBA\Desktop\gamedev\Almoravids\obj\Debug\net8.0-windows\ref\Almoravids.dll
 D:\Users\KUBA\Desktop\gamedev\Almoravids\bin\Debug\net8.0-windows\Content\tashfin.xnb
+D:\Users\KUBA\Desktop\gamedev\Almoravids\bin\Debug\net8.0-windows\Content\tashfin_idle.xnb

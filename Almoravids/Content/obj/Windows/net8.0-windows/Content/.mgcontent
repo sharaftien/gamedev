@@ -4,9 +4,11 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/tashfin_idle.png</File>
     <File>D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/tashfin.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
