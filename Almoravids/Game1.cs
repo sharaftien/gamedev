@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Almoravids.Input;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -43,7 +44,7 @@ namespace Almoravids
 
         private void InitializeGameObjects()
         {
-            hero = new Hero(texture);
+            hero = new Hero(texture, new KeyboardReader());
         }
 
         protected override void Update(GameTime gameTime)
