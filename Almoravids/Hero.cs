@@ -19,7 +19,6 @@ namespace Almoravids
         private Vector2 acceleration;
         private Vector2 mouseVector;
         IInputReader inputReader;
-        
 
         public Hero(Texture2D texture, IInputReader reader)
         {
@@ -29,21 +28,13 @@ namespace Almoravids
             {
                 animate.AddFrame(new AnimationFrame(new Rectangle((64 * i) + 64, 64 * 11, 64, 64)));
             }
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 0) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 1) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 2) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 3) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 4) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 5) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 6) + 64, 64 * 11, 64, 64)));
-            //animate.AddFrame(new AnimationFrame(new Rectangle((64 * 7) + 64, 64 * 11, 64, 64)));
+            
             position = new Vector2(10, 10);
             speed = new Vector2(1, 1);
             acceleration = new Vector2(0.1f, 0.1f);
 
             //Read input for my hero class
             this.inputReader = reader;
-
         }
 
         public void Update(GameTime gameTime)
@@ -97,7 +88,6 @@ namespace Almoravids
                 v.X *= ratio;
                 v.Y *= ratio;
             } return v;
-
         }
 
         public void Draw(SpriteBatch spriteBatch)

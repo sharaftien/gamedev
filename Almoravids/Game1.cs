@@ -18,6 +18,10 @@ namespace Almoravids
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1280; //1280 //1600 
+            _graphics.PreferredBackBufferHeight = 720; //720 //900
+            _graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -25,9 +29,6 @@ namespace Almoravids
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
-            
-
             base.Initialize();
         }
 
@@ -68,8 +69,6 @@ namespace Almoravids
             _spriteBatch.Begin();
             hero.Draw(_spriteBatch);
             _spriteBatch.End();
-
-            
 
             base.Draw(gameTime);
         }
