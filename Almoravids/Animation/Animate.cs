@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Almoravids.Characters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,24 +10,37 @@ namespace Almoravids.Animation
     public class Animate
     {
         public AnimationFrame CurrentFrame { get; set; }
-
-        private List<AnimationFrame> frames;
+        private Dictionary<Direction, List<AnimationFrame>> directionFrames;
+        //private List<AnimationFrame> frames;
         private int counter;
         private double frameMovement = 0;
 
         public Animate()
         {
-            frames = new List<AnimationFrame>();
+            directionFrames = new Dictionary<Direction, List<AnimationFrame>>();
         }
 
-        public void AddFrame(AnimationFrame animationFrame)
+        public void AddFrame(Direction direction, AnimationFrame animationFrame)
         {
-            frames.Add(animationFrame);
-            CurrentFrame = frames[0];
+            if (!directionFrames.ContainsKey(direction))
+            {
+                directionFrames[direction] = new List<AnimationFrame>();
+            }
+
+            directionFrames[direction].Add(animationFrame);
+
+            //default DOWN (front) direction when first adding frames
+            if (CurrentFrame == null)
+            {
+                CurrentFrame = animationFrame;
+            }
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Direction currentDirection)
         {
+            //Get the list of frames for the current direction
+            var frames = directionFrames[currentDirection];
+
             CurrentFrame = frames[counter];
 
             frameMovement += CurrentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.TotalSeconds;
