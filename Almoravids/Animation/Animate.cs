@@ -11,9 +11,7 @@ namespace Almoravids.Animation
         public AnimationFrame CurrentFrame { get; set; }
 
         private List<AnimationFrame> frames;
-
         private int counter;
-
         private double frameMovement = 0;
 
         public Animate()

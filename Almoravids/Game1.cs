@@ -1,4 +1,5 @@
-﻿using Almoravids.Input;
+﻿using Almoravids.Characters;
+using Almoravids.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,9 +12,7 @@ namespace Almoravids
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Texture2D texture;
-        Hero hero;
-        
+        private Hero hero;
 
         public Game1()
         {
@@ -36,16 +35,20 @@ namespace Almoravids
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            texture = Content.Load<Texture2D>("tashfin");
+            // Load textures for Hero
+            Texture2D walkTexture = Content.Load<Texture2D>("tashfin");
+            Texture2D idleTexture = Content.Load<Texture2D>("tashfin_idle");
+            
+            // Set up initial position for Hero
+            Vector2 startPosition = new Vector2((1280/2)-64, (720/2)-64); // Adjust starting position as needed (pixels ons screen)
 
-            InitializeGameObjects();
+            // Initialize input reader
+            IInputReader inputReader = new KeyboardReader(); 
 
-            // TODO: use this.Content to load your game content here
-        }
-
-        private void InitializeGameObjects()
-        {
-            hero = new Hero(texture, new KeyboardReader());
+            // Initialize the Hero with the textures, start position, and input reader
+            hero = new Hero(idleTexture, walkTexture, startPosition, inputReader); // Assign to field `hero`
+            
+            // TODO: use this.Content to load additional game content here if needed
         }
 
         protected override void Update(GameTime gameTime)

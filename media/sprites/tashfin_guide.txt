@@ -1,0 +1,16 @@
+1	hands_up	back
+2	hands_up	left
+3	hands_up	front
+4	hands_up	right
+
+5	
+6
+7
+8
+
+9	walk		back	9 frames
+10	walk		left	9 frames
+11	walk		front	9 frames
+12	walk		right	9 frames
+
+21	death		front
