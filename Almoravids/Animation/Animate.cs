@@ -11,13 +11,20 @@ namespace Almoravids.Animation
     {
         public AnimationFrame CurrentFrame { get; set; }
         private Dictionary<Direction, List<AnimationFrame>> directionFrames;
-        //private List<AnimationFrame> frames;
+        //private List<AnimationFrame> idleFrames;
         private int counter;
         private double frameMovement = 0;
+        private double frameSpeed; //to be declared induvdiually
 
-        public Animate()
+        public Animate(double speed = 0.1)
         {
             directionFrames = new Dictionary<Direction, List<AnimationFrame>>();
+            frameSpeed = speed;
+        }
+
+        public void SetFrameSpeed(double speed)
+        {
+            frameSpeed = speed; //allows speed to be changed later
         }
 
         public void AddFrame(Direction direction, AnimationFrame animationFrame)
@@ -40,18 +47,27 @@ namespace Almoravids.Animation
         {
             //Get the list of frames for the current direction
             var frames = directionFrames[currentDirection];
-
             CurrentFrame = frames[counter];
 
-            frameMovement += CurrentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.TotalSeconds;
-            if (frameMovement >= CurrentFrame.SourceRectangle.Width/10)
+            frameMovement += gameTime.ElapsedGameTime.TotalSeconds;
+            if (frameMovement >= frameSpeed)
             {
                 counter++;
                 frameMovement = 0;
             }
-                
-            if (counter >= frames.Count)
+            if (counter>=frames.Count)
+            {
                 counter = 0;
+            }
+            //frameMovement += CurrentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.TotalSeconds;
+            //if (frameMovement >= CurrentFrame.SourceRectangle.Width/10)
+            //{
+            //    counter++;
+            //    frameMovement = 0;
+            //}
+                
+            //if (counter >= frames.Count)
+            //    counter = 0;
         }
        
     }

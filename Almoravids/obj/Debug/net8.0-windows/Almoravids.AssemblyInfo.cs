@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Almoravids")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc3388c4f2550e20c782e1dac8a0956fa7682f8a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c0370d8ca6f8fa080d6f2b2751f1da22a5bf5e9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Almoravids")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Almoravids")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

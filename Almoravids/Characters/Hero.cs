@@ -26,12 +26,25 @@ namespace Almoravids.Characters
             // Read input for movement direction
             Vector2 direction = inputReader.ReadInput();
             Move(direction, gameTime); // Call base.Move with gameTime
+
+            if (isMoving)
+            {
+                walkAnimate.Update(gameTime, currentDirection);
+            }
+            else
+            {
+                idleAnimate.Update(gameTime, currentDirection);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // Draw hero using inherited Draw method
-            base.Draw(spriteBatch);
+            //// Draw hero using inherited Draw method
+            //base.Draw(spriteBatch);
+            Texture2D currentTexture = isMoving ? walkTexture : idleTexture;
+            AnimationFrame currentFrame = isMoving ? walkAnimate.CurrentFrame : idleAnimate.CurrentFrame;
+
+            spriteBatch.Draw(currentTexture, position, currentFrame.SourceRectangle, Color.White);
         }
 
     }

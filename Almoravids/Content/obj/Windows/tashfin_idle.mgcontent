@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/tashfin_idle.png</SourceFile>
-  <SourceTime>2024-11-13T22:09:48.8106026+01:00</SourceTime>
+  <SourceTime>2024-11-14T21:07:45.4939652+01:00</SourceTime>
   <DestFile>D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/bin/Windows/tashfin_idle.xnb</DestFile>
-  <DestTime>2024-11-13T22:13:54.8477044+01:00</DestTime>
+  <DestTime>2024-11-14T21:09:23.3297104+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

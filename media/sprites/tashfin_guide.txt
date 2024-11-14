@@ -14,3 +14,10 @@
 12	walk		right	9 frames
 
 21	death		front
+
+
+IDLE
+1	looking up	back	2 frames
+2	looking left	left	2 frames
+3 	looking down	front	2 frames
+4	looking right	right	2 frames

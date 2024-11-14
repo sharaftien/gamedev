@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/tashfin_idle.png","D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/bin/Windows/tashfin_idle.xnb","TextureProcessor","Texture2DContent",11994,131157,0,098446
+"D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/tashfin_idle.png","D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/bin/Windows/tashfin_idle.xnb","TextureProcessor","Texture2DContent",11874,131157,0,0763489
+"D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/tashfin.png","D:/Users/KUBA/Desktop/gamedev/Almoravids/Content/bin/Windows/tashfin.xnb","TextureProcessor","Texture2DContent",270448,9797717,0,1687595
