@@ -12,6 +12,56 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Data\maps\sahara\sahara_Background Transparent.csv" />
+    <None Remove="Data\maps\sahara\sahara_Background_Transparent.csv" />
+    <None Remove="Data\maps\sahara\sahara_collisions.csv" />
+    <None Remove="Data\maps\sahara\sahara_Rugs.csv" />
+    <None Remove="Data\maps\sahara\sahara_Sand background.csv" />
+    <None Remove="Data\maps\sahara\sahara_Sand_background.csv" />
+    <None Remove="Data\maps\sahara\sahara_Small Items.csv" />
+    <None Remove="Data\maps\sahara\sahara_Small_Items.csv" />
+    <None Remove="Data\maps\sahara\sahara_Tower_Tower border en windows.csv" />
+    <None Remove="Data\maps\sahara\sahara_Tower_Tower Cosmetics.csv" />
+    <None Remove="Data\maps\sahara\sahara_Tower_Tower.csv" />
+    <None Remove="Data\maps\sahara\sahara_Tower_Tower_border_en_windows.csv" />
+    <None Remove="Data\maps\sahara\sahara_Tower_Tower_Cosmetics.csv" />
+    <None Remove="Data\maps\sahara\sahara_Trees and nature.csv" />
+    <None Remove="Data\maps\sahara\sahara_Trees_and_nature.csv" />
+    <None Remove="Data\maps\sahara\sahara_Well.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\maps\sahara\sahara_Background_Transparent.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_collisions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Rugs.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Sand_background.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Small_Items.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Tower_Tower.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Tower_Tower_border_en_windows.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Tower_Tower_Cosmetics.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Trees_and_nature.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\maps\sahara\sahara_Well.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
   </ItemGroup>
