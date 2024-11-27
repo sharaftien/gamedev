@@ -10,8 +10,14 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:C:/Users/TIEN/.nuget/packages/monogame.extended.content.pipeline/4.0.3/tools/MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin sahara.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:sahara.tmx
 
 #begin tashfin_idle.png
 /importer:TextureImporter
@@ -36,6 +42,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tashfin.png
+
+#begin Tiled_Terrain.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Tiled_Terrain.tsx
 
 #begin Tiles/Doors.png
 /importer:TextureImporter
@@ -204,6 +215,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles/Terrain.png
+
+#begin Tiles/Tiled_Terrain.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles/Tiled_Terrain.png
+
+#begin Tiles/Tiled_Terrain.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles/Tiled_Terrain.png
 
 #begin Tiles/Tiled_Terrain.png
 /importer:TextureImporter
