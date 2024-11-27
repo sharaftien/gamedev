@@ -12,6 +12,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\sahara.tmx" />
     <None Remove="Data\maps\sahara\sahara_Background Transparent.csv" />
     <None Remove="Data\maps\sahara\sahara_Background_Transparent.csv" />
     <None Remove="Data\maps\sahara\sahara_collisions.csv" />
@@ -30,6 +31,7 @@
     <None Remove="Data\maps\sahara\sahara_Well.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\sahara.tmx" />
     <Content Include="Data\maps\sahara\sahara_Background_Transparent.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

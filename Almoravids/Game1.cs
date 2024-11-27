@@ -36,7 +36,7 @@ namespace Almoravids
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initialize Map
-            map = new Map(Content);  // Load the map with all its layers
+            map = new Map(Content);  // Load the map with the Tiled map
 
             // Load Hero textures
             Texture2D walkTexture = Content.Load<Texture2D>("tashfin");
