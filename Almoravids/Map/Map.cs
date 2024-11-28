@@ -12,27 +12,22 @@ using MonoGame.Extended.Tiled;
 
 public class Map
 {
-    private TiledMap tiledMap; //holds Tiled map
-    private Texture2D textureAtlas;
+    private TiledMap tiledMap; // Holds the Tiled map
     private int tileSize;
 
     public Map(ContentManager content)
     {
-        // Load the texture atlas for the map (assuming a single texture atlas for simplicity)
-        textureAtlas = content.Load<Texture2D>("tiles/Terrain");
-        tileSize = 48;  // Assuming all tiles are 48x48
-
         // Load the Tiled map (.tmx)
-        tiledMap = content.Load<TiledMap>("sahara");  // Path to your .tmx file
+        tiledMap = content.Load<TiledMap>("map/winlu_sahara");  // Adjust path as per your project structure
+        tileSize = 48;  // Assuming tiles are 48x48
     }
-    
 
     public void Draw(SpriteBatch spriteBatch)
     {
         // Draw each layer in the Tiled map
         foreach (var layer in tiledMap.Layers)
         {
-            if (layer is TiledMapTileLayer tileLayer) // Ensure it's a Tile Layer
+            if (layer is TiledMapTileLayer tileLayer) // Ensure it's a tile layer
             {
                 DrawLayer(spriteBatch, tileLayer);
             }
@@ -41,25 +36,26 @@ public class Map
 
     private void DrawLayer(SpriteBatch spriteBatch, TiledMapTileLayer tileLayer)
     {
-        // Iterate through each tile in the layer
+
+
         foreach (var tile in tileLayer.Tiles)
         {
-            // Check if the tile is blank (empty)
             if (tile.IsBlank) continue;
 
-            // Use the TileIndex to find the correct tile in the texture atlas
-            int tileId = tile.GlobalIdentifier - 1;  // Assuming the tile starts from 1
+            // Determine which tileset the tile belongs to
+            var tileset = tiledMap.GetTilesetByTileGlobalIdentifier(tile.GlobalIdentifier);
 
-            // Calculate the source rectangle for the texture atlas
-            int tilesPerRow = textureAtlas.Width / tileSize;
-            int sourceX = (tileId % tilesPerRow) * tileSize;
-            int sourceY = (tileId / tilesPerRow) * tileSize;
+            // Get the texture and calculate source rectangle
+            var tilesetTexture = tileset.Texture;
+            int localTileId = tile.GlobalIdentifier - tileset.Tiles.First().LocalTileIdentifier;
+            int tilesPerRow = tilesetTexture.Width / tileset.TileWidth;
+            int sourceX = (localTileId % tilesPerRow) * tileset.TileWidth;
+            int sourceY = (localTileId / tilesPerRow) * tileset.TileHeight;
 
-            Rectangle sourceRectangle = new Rectangle(sourceX, sourceY, tileSize, tileSize);
+            Rectangle sourceRectangle = new Rectangle(sourceX, sourceY, tileset.TileWidth, tileset.TileHeight);
             Rectangle destinationRectangle = new Rectangle(tile.X * tileSize, tile.Y * tileSize, tileSize, tileSize);
 
-            // Draw the tile
-            spriteBatch.Draw(textureAtlas, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(tilesetTexture, destinationRectangle, sourceRectangle, Color.White);
         }
     }
 }
