@@ -14,17 +14,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin map/winlu_sahara.tmx
+#begin map/newsahara.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:map/winlu_sahara.tmx
+/build:map/newsahara.tmx
 
-#begin map/winlu_terrain.tsx
-/importer:TiledMapTilesetImporter
-/processor:TiledMapTilesetProcessor
-/build:map/winlu_terrain.tsx
-
-#begin map/Winlu.png
+#begin map/WinluItems.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -34,7 +29,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:map/Winlu.png
+/build:map/WinluItems.png
+
+#begin map/WinluTerrain.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:map/WinluTerrain.png
 
 #begin tashfin_idle.png
 /importer:TextureImporter

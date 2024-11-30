@@ -36,7 +36,7 @@ namespace Almoravids
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initialize Map
-            map = new Map(Content);  // Load the map with the Tiled map
+            map = new Map(Content, GraphicsDevice);  // Load the map with the Tiled map
 
             // Load Hero textures
             Texture2D walkTexture = Content.Load<Texture2D>("tashfin");
@@ -50,6 +50,8 @@ namespace Almoravids
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            map.Update(gameTime);
 
             hero.Update(gameTime);  // Update hero (movement, animations, etc.)
 
