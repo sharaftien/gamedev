@@ -18,8 +18,15 @@ namespace Almoravids.Characters
         protected Texture2D walkTexture;
         protected Animate walkAnimate;
         protected Animate idleAnimate;
-        protected Vector2 position;
         protected Direction currentDirection;
+
+        protected Vector2 position;
+
+        public Vector2 Position
+        {
+            get { return position; }
+            protected set { position = value; }
+        }
 
         protected bool isMoving = false;
 
@@ -42,29 +49,29 @@ namespace Almoravids.Characters
         private void SetupIdleAnimations() //load frames from the idle texture (tashfin_idle)
         {
             //idle animations (to be looped aswell) (two frames only)
-            
+
             //LOOKING UP (back)
             for (int i = 0; i < 2; i++)
             {
                 idleAnimate.AddFrame(Direction.Up, new AnimationFrame(new Rectangle(i * 64, 64 * 0, 64, 64)));
             }
-            
+
             //LOOKING LEFT
             for (int i = 0; i < 2; i++)
             {
-                idleAnimate.AddFrame(Direction.Left, new AnimationFrame(new Rectangle(i * 64, 64*1, 64, 64)));
+                idleAnimate.AddFrame(Direction.Left, new AnimationFrame(new Rectangle(i * 64, 64 * 1, 64, 64)));
             }
 
             //LOOKING DOWN (front)
             for (int i = 0; i < 2; i++)
             {
-                idleAnimate.AddFrame(Direction.Down, new AnimationFrame(new Rectangle(i * 64, 64*2, 64, 64)));
+                idleAnimate.AddFrame(Direction.Down, new AnimationFrame(new Rectangle(i * 64, 64 * 2, 64, 64)));
             }
 
             //LOOKING RIGHT
             for (int i = 0; i < 2; i++)
             {
-                idleAnimate.AddFrame(Direction.Right, new AnimationFrame(new Rectangle(i * 64, 64*3, 64, 64)));
+                idleAnimate.AddFrame(Direction.Right, new AnimationFrame(new Rectangle(i * 64, 64 * 3, 64, 64)));
             }
         }
         private void SetupWalkAnimations()  //load frames from the walk texture (tashfin)
@@ -75,25 +82,25 @@ namespace Almoravids.Characters
             //WALKING DOWN (front)
             for (int i = 0; i < 8; i++)
             {
-                walkAnimate.AddFrame(Direction.Down, new AnimationFrame(new Rectangle(i * 64, 64*10, 64, 64)));
+                walkAnimate.AddFrame(Direction.Down, new AnimationFrame(new Rectangle(i * 64, 64 * 10, 64, 64)));
             }
 
             //WALKING UP (back)
             for (int i = 0; i < 8; i++)
             {
-                walkAnimate.AddFrame(Direction.Up, new AnimationFrame(new Rectangle(i * 64, 64*8, 64, 64)));
+                walkAnimate.AddFrame(Direction.Up, new AnimationFrame(new Rectangle(i * 64, 64 * 8, 64, 64)));
             }
 
             //WALKING LEFT
             for (int i = 0; i < 8; i++)
             {
-                walkAnimate.AddFrame(Direction.Left, new AnimationFrame(new Rectangle(i * 64, 64*9, 64, 64)));
+                walkAnimate.AddFrame(Direction.Left, new AnimationFrame(new Rectangle(i * 64, 64 * 9, 64, 64)));
             }
 
             //WALKING RIGHT
             for (int i = 0; i < 8; i++)
             {
-                walkAnimate.AddFrame(Direction.Right, new AnimationFrame(new Rectangle(i * 64, 64*11, 64, 64)));
+                walkAnimate.AddFrame(Direction.Right, new AnimationFrame(new Rectangle(i * 64, 64 * 11, 64, 64)));
             }
 
         }

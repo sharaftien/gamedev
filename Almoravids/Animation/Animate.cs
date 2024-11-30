@@ -59,15 +59,6 @@ namespace Almoravids.Animation
             {
                 counter = 0;
             }
-            //frameMovement += CurrentFrame.SourceRectangle.Width * gameTime.ElapsedGameTime.TotalSeconds;
-            //if (frameMovement >= CurrentFrame.SourceRectangle.Width/10)
-            //{
-            //    counter++;
-            //    frameMovement = 0;
-            //}
-                
-            //if (counter >= frames.Count)
-            //    counter = 0;
         }
        
     }

@@ -15,7 +15,7 @@ public class Map
 {
     private readonly TiledMap _tiledMap;
     private readonly TiledMapRenderer _tiledMapRenderer;
-    private const int TileSize = 48; // Adjust if your tiles aren't 48x48.
+    private const int TileSize = 48; // tiles 48x48.
 
     public Map(ContentManager content, GraphicsDevice graphicsDevice)
     {
@@ -23,6 +23,8 @@ public class Map
         _tiledMap = content.Load<TiledMap>("map/newsahara");
         _tiledMapRenderer = new TiledMapRenderer(graphicsDevice, _tiledMap);
     }
+
+
 
     public void Update(GameTime gameTime)
     {
