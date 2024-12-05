@@ -20,7 +20,7 @@ public class Map
     public Map(ContentManager content, GraphicsDevice graphicsDevice)
     {
         // Load the Tiled map
-        _tiledMap = content.Load<TiledMap>("map/newsahara");
+        _tiledMap = content.Load<TiledMap>("map/sahara");
         _tiledMapRenderer = new TiledMapRenderer(graphicsDevice, _tiledMap);
     }
 

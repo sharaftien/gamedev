@@ -31,6 +31,21 @@
 /processor:TiledMapProcessor
 /build:map/newsahara.tmx
 
+#begin map/nsahara.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map/nsahara.tmx
+
+#begin map/sahara.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map/sahara.tmx
+
+#begin map/sahara.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map/sahara.tmx
+
 #begin map/WinluItems.png
 /importer:TextureImporter
 /processor:TextureProcessor
