@@ -42,76 +42,27 @@ namespace Almoravids.Characters
             // Initialize the animation
             walkAnimate = new Animate(0.15);     //standard speed
             idleAnimate = new Animate(3);    //still a bit weird, to be changed
-            SetupWalkAnimations();
-            SetupIdleAnimations();
+            SetupAnimations();
         }
 
-        private void SetupIdleAnimations() //load frames from the idle texture (tashfin_idle)
+        private void SetupAnimations()
         {
-            //idle animations (to be looped aswell) (two frames only)
+            walkAnimate.LoadFrames(walkTexture, Direction.Down, 8, 10); // 8 frames, row 10
+            walkAnimate.LoadFrames(walkTexture, Direction.Up, 8, 8);   // 8 frames, row 8
+            walkAnimate.LoadFrames(walkTexture, Direction.Left, 8, 9); // 8 frames, row 9
+            walkAnimate.LoadFrames(walkTexture, Direction.Right, 8, 11); // 8 frames, row 11
 
-            //LOOKING UP (back)
-            for (int i = 0; i < 2; i++)
-            {
-                idleAnimate.AddFrame(Direction.Up, new AnimationFrame(new Rectangle(i * 64, 64 * 0, 64, 64)));
-            }
-
-            //LOOKING LEFT
-            for (int i = 0; i < 2; i++)
-            {
-                idleAnimate.AddFrame(Direction.Left, new AnimationFrame(new Rectangle(i * 64, 64 * 1, 64, 64)));
-            }
-
-            //LOOKING DOWN (front)
-            for (int i = 0; i < 2; i++)
-            {
-                idleAnimate.AddFrame(Direction.Down, new AnimationFrame(new Rectangle(i * 64, 64 * 2, 64, 64)));
-            }
-
-            //LOOKING RIGHT
-            for (int i = 0; i < 2; i++)
-            {
-                idleAnimate.AddFrame(Direction.Right, new AnimationFrame(new Rectangle(i * 64, 64 * 3, 64, 64)));
-            }
+            idleAnimate.LoadFrames(idleTexture, Direction.Up, 2, 0);   // 2 frames, row 0
+            idleAnimate.LoadFrames(idleTexture, Direction.Left, 2, 1); // 2 frames, row 1
+            idleAnimate.LoadFrames(idleTexture, Direction.Down, 2, 2); // 2 frames, row 2
+            idleAnimate.LoadFrames(idleTexture, Direction.Right, 2, 3); // 2 frames, row 3
         }
-        private void SetupWalkAnimations()  //load frames from the walk texture (tashfin)
+
+        public virtual void Update(GameTime gameTime)
         {
-            // walking animations are 8 sprites not counting first static sprite
-            // TO BE LOOPED
-
-            //WALKING DOWN (front)
-            for (int i = 0; i < 8; i++)
-            {
-                walkAnimate.AddFrame(Direction.Down, new AnimationFrame(new Rectangle(i * 64, 64 * 10, 64, 64)));
-            }
-
-            //WALKING UP (back)
-            for (int i = 0; i < 8; i++)
-            {
-                walkAnimate.AddFrame(Direction.Up, new AnimationFrame(new Rectangle(i * 64, 64 * 8, 64, 64)));
-            }
-
-            //WALKING LEFT
-            for (int i = 0; i < 8; i++)
-            {
-                walkAnimate.AddFrame(Direction.Left, new AnimationFrame(new Rectangle(i * 64, 64 * 9, 64, 64)));
-            }
-
-            //WALKING RIGHT
-            for (int i = 0; i < 8; i++)
-            {
-                walkAnimate.AddFrame(Direction.Right, new AnimationFrame(new Rectangle(i * 64, 64 * 11, 64, 64)));
-            }
-
+            // Can be overridden in inherited classes
         }
 
-
-        public virtual void Update(GameTime gameTime)  // Required by IGameObject interface
-        {
-            // Can be overridden in inherited classes (hero.cs class bvb)
-        }
-
-        // Adds direction-based movement for derived classes
         public virtual void Move(Vector2 direction, GameTime gameTime)
         {
             isMoving = direction != Vector2.Zero;
@@ -125,29 +76,18 @@ namespace Almoravids.Characters
 
             if (isMoving)
             {
-                walkAnimate.Update(gameTime, currentDirection); // Pass gameTime to Animate.Update             
+                walkAnimate.Update(gameTime, currentDirection);
             }
             else
             {
                 idleAnimate.Update(gameTime, currentDirection);
             }
-
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) //renders correct animation frame (idle when standing, walking when moving)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            // Choose the texture based on the character’s state
             Texture2D currentTexture = isMoving ? walkTexture : idleTexture;
             var currentAnimate = isMoving ? walkAnimate : idleAnimate;
-            //spriteBatch.Draw(currentTexture, position, animate.CurrentFrame.SourceRectangle, Color.White);
-            // If idle, ensure the idle animation frames are used
-            //if (!isMoving)
-            //{
-            //    // Set the animation to the idle state
-            //    animate.Update(gameTime, currentDirection);
-            //}
-            
-            // Draw the character using the appropriate texture (walking or idle)
             spriteBatch.Draw(currentTexture, position, currentAnimate.CurrentFrame.SourceRectangle, Color.White);
         }
     }

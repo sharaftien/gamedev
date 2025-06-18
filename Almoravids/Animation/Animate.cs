@@ -1,4 +1,6 @@
 ﻿using Almoravids.Characters;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,9 @@ namespace Almoravids.Animation
     {
         public AnimationFrame CurrentFrame { get; set; }
         private Dictionary<Direction, List<AnimationFrame>> directionFrames;
-        //private List<AnimationFrame> idleFrames;
         private int counter;
         private double frameMovement = 0;
-        private double frameSpeed; //to be declared induvdiually
+        private double frameSpeed;
 
         public Animate(double speed = 0.1)
         {
@@ -43,6 +44,15 @@ namespace Almoravids.Animation
             }
         }
 
+        public void LoadFrames(Texture2D texture, Direction direction, int frameCount, int row)
+        {
+            const int spriteSize = 64;
+            for (int i = 0; i < frameCount; i++)
+            {
+                AddFrame(direction, new AnimationFrame(new Rectangle(i * spriteSize, row * spriteSize, spriteSize, spriteSize)));
+            }
+        }
+
         public void Update(GameTime gameTime, Direction currentDirection)
         {
             //Get the list of frames for the current direction
@@ -55,11 +65,10 @@ namespace Almoravids.Animation
                 counter++;
                 frameMovement = 0;
             }
-            if (counter>=frames.Count)
+            if (counter >= frames.Count)
             {
                 counter = 0;
             }
         }
-       
     }
 }
