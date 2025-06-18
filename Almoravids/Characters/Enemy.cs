@@ -14,8 +14,8 @@ namespace Almoravids.Characters
     {
         protected Character target; // The target (e.g., Tashfin)
 
-        public Enemy(Texture2D idleTexture, Texture2D walkTexture, Vector2 startPosition, Character target)
-            : base(idleTexture, walkTexture, startPosition)
+        public Enemy(Texture2D texture, Vector2 startPosition, Character target)
+            : base(texture, startPosition)
         {
             this.target = target;
         }
