@@ -25,9 +25,9 @@ namespace Almoravids.Characters
             protected set { position = value; }
         }
 
-        public Character(Texture2D texture, Vector2 startPosition)
+        public Character(Texture2D walkTexture, Texture2D idleTexture, Vector2 startPosition, string characterType)
         {
-            AnimationComponent = new AnimationComponent(texture);
+            AnimationComponent = new AnimationComponent(walkTexture, idleTexture, characterType);
             position = startPosition;
         }
 

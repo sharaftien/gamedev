@@ -40,18 +40,15 @@ namespace Almoravids
             map = new Map(Content, GraphicsDevice);  // Load the map with the Tiled map
 
             // Load Hero textures
-            Texture2D heroTexture = Content.Load<Texture2D>("tashfin");
-
-            // Initialize the hero character first, so that it can be used as the target
+            Texture2D heroWalkTexture = Content.Load<Texture2D>("tashfin");
+            Texture2D heroIdleTexture = Content.Load<Texture2D>("tashfin_idle");
             Vector2 startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
             IInputReader inputReader = new KeyboardReader();
-            hero = new Hero(heroTexture, startPosition, inputReader);
+            hero = new Hero(heroWalkTexture, heroIdleTexture, startPosition, inputReader);
 
             // Load swordman texture
             Texture2D swordmanTexture = Content.Load<Texture2D>("characters/lamtuni");
-
-            // Initialize the Swordman enemy and set hero as the target
-            swordman = new Sahara_Swordman(swordmanTexture, new Vector2(100, 100), hero);
+            swordman = new Sahara_Swordman(swordmanTexture, swordmanTexture, new Vector2(100, 100), hero);
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,7 +70,7 @@ namespace Almoravids
             _spriteBatch.Begin();
             map.Draw(_spriteBatch);
             hero.Draw(_spriteBatch);
-            swordman.Draw(_spriteBatch);
+            //swordman.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);
