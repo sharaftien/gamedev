@@ -60,8 +60,17 @@ namespace Almoravids
                 Exit();
 
             map.Update(gameTime);
+
+            // proposed positions
+            Vector2 heroProposedPosition = hero.MovementComponent.Position;
             hero.Update(gameTime);
-            swordman.Update(gameTime); // Update enemy's position and behavior
+
+            // check map collisions
+            if (hero.CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 heroMapResolution))
+            {
+                hero.MovementComponent.Position = heroProposedPosition + heroMapResolution;
+                hero.CollisionComponent.Update(hero.MovementComponent.Position);
+            }
             base.Update(gameTime);
         }
 

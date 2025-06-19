@@ -15,6 +15,7 @@ public class Map
 {
     private readonly TiledMap _tiledMap;
     private readonly TiledMapRenderer _tiledMapRenderer;
+    private readonly TiledMapObjectLayer _collisionLayer;
     private const int TileSize = 48; // tiles 48x48.
 
     public Map(ContentManager content, GraphicsDevice graphicsDevice)
@@ -22,6 +23,7 @@ public class Map
         // Load the Tiled map
         _tiledMap = content.Load<TiledMap>("map/sahara");
         _tiledMapRenderer = new TiledMapRenderer(graphicsDevice, _tiledMap);
+        _collisionLayer = _tiledMap.GetLayer<TiledMapObjectLayer>("Road Sign"); // use road sign layer
     }
 
 
@@ -36,6 +38,11 @@ public class Map
     {
         // Use the TiledMapRenderer to draw all layers
         _tiledMapRenderer.Draw();
+    }
+
+    public TiledMapObjectLayer CollisionLayer
+    {
+        get { return _collisionLayer; }
     }
 }
 
