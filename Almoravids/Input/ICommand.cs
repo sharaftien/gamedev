@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Almoravids.Input
 {
-    public interface IInputReader
+    public interface ICommand
     {
-        Vector2 ReadInput();
+        void Execute(GameTime gameTime);
     }
 }

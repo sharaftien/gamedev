@@ -42,9 +42,8 @@ namespace Almoravids
             // Load Hero texture
             Texture2D heroTexture = Content.Load<Texture2D>("tashfin");
             Vector2 startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
-            IInputReader inputReader = new KeyboardReader();
-            hero = new Hero(heroTexture, startPosition, inputReader, "hero", 100f);  
-            
+            InputManager inputManager = new InputManager();
+            hero = new Hero(heroTexture, startPosition, inputManager, "hero", 100f);
             // Load swordman texture
             Texture2D swordmanTexture = Content.Load<Texture2D>("characters/lamtuni");
             swordman = new Sahara_Swordsman(swordmanTexture, new Vector2(100, 100), hero, "swordman", 80f);
