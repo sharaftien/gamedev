@@ -8,8 +8,8 @@ namespace Almoravids.Characters
 {
     public class Sahara_Swordman : Enemy
     {
-        public Sahara_Swordman(Texture2D walkTexture, Texture2D idleTexture, Vector2 startPosition, Character target, string characterType = "swordman")
-            : base(walkTexture, idleTexture, startPosition, target, characterType)
+        public Sahara_Swordman(Texture2D texture, Vector2 startPosition, Character target, string characterType = "swordman")
+            : base(texture, startPosition, target, characterType)
         {
         }
 

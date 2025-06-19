@@ -15,8 +15,8 @@ namespace Almoravids.Characters
     {
         private readonly IInputReader inputReader;
 
-        public Hero(Texture2D walkTexture, Texture2D idleTexture, Vector2 startPosition, IInputReader inputReader, string characterType = "hero")
-            : base(walkTexture, idleTexture, startPosition, characterType)
+        public Hero(Texture2D texture, Vector2 startPosition, IInputReader inputReader, string characterType = "hero")
+            : base(texture, startPosition, characterType)
         {
             this.inputReader = inputReader;
         }

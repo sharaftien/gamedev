@@ -26,6 +26,18 @@
 /processorParam:TextureFormat=Color
 /build:characters/lamtuni.png
 
+#begin characters/lamtuni.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:characters/lamtuni.png
+
 #begin map/newsahara.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -35,11 +47,6 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:map/nsahara.tmx
-
-#begin map/sahara.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:map/sahara.tmx
 
 #begin map/sahara.tmx
 /importer:TiledMapImporter
