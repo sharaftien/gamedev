@@ -15,7 +15,7 @@ namespace Almoravids
         private SpriteBatch _spriteBatch;
         private Map map;
         private Hero hero;
-        private Sahara_Swordman swordman;
+        private Sahara_Swordsman swordman;
 
         public Game1()
         {
@@ -43,11 +43,11 @@ namespace Almoravids
             Texture2D heroTexture = Content.Load<Texture2D>("tashfin");
             Vector2 startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
             IInputReader inputReader = new KeyboardReader();
-            hero = new Hero(heroTexture, startPosition, inputReader);
-
+            hero = new Hero(heroTexture, startPosition, inputReader, "hero", 100f);  
+            
             // Load swordman texture
             Texture2D swordmanTexture = Content.Load<Texture2D>("characters/lamtuni");
-            swordman = new Sahara_Swordman(swordmanTexture, new Vector2(100, 100), hero);
+            swordman = new Sahara_Swordsman(swordmanTexture, new Vector2(100, 100), hero, "swordman", 80f);
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,20 +58,17 @@ namespace Almoravids
             map.Update(gameTime);
             hero.Update(gameTime);
             swordman.Update(gameTime); // Update enemy's position and behavior
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.BurlyWood);
-
             _spriteBatch.Begin();
             map.Draw(_spriteBatch);
             hero.Draw(_spriteBatch);
             swordman.Draw(_spriteBatch);
             _spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }

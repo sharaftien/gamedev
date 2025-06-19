@@ -15,16 +15,17 @@ namespace Almoravids.Characters
     {
         private readonly IInputReader inputReader;
 
-        public Hero(Texture2D texture, Vector2 startPosition, IInputReader inputReader, string characterType = "hero")
-            : base(texture, startPosition, characterType)
+        public Hero(Texture2D texture, Vector2 startPosition, IInputReader inputReader, string characterType = "hero", float speed = 100f)
+            : base(texture, startPosition, characterType, speed)
         {
             this.inputReader = inputReader;
         }
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 direction = inputReader.ReadInput();
-            Move(direction, gameTime);
+            Vector2 inputDirection = inputReader.ReadInput();
+            MovementComponent.SetDirection(inputDirection);
+            base.Update(gameTime);
         }
     }
 }

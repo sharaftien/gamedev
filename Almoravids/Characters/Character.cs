@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Almoravids.Movement;
 
 namespace Almoravids.Characters
 {
@@ -15,39 +16,26 @@ namespace Almoravids.Characters
 
     public abstract class Character : IGameObject
     {
-        protected AnimationComponent AnimationComponent;
-        protected Vector2 position;
-        protected bool isMoving;
+        public AnimationComponent AnimationComponent { get; set; }
+        public MovementComponent MovementComponent { get; set; }
 
-        public Vector2 Position
-        {
-            get { return position; }
-            protected set { position = value; }
-        }
+        public Vector2 Position => MovementComponent.Position;
 
-        public Character(Texture2D texture, Vector2 startPosition, string characterType)
+        public Character(Texture2D texture, Vector2 startPosition, string characterType, float speed)
         {
             AnimationComponent = new AnimationComponent(texture, characterType);
-            position = startPosition;
+            MovementComponent = new MovementComponent(startPosition, speed);
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            // can be overridden in inherited classes 
-        }
-
-        public virtual void Move(Vector2 direction, GameTime gameTime)
-        {
-            isMoving = direction != Vector2.Zero;
-            position += direction * 2; // *2 -> twice as fast
-
-            // determine direction
-            AnimationComponent.Update(gameTime, direction);
+            MovementComponent.Update(gameTime);
+            AnimationComponent.Update(gameTime, MovementComponent.Velocity);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            AnimationComponent.Draw(spriteBatch, position);
+            AnimationComponent.Draw(spriteBatch, MovementComponent.Position);
         }
     }
 }
