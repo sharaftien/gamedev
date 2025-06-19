@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Almoravids.Characters;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace Almoravids.Input
     public class InputManager
     {
         private readonly Dictionary<Keys, ICommand> _keyCommands;
+        private readonly Character _character;
+        private Vector2 _combinedDirection;
 
-        public InputManager()
+        public InputManager(Character character)
         {
             _keyCommands = new Dictionary<Keys, ICommand>();
+            _character = character;
+            _combinedDirection = Vector2.Zero;
         }
 
         public void AddCommand(Keys key, ICommand command)
@@ -23,7 +28,9 @@ namespace Almoravids.Input
 
         public void Update(GameTime gameTime)
         {
+            _combinedDirection = Vector2.Zero;
             KeyboardState state = Keyboard.GetState();
+
             foreach (var keyCommand in _keyCommands)
             {
                 if (state.IsKeyDown(keyCommand.Key))
@@ -31,6 +38,21 @@ namespace Almoravids.Input
                     keyCommand.Value.Execute(gameTime);
                 }
             }
+
+            if (_combinedDirection != Vector2.Zero)
+            {
+                _combinedDirection.Normalize();
+                _character.MovementComponent.SetDirection(_combinedDirection);
+            }
+            else
+            {
+                _character.MovementComponent.SetDirection(Vector2.Zero);
+            }
+        }
+
+        public void AddDirection(Vector2 direction)
+        {
+            _combinedDirection += direction;
         }
     }
 }

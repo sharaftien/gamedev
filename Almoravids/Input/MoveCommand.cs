@@ -9,18 +9,18 @@ namespace Almoravids.Input
 {
     public class MoveCommand : ICommand
     {
-        private readonly Character _character;
+        private readonly InputManager _inputManager;
         private readonly Vector2 _direction;
 
-        public MoveCommand(Character character, Vector2 direction)
+        public MoveCommand(InputManager inputManager, Vector2 direction)
         {
-            _character = character;
+            _inputManager = inputManager;
             _direction = direction;
         }
 
         public void Execute(GameTime gameTime)
         {
-            _character.MovementComponent.SetDirection(_direction);
+            _inputManager.AddDirection(_direction);
         }
     }
 }
