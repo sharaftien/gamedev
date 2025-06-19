@@ -64,12 +64,19 @@ namespace Almoravids
             // proposed positions
             Vector2 heroProposedPosition = hero.MovementComponent.Position;
             hero.Update(gameTime);
+            Vector2 swordmanProposedPosition = swordman.MovementComponent.Position;
+            swordman.Update(gameTime);
 
             // check map collisions
             if (hero.CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 heroMapResolution))
             {
                 hero.MovementComponent.Position = heroProposedPosition + heroMapResolution;
                 hero.CollisionComponent.Update(hero.MovementComponent.Position);
+            }
+            if (swordman.CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 swordmanMapResolution))
+            {
+                swordman.MovementComponent.Position = swordmanProposedPosition + swordmanMapResolution;
+                swordman.CollisionComponent.Update(swordman.MovementComponent.Position);
             }
             base.Update(gameTime);
         }
