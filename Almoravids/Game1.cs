@@ -16,6 +16,7 @@ namespace Almoravids
         private Map map;
         private Hero hero;
         private Sahara_Swordsman swordman;
+        private Camera.Camera _camera; 
 
         public Game1()
         {
@@ -37,19 +38,19 @@ namespace Almoravids
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initialize Map
-            map = new Map(Content, GraphicsDevice);  // Load the map with the Tiled map
+            map = new Map(Content, GraphicsDevice);
 
             // Load Hero texture
             Texture2D heroTexture = Content.Load<Texture2D>("tashfin");
             Vector2 startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
-
-            // initialize hero without inputmanger
             hero = new Hero(heroTexture, startPosition, null, "hero", 100f);
-            // create inputmanager with hero
             InputManager inputManager = new InputManager(hero);
             hero.SetInputManager(inputManager);
 
-            // Load swordman texture
+            // initialize camera
+            _camera = new Camera.Camera(startPosition);
+
+            // load swordman texture
             Texture2D swordmanTexture = Content.Load<Texture2D>("characters/lamtuni");
             swordman = new Sahara_Swordsman(swordmanTexture, new Vector2(100, 100), hero, "swordman", 80f);
         }
@@ -78,17 +79,26 @@ namespace Almoravids
                 swordman.MovementComponent.Position = swordmanProposedPosition + swordmanMapResolution;
                 swordman.CollisionComponent.Update(swordman.MovementComponent.Position);
             }
+
+            // update camera
+            _camera.Update(hero.MovementComponent.Position);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.BurlyWood);
-            _spriteBatch.Begin();
-            map.Draw(_spriteBatch);
+
+            // use camera transform
+            var transformMatrix = _camera.GetTransformMatrix();
+
+            _spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+            map.Draw(transformMatrix); 
             hero.Draw(_spriteBatch);
             swordman.Draw(_spriteBatch);
             _spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

@@ -34,10 +34,9 @@ public class Map
         _tiledMapRenderer.Update(gameTime);
     }
 
-    public void Draw(SpriteBatch spriteBatch)
+        public void Draw(Matrix viewMatrix)
     {
-        // Use the TiledMapRenderer to draw all layers
-        _tiledMapRenderer.Draw();
+        _tiledMapRenderer.Draw(viewMatrix);
     }
 
     public TiledMapObjectLayer CollisionLayer
