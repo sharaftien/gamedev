@@ -12,18 +12,22 @@ namespace Almoravids.Collision
         private Rectangle _boundingBox;
         private readonly float _width;
         private readonly float _height;
+        private readonly float _offsetX; // offset whitespace
+        private readonly float _offsetY; // offset whitespace
 
-        public CollisionComponent(float width, float height)
+        public CollisionComponent(float width, float height, float offsetX = 0f, float offsetY = 0f)
         {
             _width = width;
             _height = height;
+            _offsetX = offsetX; //whitespace fix
+            _offsetY = offsetY;
             _boundingBox = new Rectangle(0, 0, (int)width, (int)height);
         }
 
         public void Update(Vector2 position)
         {
-            _boundingBox.X = (int)position.X;
-            _boundingBox.Y = (int)position.Y;
+            _boundingBox.X = (int)(position.X + _offsetX); // apply offset
+            _boundingBox.Y = (int)(position.Y + _offsetY); 
         }
 
         public bool CheckMapCollision(TiledMapObjectLayer collisionLayer, out Vector2 resolution)

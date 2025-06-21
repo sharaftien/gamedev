@@ -7,6 +7,7 @@ using SharpDX.DXGI;
 using System;
 using Microsoft.Xna.Framework.Input;
 using Almoravids.Input;
+using Almoravids.Collision;
 
 
 namespace Almoravids.Characters
@@ -23,6 +24,8 @@ namespace Almoravids.Characters
             {
                 ConfigureInput();
             }
+            // collision box for hero whitespace
+            CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); // 28x50 box with offset
         }
 
         public void SetInputManager(InputManager inputManager)
