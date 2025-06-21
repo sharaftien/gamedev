@@ -43,7 +43,7 @@ namespace Almoravids.Animation
         private void DefineHeroAnimations(float walkFrameDuration, float idleFrameDuration)
         {
             // define idle animations (2 frames per direction)
-            DefineIdleAnimations(_spriteSheet, idleFrameDuration, new int[] { 48, 74, 87, 100 });
+            DefineIdleAnimations(_spriteSheet, idleFrameDuration, new int[] { 61, 74, 87, 100 });
 
             // define walk animations (9 frames per direction)
             DefineWalkAnimations(_spriteSheet, walkFrameDuration);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Almoravids.Collision;
 
 namespace Almoravids.Characters
 {
@@ -11,7 +12,8 @@ namespace Almoravids.Characters
         public Sahara_Swordsman(Texture2D texture, Vector2 startPosition, Character target, string characterType = "swordman", float speed = 80f)
             : base(texture, startPosition, target, characterType, speed)
         {
-        }
+            CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); 
+        }       
 
         public override void Update(GameTime gameTime)
         {
