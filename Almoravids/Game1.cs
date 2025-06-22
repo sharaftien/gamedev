@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Almoravids.Camera;
 
 namespace Almoravids
 {
@@ -16,13 +17,13 @@ namespace Almoravids
         private Map map;
         private Hero hero;
         private Sahara_Swordsman swordman;
-        private Camera.Camera _camera; 
+        private Camera.Camera _camera;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1248;
-            _graphics.PreferredBackBufferHeight = 960;
+            _graphics.PreferredBackBufferWidth = 960; // 1248
+            _graphics.PreferredBackBufferHeight = 720; // 960
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;

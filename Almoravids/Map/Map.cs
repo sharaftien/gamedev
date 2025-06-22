@@ -21,9 +21,9 @@ public class Map
     public Map(ContentManager content, GraphicsDevice graphicsDevice)
     {
         // Load the Tiled map
-        _tiledMap = content.Load<TiledMap>("map/sahara");
+        _tiledMap = content.Load<TiledMap>("map/testing");
         _tiledMapRenderer = new TiledMapRenderer(graphicsDevice, _tiledMap);
-        _collisionLayer = _tiledMap.GetLayer<TiledMapObjectLayer>("Road Sign"); // use road sign layer
+        _collisionLayer = _tiledMap.GetLayer<TiledMapObjectLayer>("Oasis");
     }
 
 
@@ -34,7 +34,7 @@ public class Map
         _tiledMapRenderer.Update(gameTime);
     }
 
-        public void Draw(Matrix viewMatrix)
+    public void Draw(Matrix viewMatrix)
     {
         _tiledMapRenderer.Draw(viewMatrix);
     }
