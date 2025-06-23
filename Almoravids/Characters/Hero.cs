@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Almoravids.Animation;
 using Almoravids.Interfaces;
@@ -8,6 +8,7 @@ using System;
 using Microsoft.Xna.Framework.Input;
 using Almoravids.Input;
 using Almoravids.Collision;
+using Almoravids.Health;
 
 
 namespace Almoravids.Characters
@@ -15,10 +16,12 @@ namespace Almoravids.Characters
     public class Hero : Character
     {
         private InputManager _inputManager;
+        public HealthComponent HealthComponent { get; private set; } // health component
 
         public Hero(Texture2D texture, Vector2 startPosition, InputManager inputManager, string characterType = "hero", float speed = 100f)
             : base(texture, startPosition, characterType, speed)
         {
+            HealthComponent = new HealthComponent(); // initialize HP (3 hearts)
             _inputManager = inputManager;
             if (_inputManager != null)
             {
