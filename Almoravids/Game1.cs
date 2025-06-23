@@ -85,6 +85,12 @@ namespace Almoravids
                 swordman.CollisionComponent.Update(swordman.MovementComponent.Position);
             }
 
+            // check enemy collision
+            if (hero.HealthComponent.IsAlive && hero.CollisionComponent.BoundingBox.Intersects(swordman.CollisionComponent.BoundingBox))
+            {
+                hero.HealthComponent.TakeDamage(1);
+            }
+
             // update camera
             _camera.Update(hero.MovementComponent.Position);
 
@@ -106,7 +112,8 @@ namespace Almoravids
 
             // HP
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            _spriteBatch.DrawString(_arialFont, "3 HP", new Vector2(10, 10), Color.White);
+            _spriteBatch.DrawString(_arialFont, $"Alive: {hero.HealthComponent.IsAlive}", new Vector2(10, 35), Color.White);
+            _spriteBatch.DrawString(_arialFont, $"HP: {hero.HealthComponent.CurrentHealth}/{hero.HealthComponent.MaxHealth}", new Vector2(10, 10), Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
