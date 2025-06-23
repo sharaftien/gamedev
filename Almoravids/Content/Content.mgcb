@@ -26,6 +26,13 @@
 /processorParam:TextureFormat=Color
 /build:characters/lamtuni.png
 
+#begin fonts/Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Arial.spritefont
+
 #begin map/sahara.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
