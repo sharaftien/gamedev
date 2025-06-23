@@ -19,6 +19,7 @@ namespace Almoravids
         private Sahara_Swordsman swordman;
         private Camera.Camera _camera;
         private SpriteFont _arialFont; // added for HP text
+        private Vector2 _startPosition; // hero spawn
 
         public Game1()
         {
@@ -44,13 +45,13 @@ namespace Almoravids
 
             // load hero texture
             Texture2D heroTexture = Content.Load<Texture2D>("tashfin");
-            Vector2 startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
-            hero = new Hero(heroTexture, startPosition, null, "hero", 100f);
+            _startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
+            hero = new Hero(heroTexture, _startPosition, null, "hero", 100f);
             InputManager inputManager = new InputManager(hero);
             hero.SetInputManager(inputManager);
 
             // initialize camera
-            _camera = new Camera.Camera(startPosition);
+            _camera = new Camera.Camera(_startPosition);
 
             // load swordman texture
             Texture2D swordmanTexture = Content.Load<Texture2D>("characters/lamtuni");
@@ -91,6 +92,13 @@ namespace Almoravids
                 hero.HealthComponent.TakeDamage(1);
             }
 
+            // check for restart
+            if (!hero.HealthComponent.IsAlive && Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                hero.Reset(_startPosition);
+                _camera.Update(_startPosition);
+            }
+
             // update camera
             _camera.Update(hero.MovementComponent.Position);
 
@@ -114,6 +122,15 @@ namespace Almoravids
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.DrawString(_arialFont, $"Alive: {hero.HealthComponent.IsAlive}", new Vector2(10, 35), Color.White);
             _spriteBatch.DrawString(_arialFont, $"HP: {hero.HealthComponent.CurrentHealth}/{hero.HealthComponent.MaxHealth}", new Vector2(10, 10), Color.White);
+
+            // restart
+            if (!hero.HealthComponent.IsAlive)
+            {
+                Vector2 youDiedPosition = new Vector2((830) / 2, (720) / 2);
+                Vector2 pressRPosition = new Vector2((730) / 2, (400));
+                _spriteBatch.DrawString(_arialFont, "You died!", youDiedPosition, Color.Red);
+                _spriteBatch.DrawString(_arialFont, "Press \"R\" to restart.", pressRPosition, Color.White);
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);

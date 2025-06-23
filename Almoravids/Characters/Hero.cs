@@ -52,8 +52,18 @@ namespace Almoravids.Characters
 
         public override void Update(GameTime gameTime)
         {
-            _inputManager.Update(gameTime);
+            if (HealthComponent.IsAlive)
+            {
+                _inputManager.Update(gameTime);
+            }
             base.Update(gameTime);
+        }
+
+        // reset hero
+        public void Reset(Vector2 startPosition)
+        {
+            MovementComponent.Position = startPosition;
+            HealthComponent.Heal(HealthComponent.MaxHealth);
         }
     }
 }
