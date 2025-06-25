@@ -17,6 +17,7 @@ namespace Almoravids.Animation
         private Direction _currentDirection;
         private Direction _lastMovingDirection;
         private string _currentAnimationName;
+        private bool _isDeathAnimationPlaying; // track death animation state
 
         public AnimationComponent(Texture2D texture, string characterType, float frameDuration = 0.1f)
         {
@@ -38,6 +39,7 @@ namespace Almoravids.Animation
             _currentDirection = Direction.Down;
             _currentAnimationName = characterType == "hero" ? "idle_down" : "walk_down";
             _lastMovingDirection = Direction.Down;
+            _isDeathAnimationPlaying = false;
         }
 
         private void DefineHeroAnimations(float walkFrameDuration, float idleFrameDuration)
@@ -47,6 +49,16 @@ namespace Almoravids.Animation
 
             // define walk animations (9 frames per direction)
             DefineWalkAnimations(_spriteSheet, walkFrameDuration);
+
+            // define death animation (sprite 260-265)
+            _spriteSheet.DefineAnimation("death", builder =>
+            {
+                builder.IsLooping(false); 
+                for (int i = 260; i <= 265; i++)
+                {
+                    builder.AddFrame(regionIndex: i, duration: TimeSpan.FromSeconds(0.3f));
+                }
+            });
         }
 
         private void DefineSwordmanAnimations(float frameDuration)
@@ -94,6 +106,13 @@ namespace Almoravids.Animation
 
         public void Update(GameTime gameTime, Vector2 direction)
         {
+            // skip other animations if death animation is playing
+            if (_isDeathAnimationPlaying)
+            {
+                _animatedSprite.Update(gameTime);
+                return;
+            }
+
             _isMoving = direction != Vector2.Zero;
 
             // update direction based on movement
@@ -123,6 +142,16 @@ namespace Almoravids.Animation
             }
 
             _animatedSprite.Update(gameTime);
+        }
+
+        public void SetAnimation(string animationName)
+        {
+            if (_currentAnimationName != animationName)
+            {
+                _currentAnimationName = animationName;
+                _animatedSprite.SetAnimation(animationName);
+                _isDeathAnimationPlaying = animationName == "death"; // check if death animation is playing
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

@@ -17,6 +17,7 @@ namespace Almoravids.Characters
     {
         private InputManager _inputManager;
         public HealthComponent HealthComponent { get; private set; } // health component
+        private bool _isDeadAnimationSet; // track if death animation is set
 
         public Hero(Texture2D texture, Vector2 startPosition, InputManager inputManager, string characterType = "hero", float speed = 100f)
             : base(texture, startPosition, characterType, speed)
@@ -29,6 +30,7 @@ namespace Almoravids.Characters
             }
             // collision box for hero whitespace
             CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); // 28x50 box with offset
+            _isDeadAnimationSet = false;
         }
 
         public void SetInputManager(InputManager inputManager)
@@ -60,20 +62,28 @@ namespace Almoravids.Characters
                 {
                     MovementComponent.Velocity = HealthComponent.KnockbackVelocity;
                 }
+                _isDeadAnimationSet = false; // reset death bool
             }
             else
             {
                 MovementComponent.Velocity = Vector2.Zero; // stop movement when dead
+                if (!_isDeadAnimationSet)
+                {
+                    AnimationComponent.SetAnimation("death"); // play death animation
+                    _isDeadAnimationSet = true;
+                }
             }
             HealthComponent.Update(gameTime); // update invulnerability timer
             base.Update(gameTime);
         }
 
         // reset hero
-        public void Reset(Vector2 startPosition)
+        public override void Reset(Vector2 startPosition)
         {
             MovementComponent.Position = startPosition;
             HealthComponent.Heal(HealthComponent.MaxHealth);
+            AnimationComponent.SetAnimation("idle_down"); // reset animation (idle)
+            _isDeadAnimationSet = false;
         }
     }
 }
