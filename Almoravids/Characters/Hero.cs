@@ -56,6 +56,10 @@ namespace Almoravids.Characters
             {
                 _inputManager.Update(gameTime);
             }
+            else
+            {
+                MovementComponent.Velocity = Vector2.Zero; // stop movement when dead
+            }
             HealthComponent.Update(gameTime); // update invulnerability timer
             base.Update(gameTime);
         }

@@ -2,7 +2,7 @@
 
 namespace Almoravids.Health
 {
-    public class HealthComponent : Interfaces.IHealth
+    public class HealthComponent : IHealth
     {
         private readonly int _maxHealth;
         private int _currentHealth;
