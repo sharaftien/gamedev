@@ -20,6 +20,7 @@ namespace Almoravids
         private Camera.Camera _camera;
         private SpriteFont _arialFont; // added for HP text
         private Vector2 _startPosition; // hero spawn
+        private Vector2 _enemyStartPosition; // enemy spawn
 
         public Game1()
         {
@@ -55,7 +56,8 @@ namespace Almoravids
 
             // load swordman texture
             Texture2D swordmanTexture = Content.Load<Texture2D>("characters/lamtuni");
-            swordman = new Sahara_Swordsman(swordmanTexture, new Vector2(100, 100), hero, "swordman", 80f);
+            _enemyStartPosition = new Vector2(100, 100);
+            swordman = new Sahara_Swordsman(swordmanTexture, _enemyStartPosition, hero, "swordman", 80f);
 
             // load font
             _arialFont = Content.Load<SpriteFont>("Fonts/Arial");
@@ -96,6 +98,7 @@ namespace Almoravids
             if (!hero.HealthComponent.IsAlive && Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 hero.Reset(_startPosition);
+                swordman.Reset(_enemyStartPosition);
                 _camera.Update(_startPosition);
             }
 

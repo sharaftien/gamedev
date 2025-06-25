@@ -12,5 +12,6 @@ namespace Almoravids.Interfaces
         int MaxHealth { get; }
         bool IsAlive { get; }
         void TakeDamage(int damage);
+        void Update(GameTime gameTime); // invulnerability timer
     }
 }

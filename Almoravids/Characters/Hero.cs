@@ -56,6 +56,7 @@ namespace Almoravids.Characters
             {
                 _inputManager.Update(gameTime);
             }
+            HealthComponent.Update(gameTime); // update invulnerability timer
             base.Update(gameTime);
         }
 

@@ -1,4 +1,4 @@
-﻿using Almoravids.Animation;
+using Almoravids.Animation;
 using Almoravids.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -40,6 +40,11 @@ namespace Almoravids.Characters
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             AnimationComponent.Draw(spriteBatch, MovementComponent.Position);
+        }
+
+        public virtual void Reset(Vector2 startPosition)
+        {
+            MovementComponent.Position = startPosition;
         }
     }
 }
