@@ -1,12 +1,3 @@
-using Almoravids.Animation;
-using Almoravids.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Almoravids.Movement;
-using Almoravids.Collision;
 
 namespace Almoravids.Characters
 {

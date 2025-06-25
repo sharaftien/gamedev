@@ -1,5 +1,4 @@
-﻿using Almoravids.Interfaces;
-
+﻿
 namespace Almoravids.Health
 {
     public class HealthComponent : IHealth

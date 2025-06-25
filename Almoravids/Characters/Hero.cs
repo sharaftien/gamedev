@@ -1,15 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Almoravids.Animation;
-using Almoravids.Interfaces;
-using System.Threading;
-using SharpDX.DXGI;
-using System;
-using Microsoft.Xna.Framework.Input;
-using Almoravids.Input;
-using Almoravids.Collision;
-using Almoravids.Health;
-
 
 namespace Almoravids.Characters
 {

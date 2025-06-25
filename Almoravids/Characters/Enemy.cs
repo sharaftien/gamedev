@@ -1,13 +1,4 @@
-﻿using Almoravids.Interfaces;
-using Almoravids.Animation;
-using Almoravids.Characters;
-using Almoravids.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Almoravids.Characters
 {
     public abstract class Enemy : Character
