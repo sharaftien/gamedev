@@ -55,6 +55,11 @@ namespace Almoravids.Characters
             if (HealthComponent.IsAlive)
             {
                 _inputManager.Update(gameTime);
+                // apply knockback velocity if active
+                if (HealthComponent.KnockbackVelocity != Vector2.Zero)
+                {
+                    MovementComponent.Velocity = HealthComponent.KnockbackVelocity;
+                }
             }
             else
             {

@@ -91,7 +91,8 @@ namespace Almoravids
             // check enemy collision
             if (hero.HealthComponent.IsAlive && hero.CollisionComponent.BoundingBox.Intersects(swordman.CollisionComponent.BoundingBox))
             {
-                hero.HealthComponent.TakeDamage(1);
+                Vector2 knockbackDirection = hero.MovementComponent.Position - swordman.MovementComponent.Position;
+                hero.HealthComponent.TakeDamage(1, knockbackDirection);
             }
 
             // check for restart
