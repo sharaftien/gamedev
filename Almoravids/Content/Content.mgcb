@@ -33,10 +33,10 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/Arial.spritefont
 
-#begin map/sahara.tmx
+#begin map/marrakech.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:map/sahara.tmx
+/build:map/marrakech.tmx
 
 #begin map/testing.tmx
 /importer:TiledMapImporter
@@ -54,6 +54,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:map/WinluItems.png
+
+#begin map/WinluItems.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:map/WinluItems.tsx
 
 #begin map/WinluTerrain.png
 /importer:TextureImporter
