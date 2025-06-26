@@ -5,6 +5,8 @@ namespace Almoravids.GameState
     {
         private static GameStateManager _instance;
         private IGameState _currentState;
+        private ContentManager _content;
+        private GraphicsDevice _graphicsDevice;
 
         private GameStateManager() { }
 
@@ -13,10 +15,16 @@ namespace Almoravids.GameState
             get { return _instance ??= new GameStateManager(); }
         }
 
-        public void SetState(IGameState state, ContentManager content, GraphicsDevice graphicsDevice)
+        public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
+        {
+            _content = content;
+            _graphicsDevice = graphicsDevice;
+        }
+
+        public void SetState(IGameState state)
         {
             _currentState = state;
-            _currentState.Initialize(content, graphicsDevice);
+            _currentState.Initialize(_content, _graphicsDevice);
             Console.WriteLine("State set to: " + state.GetType().Name);
         }
 

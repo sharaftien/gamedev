@@ -37,7 +37,8 @@ namespace Almoravids
             //map = new Map(Content, GraphicsDevice);
 
             _gameStateManager = GameStateManager.Instance;
-            _gameStateManager.SetState(new GameState.StartScreen(), Content, GraphicsDevice);
+            _gameStateManager.Initialize(Content, GraphicsDevice);
+            _gameStateManager.SetState(new GameState.StartScreen());
 
             //Texture2D heroTexture = Content.Load<Texture2D>("tashfin");
             //_startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
