@@ -6,15 +6,13 @@ public class Map
     private readonly TiledMapObjectLayer _collisionLayer;
     private const int TileSize = 48; // tiles 48x48.
 
-    public Map(ContentManager content, GraphicsDevice graphicsDevice)
+    public Map(ContentManager content, GraphicsDevice graphicsDevice, string mapName = "map/testing")
     {
         // Load the Tiled map
-        _tiledMap = content.Load<TiledMap>("map/testing");
+        _tiledMap = content.Load<TiledMap>(mapName);
         _tiledMapRenderer = new TiledMapRenderer(graphicsDevice, _tiledMap);
         _collisionLayer = _tiledMap.GetLayer<TiledMapObjectLayer>("Oasis");
     }
-
-
 
     public void Update(GameTime gameTime)
     {
@@ -32,4 +30,3 @@ public class Map
         get { return _collisionLayer; }
     }
 }
-

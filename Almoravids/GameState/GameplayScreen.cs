@@ -1,16 +1,22 @@
-﻿namespace Almoravids.GameState
+namespace Almoravids.GameState
 {
     public class GameplayScreen : IGameState
     {
         private Map map;
         private Hero hero;
-        private Sahara_Swordsman swordman;
+        private List<Sahara_Swordsman> swordsmen; // multiple enemies -> list
         private Camera.Camera _camera;
         private SpriteFont _font; // for HP text
         private Vector2 _startPosition; // hero spawn
-        private Vector2 _enemyStartPosition; // enemy spawn
+        private List<Vector2> _enemyStartPositions; // enemy spawn
         private ContentManager _content; // store content
         private GraphicsDevice _graphicsDevice; // store graphics device
+        private int _level; // store selected level
+
+        public GameplayScreen(int level = 1)
+        {
+            _level = level; // set level
+        }
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
@@ -23,7 +29,20 @@
         private void InitializeGameplay()
         {
             // initialize map
-            map = new Map(_content, _graphicsDevice);
+            string mapName;
+
+            switch (_level)
+            {
+                case 2:
+                    mapName = "map/marrakech";
+                    break;
+
+                default:
+                    mapName = "map/testing";
+                    break;
+            }
+
+            map = new Map(_content, _graphicsDevice, mapName);
 
             // initialize hero
             Texture2D heroTexture = _content.Load<Texture2D>("tashfin");
@@ -35,10 +54,28 @@
             // initialize camera
             _camera = new Camera.Camera(_startPosition);
 
-            // load swordman texture
+            // initialize enemies
             Texture2D swordmanTexture = _content.Load<Texture2D>("characters/lamtuni");
-            _enemyStartPosition = new Vector2(100, 100);
-            swordman = new Sahara_Swordsman(swordmanTexture, _enemyStartPosition, hero, "swordman", 80f);
+            swordsmen = new List<Sahara_Swordsman>();
+            if (_level == 2)
+            {
+                // spawn two enemies
+                _enemyStartPositions = new List<Vector2>
+                {
+                    new Vector2(100, 100),
+                    new Vector2(500, 500)
+                };
+                foreach (var pos in _enemyStartPositions)
+                {
+                    swordsmen.Add(new Sahara_Swordsman(swordmanTexture, pos, hero, "swordman", 80f));
+                }
+            }
+            else
+            {
+                // Level 1: Single swordsman
+                _enemyStartPositions = new List<Vector2> { new Vector2(100, 100) };
+                swordsmen.Add(new Sahara_Swordsman(swordmanTexture, _enemyStartPositions[0], hero, "swordman", 80f));
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -46,11 +83,16 @@
             // update gameplay
             map.Update(gameTime);
 
-            // proposed positions
+            // update hero
             Vector2 heroProposedPosition = hero.MovementComponent.Position;
             hero.Update(gameTime);
-            Vector2 swordmanProposedPosition = swordman.MovementComponent.Position;
-            swordman.Update(gameTime);
+
+            // update enemies
+            List<Vector2> swordsmenProposedPositions = swordsmen.Select(s => s.MovementComponent.Position).ToList();
+            foreach (var swordman in swordsmen)
+            {
+                swordman.Update(gameTime);
+            }
 
             // check map collisions
             if (hero.CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 heroMapResolution))
@@ -58,24 +100,38 @@
                 hero.MovementComponent.Position = heroProposedPosition + heroMapResolution;
                 hero.CollisionComponent.Update(hero.MovementComponent.Position);
             }
-            if (swordman.CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 swordmanMapResolution))
+
+            // Check map collisions for enemies
+            for (int i = 0; i < swordsmen.Count; i++)
             {
-                swordman.MovementComponent.Position = swordmanProposedPosition + swordmanMapResolution;
-                swordman.CollisionComponent.Update(swordman.MovementComponent.Position);
+                if (swordsmen[i].CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 swordmanMapResolution))
+                {
+                    swordsmen[i].MovementComponent.Position = swordsmenProposedPositions[i] + swordmanMapResolution;
+                    swordsmen[i].CollisionComponent.Update(swordsmen[i].MovementComponent.Position);
+                }
             }
 
-            // check enemy collision
-            if (hero.HealthComponent.IsAlive && hero.CollisionComponent.BoundingBox.Intersects(swordman.CollisionComponent.BoundingBox))
+            // Check enemy collisions with hero
+            if (hero.HealthComponent.IsAlive)
             {
-                Vector2 knockbackDirection = hero.MovementComponent.Position - swordman.MovementComponent.Position;
-                hero.HealthComponent.TakeDamage(1, knockbackDirection);
+                foreach (var swordman in swordsmen)
+                {
+                    if (hero.CollisionComponent.BoundingBox.Intersects(swordman.CollisionComponent.BoundingBox))
+                    {
+                        Vector2 knockbackDirection = hero.MovementComponent.Position - swordman.MovementComponent.Position;
+                        hero.HealthComponent.TakeDamage(1, knockbackDirection);
+                    }
+                }
             }
 
-            // check for restart
+            // Check for restart
             if (!hero.HealthComponent.IsAlive && Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 hero.Reset(_startPosition);
-                swordman.Reset(_enemyStartPosition);
+                for (int i = 0; i < swordsmen.Count; i++)
+                {
+                    swordsmen[i].Reset(_enemyStartPositions[i]);
+                }
                 _camera.Update(_startPosition);
             }
 
@@ -93,7 +149,10 @@
                 spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
                 map.Draw(transformMatrix);
                 hero.Draw(spriteBatch);
-                swordman.Draw(spriteBatch);
+                foreach (var swordman in swordsmen)
+                {
+                    swordman.Draw(spriteBatch);
+                }
                 spriteBatch.End();
                 spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 // HP

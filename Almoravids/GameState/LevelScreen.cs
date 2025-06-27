@@ -27,20 +27,19 @@ namespace Almoravids.GameState
                 {
                     _levelSelected = true;
                     _selectedLevel = 1;
-                    GameStateManager.Instance.SetState(new GameplayScreen());
-                    Console.WriteLine("Level 1 selected");
+                    GameStateManager.Instance.SetState(new GameplayScreen(1));
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.D2))
                 {
                     _levelSelected = true;
                     _selectedLevel = 2;
-                    Console.WriteLine("Level 2 selected");
+                    GameStateManager.Instance.SetState(new GameplayScreen(2));
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.D3))
                 {
                     _levelSelected = true;
                     _selectedLevel = 3;
-                    Console.WriteLine("Level 3 selected");
+                    GameStateManager.Instance.SetState(new GameplayScreen(3));
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
@@ -61,7 +60,7 @@ namespace Almoravids.GameState
             }
             else if (_selectedLevel == 2)
             {
-                spriteBatch.DrawString(_font, "Level 2 (Placeholder)", new Vector2(350, 300), Color.White);
+                spriteBatch.DrawString(_font, "Level 2 (Marrakech)", new Vector2(350, 300), Color.White);
             }
             else if (_selectedLevel == 3)
             {
