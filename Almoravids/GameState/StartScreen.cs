@@ -1,12 +1,15 @@
+
 namespace Almoravids.GameState
 {
     public class StartScreen : IGameState
     {
         private SpriteFont _font;
+        private ContentLoader _contentLoader; // store content loader
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
-            _font = content.Load<SpriteFont>("Fonts/Arial");
+            _contentLoader = new ContentLoader(content); // initialize content loader
+            _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
             Console.WriteLine("StartScreen initialized");
         }
 
