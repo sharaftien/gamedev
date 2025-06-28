@@ -1,3 +1,4 @@
+
 namespace Almoravids.GameState
 {
     public class GameplayScreen : IGameState
@@ -12,6 +13,7 @@ namespace Almoravids.GameState
         private ContentManager _content; // store content
         private GraphicsDevice _graphicsDevice; // store graphics device
         private int _level; // store selected level
+        private ContentLoader _contentLoader; // store content loader
 
         public GameplayScreen(int level = 1)
         {
@@ -22,7 +24,8 @@ namespace Almoravids.GameState
         {
             _content = content; // store content
             _graphicsDevice = graphicsDevice; // store graphics device
-            _font = _content.Load<SpriteFont>("Fonts/Arial"); // load font for HP
+            _contentLoader = new ContentLoader(content); // initialize content loader
+            _font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
             InitializeGameplay();
         }
 
@@ -30,22 +33,20 @@ namespace Almoravids.GameState
         {
             // initialize map
             string mapName;
-
             switch (_level)
             {
                 case 2:
                     mapName = "map/marrakech";
                     break;
-
                 default:
                     mapName = "map/testing";
                     break;
             }
-
-            map = new Map(_content, _graphicsDevice, mapName);
+            TiledMap tiledMap = _contentLoader.LoadTiledMap(mapName);
+            map = new Map(tiledMap, _graphicsDevice);
 
             // initialize hero
-            Texture2D heroTexture = _content.Load<Texture2D>("tashfin");
+            Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
             _startPosition = new Vector2(800 / 2 - 50, 480 / 2 - 50);
             hero = new Hero(heroTexture, _startPosition, null, "hero", 100f);
             InputManager inputManager = new InputManager(hero);
@@ -55,7 +56,7 @@ namespace Almoravids.GameState
             _camera = new Camera.Camera(_startPosition);
 
             // initialize enemies
-            Texture2D swordmanTexture = _content.Load<Texture2D>("characters/lamtuni");
+            Texture2D swordmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
             swordsmen = new List<Sahara_Swordsman>();
             if (_level == 2)
             {

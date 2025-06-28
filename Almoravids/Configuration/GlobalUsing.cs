@@ -68,6 +68,9 @@ global using  System.Linq;
 global using  System.Text;
 global using  System.Threading.Tasks;
 
+//GameplayScreen.cs
+global using Almoravids.ContentManagement;
+
 //HealthComponent.cs
 global using  Almoravids.Interfaces;
 

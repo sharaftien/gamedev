@@ -1,4 +1,4 @@
-﻿
+
 public class Map
 {
     private readonly TiledMap _tiledMap;
@@ -6,10 +6,9 @@ public class Map
     private readonly TiledMapObjectLayer _collisionLayer;
     private const int TileSize = 48; // tiles 48x48.
 
-    public Map(ContentManager content, GraphicsDevice graphicsDevice, string mapName = "map/testing")
+    public Map(TiledMap tiledMap, GraphicsDevice graphicsDevice)
     {
-        // Load the Tiled map
-        _tiledMap = content.Load<TiledMap>(mapName);
+        _tiledMap = tiledMap;
         _tiledMapRenderer = new TiledMapRenderer(graphicsDevice, _tiledMap);
         _collisionLayer = _tiledMap.GetLayer<TiledMapObjectLayer>("Oasis");
     }
