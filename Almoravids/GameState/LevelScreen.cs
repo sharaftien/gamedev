@@ -8,12 +8,14 @@ namespace Almoravids.GameState
         private int _selectedLevel; // store selected level (1, 2, or 3)
         private ContentManager _content; // store content
         private GraphicsDevice _graphicsDevice; // store graphics device
+        private ContentLoader _contentLoader; // store content loader
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
             _content = content; // store content
             _graphicsDevice = graphicsDevice; // store graphics device
-            _font = _content.Load<SpriteFont>("Fonts/Arial");
+            _contentLoader = new ContentLoader(content); // initialize content loader
+            _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
             _levelSelected = false;
             _selectedLevel = 0;
             Console.WriteLine("LevelScreen initialized");
