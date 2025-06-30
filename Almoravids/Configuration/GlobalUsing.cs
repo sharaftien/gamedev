@@ -1,4 +1,4 @@
-﻿global using  Microsoft.Xna.Framework;
+global using  Microsoft.Xna.Framework;
 global using  Microsoft.Xna.Framework.Graphics;
 
 //AnimationComponent.cs
@@ -70,6 +70,7 @@ global using  System.Threading.Tasks;
 
 //GameplayScreen.cs
 global using Almoravids.ContentManagement;
+global using Almoravids.Level;
 
 //HealthComponent.cs
 global using  Almoravids.Interfaces;
