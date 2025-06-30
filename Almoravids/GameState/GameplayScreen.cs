@@ -14,6 +14,7 @@ namespace Almoravids.GameState
         private GraphicsDevice _graphicsDevice; // store graphics device
         private int _level; // store selected level
         private ContentLoader _contentLoader; // store content loader
+        private LevelManager _levelManager; // store level manager
 
         public GameplayScreen(int level = 1)
         {
@@ -25,34 +26,18 @@ namespace Almoravids.GameState
             _content = content; // store content
             _graphicsDevice = graphicsDevice; // store graphics device
             _contentLoader = new ContentLoader(content); // initialize content loader
+            _levelManager = new LevelManager(_contentLoader, _graphicsDevice); // initialize level manager
             _font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
             InitializeGameplay();
         }
 
         private void InitializeGameplay()
         {
-            Level.Level level;
-
-            switch (_level)
-            {
-                case 2:
-                    level = new Level_2(_contentLoader, _graphicsDevice);
-                    break;
-
-                case 3:
-                    level = new Level_1(_contentLoader, _graphicsDevice);
-                    break;
-
-                case 1:
-                default:
-                    level = new Level_1(_contentLoader, _graphicsDevice);
-                    break;
-            }
-
-            level.Load();
-            map = level.Map;
-            _startPosition = level.HeroSpawn;
-            _enemyStartPositions = level.EnemySpawns;
+            // initialize level
+            _levelManager.LoadLevel(_level);
+            map = _levelManager.Map;
+            _startPosition = _levelManager.HeroSpawn;
+            _enemyStartPositions = _levelManager.EnemySpawns;
 
             // initialize hero
             Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
