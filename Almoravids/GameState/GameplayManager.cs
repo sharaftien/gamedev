@@ -3,21 +3,17 @@ namespace Almoravids.GameState
 {
     public class GameplayManager
     {
-        private readonly Map _map;
-        private readonly Hero _hero;
-        private readonly List<Sahara_Swordsman> _swordsmen;
-        private readonly Camera.Camera _camera;
-        private readonly Vector2 _startPosition;
-        private readonly List<Vector2> _enemyStartPositions;
+        private Map _map;
+        private Hero _hero;
+        private List<Sahara_Swordsman> _swordsmen;
+        private Camera.Camera _camera;
 
-        public GameplayManager(Map map, Hero hero, List<Sahara_Swordsman> swordsmen, Camera.Camera camera, Vector2 startPosition, List<Vector2> enemyStartPositions)
+        public GameplayManager(Map map, Hero hero, List<Sahara_Swordsman> swordsmen, Camera.Camera camera)
         {
             _map = map;
             _hero = hero;
             _swordsmen = swordsmen;
             _camera = camera;
-            _startPosition = startPosition;
-            _enemyStartPositions = enemyStartPositions;
         }
 
         public void Update(GameTime gameTime)

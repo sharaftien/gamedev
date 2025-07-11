@@ -8,8 +8,6 @@ namespace Almoravids.GameState
         private List<Sahara_Swordsman> swordsmen; // multiple enemies -> list
         private Camera.Camera _camera;
         private SpriteFont _font; // for HP text
-        private Vector2 _startPosition; // hero spawn
-        private List<Vector2> _enemyStartPositions; // enemy spawn
         private ContentManager _content; // store content
         private GraphicsDevice _graphicsDevice; // store graphics device
         private int _level; // store selected level
@@ -31,36 +29,32 @@ namespace Almoravids.GameState
             _contentLoader = new ContentLoader(content); // initialize content loader
             _levelManager = new LevelManager(_contentLoader, _graphicsDevice); // initialize level manager
             _font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
-            InitializeGameplay();
-        }
 
-        private void InitializeGameplay()
-        {
             // initialize level
             _levelManager.LoadLevel(_level);
             map = _levelManager.Map;
-            _startPosition = _levelManager.HeroSpawn;
-            _enemyStartPositions = _levelManager.EnemySpawns;
+            var startPosition = _levelManager.HeroSpawn; // hero spawn
+            var enemyStartPositions = _levelManager.EnemySpawns; // enemy spawn
 
             // initialize hero
             Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
-            hero = new Hero(heroTexture, _startPosition, null, "hero", 100f);
+            hero = new Hero(heroTexture, startPosition, null, "hero", 100f);
             InputManager inputManager = new InputManager(hero);
             hero.SetInputManager(inputManager);
 
             // initialize camera
-            _camera = new Camera.Camera(_startPosition);
+            _camera = new Camera.Camera(startPosition);
 
             // initialize enemies
             Texture2D swordmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
             swordsmen = new List<Sahara_Swordsman>();
-            foreach (var pos in _enemyStartPositions)
+            foreach (var pos in enemyStartPositions)
             {
                 swordsmen.Add(new Sahara_Swordsman(swordmanTexture, pos, hero, "swordman", 80f));
             }
 
             // initialize gameplay manager
-            _gameplayManager = new GameplayManager(map, hero, swordsmen, _camera, _startPosition, _enemyStartPositions);
+            _gameplayManager = new GameplayManager(map, hero, swordsmen, _camera);
         }
 
         public void Update(GameTime gameTime)
