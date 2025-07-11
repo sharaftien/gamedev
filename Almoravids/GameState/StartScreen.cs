@@ -4,13 +4,21 @@ namespace Almoravids.GameState
     public class StartScreen : IGameState
     {
         private SpriteFont _font;
-        private ContentLoader _contentLoader; // store content loader
+        private ContentLoader _contentLoader;
+        private GraphicsDevice _graphicsDevice;
+        private List<TextRenderer> _textRenderers;
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
-            _contentLoader = new ContentLoader(content); // initialize content loader
+            _graphicsDevice = graphicsDevice;
+            _contentLoader = new ContentLoader(content);
             _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
-            Console.WriteLine("StartScreen initialized");
+
+            _textRenderers = new List<TextRenderer>
+            {
+                new TextRenderer(_font, "ALMORAVIDS", Color.Gold, 2f, true, true, _graphicsDevice),
+                new TextRenderer(_font, "Press [Enter] to continue", Color.White, 1f, true, true, _graphicsDevice)
+            };
         }
 
         public void Update(GameTime gameTime)
@@ -24,8 +32,8 @@ namespace Almoravids.GameState
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(_font, "ALMORAVIDS", new Vector2(300, 250), Color.Gold, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(_font, "Press Enter to start", new Vector2(340, 350), Color.White);
+            _textRenderers[0].Draw(spriteBatch, 0f, -50f); // "ALMORAVID"
+            _textRenderers[1].Draw(spriteBatch, 0f, 50f); // "Level Select"
             spriteBatch.End();
         }
     }
