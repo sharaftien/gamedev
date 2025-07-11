@@ -15,6 +15,7 @@ namespace Almoravids.GameState
         private int _level; // store selected level
         private ContentLoader _contentLoader; // store content loader
         private LevelManager _levelManager; // store level manager
+        private GameplayManager _gameplayManager; // manage game logic
 
         public GameplayScreen(int level = 1)
         {
@@ -55,67 +56,14 @@ namespace Almoravids.GameState
             {
                 swordsmen.Add(new Sahara_Swordsman(swordmanTexture, pos, hero, "swordman", 80f));
             }
+
+            // initialize gameplay manager
+            _gameplayManager = new GameplayManager(map, hero, swordsmen, _camera, _startPosition, _enemyStartPositions);
         }
 
         public void Update(GameTime gameTime)
         {
-            // update gameplay
-            map.Update(gameTime);
-
-            // update hero
-            Vector2 heroProposedPosition = hero.MovementComponent.Position;
-            hero.Update(gameTime);
-
-            // update enemies
-            List<Vector2> swordsmenProposedPositions = swordsmen.Select(s => s.MovementComponent.Position).ToList();
-            foreach (var swordman in swordsmen)
-            {
-                swordman.Update(gameTime);
-            }
-
-            // check map collisions
-            if (hero.CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 heroMapResolution))
-            {
-                hero.MovementComponent.Position = heroProposedPosition + heroMapResolution;
-                hero.CollisionComponent.Update(hero.MovementComponent.Position);
-            }
-
-            // Check map collisions for enemies
-            for (int i = 0; i < swordsmen.Count; i++)
-            {
-                if (swordsmen[i].CollisionComponent.CheckMapCollision(map.CollisionLayer, out Vector2 swordmanMapResolution))
-                {
-                    swordsmen[i].MovementComponent.Position = swordsmenProposedPositions[i] + swordmanMapResolution;
-                    swordsmen[i].CollisionComponent.Update(swordsmen[i].MovementComponent.Position);
-                }
-            }
-
-            // Check enemy collisions with hero
-            if (hero.HealthComponent.IsAlive)
-            {
-                foreach (var swordman in swordsmen)
-                {
-                    if (hero.CollisionComponent.BoundingBox.Intersects(swordman.CollisionComponent.BoundingBox))
-                    {
-                        Vector2 knockbackDirection = hero.MovementComponent.Position - swordman.MovementComponent.Position;
-                        hero.HealthComponent.TakeDamage(1, knockbackDirection);
-                    }
-                }
-            }
-
-            // Check for restart
-            if (!hero.HealthComponent.IsAlive && Keyboard.GetState().IsKeyDown(Keys.R))
-            {
-                hero.Reset(_startPosition);
-                for (int i = 0; i < swordsmen.Count; i++)
-                {
-                    swordsmen[i].Reset(_enemyStartPositions[i]);
-                }
-                _camera.Update(_startPosition);
-            }
-
-            // update camera
-            _camera.Update(hero.MovementComponent.Position);
+            _gameplayManager.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
