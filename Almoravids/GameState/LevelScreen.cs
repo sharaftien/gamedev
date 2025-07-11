@@ -25,19 +25,19 @@ namespace Almoravids.GameState
         {
             if (!_levelSelected)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.D1))
+                if (Keyboard.GetState().IsKeyDown(Keys.D1)|| Keyboard.GetState().IsKeyDown(Keys.NumPad1))
                 {
                     _levelSelected = true;
                     _selectedLevel = 1;
                     GameStateManager.Instance.SetState(new GameplayScreen(1));
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.D2))
+                if (Keyboard.GetState().IsKeyDown(Keys.D2) || Keyboard.GetState().IsKeyDown(Keys.NumPad2))
                 {
                     _levelSelected = true;
                     _selectedLevel = 2;
                     GameStateManager.Instance.SetState(new GameplayScreen(2));
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.D3))
+                if (Keyboard.GetState().IsKeyDown(Keys.D3) || Keyboard.GetState().IsKeyDown(Keys.NumPad3))
                 {
                     _levelSelected = true;
                     _selectedLevel = 3;

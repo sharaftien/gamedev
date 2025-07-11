@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.GameState
 {
     public class GameplayManager
@@ -64,17 +64,6 @@ namespace Almoravids.GameState
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
                     }
                 }
-            }
-
-            // check for restart
-            if (!_hero.HealthComponent.IsAlive && Keyboard.GetState().IsKeyDown(Keys.R))
-            {
-                _hero.Reset(_startPosition);
-                for (int i = 0; i < _swordsmen.Count; i++)
-                {
-                    _swordsmen[i].Reset(_enemyStartPositions[i]);
-                }
-                _camera.Update(_startPosition);
             }
 
             // Update camera

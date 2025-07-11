@@ -16,10 +16,12 @@ namespace Almoravids.GameState
         private ContentLoader _contentLoader; // store content loader
         private LevelManager _levelManager; // store level manager
         private GameplayManager _gameplayManager; // manage game logic
+        private bool _gameOver; // track if game over was triggered
 
         public GameplayScreen(int level = 1)
         {
             _level = level; // set level
+            _gameOver = false;
         }
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
@@ -63,7 +65,15 @@ namespace Almoravids.GameState
 
         public void Update(GameTime gameTime)
         {
-            _gameplayManager.Update(gameTime);
+            if (!_gameOver && !hero.HealthComponent.IsAlive)
+            {
+                GameStateManager.Instance.SetState(new GameOverScreen());
+                _gameOver = true;
+            }
+            else
+            {
+                _gameplayManager.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -85,14 +95,6 @@ namespace Almoravids.GameState
                 // HP
                 spriteBatch.DrawString(_font, $"Alive: {hero.HealthComponent.IsAlive}", new Vector2(10, 35), Color.White);
                 spriteBatch.DrawString(_font, $"HP: {hero.HealthComponent.CurrentHealth}/{hero.HealthComponent.MaxHealth}", new Vector2(10, 10), Color.White);
-                // restart
-                if (!hero.HealthComponent.IsAlive)
-                {
-                    Vector2 youDiedPosition = new Vector2((830) / 2, (720) / 2);
-                    Vector2 pressRPosition = new Vector2((730) / 2, (400));
-                    spriteBatch.DrawString(_font, "You died!", youDiedPosition, Color.Red);
-                    spriteBatch.DrawString(_font, "Press \"R\" to restart.", pressRPosition, Color.White);
-                }
             }
             spriteBatch.End();
         }
