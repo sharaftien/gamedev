@@ -142,6 +142,9 @@ global using  System.Linq;
 global using  System.Text;
 global using  System.Threading.Tasks;
 
+//TextRenderer.cs
+global using Almoravids.UI;
+
 //Game1.cs
 global using  Almoravids.Characters;
 global using  Almoravids.Input;
