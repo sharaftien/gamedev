@@ -5,7 +5,7 @@ namespace Almoravids.GameState
     {
         private Map map;
         private Hero hero;
-        private List<Sahara_Swordsman> swordsmen; // multiple enemies -> list
+        private List<Swordsman> swordsmen; // multiple enemies -> list
         private Camera.Camera _camera;
         private SpriteFont _font; // for HP text
         private ContentManager _content; // store content
@@ -46,11 +46,11 @@ namespace Almoravids.GameState
             _camera = new Camera.Camera(startPosition);
 
             // initialize enemies
-            Texture2D swordmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
-            swordsmen = new List<Sahara_Swordsman>();
+            Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
+            swordsmen = new List<Swordsman>();
             foreach (var pos in enemyStartPositions)
             {
-                swordsmen.Add(new Sahara_Swordsman(swordmanTexture, pos, hero, "swordman", 80f));
+                swordsmen.Add(new Swordsman(swordsmanTexture, pos, hero, "swordsman", 80f));
             }
 
             // initialize gameplay manager
@@ -80,9 +80,9 @@ namespace Almoravids.GameState
                 spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
                 map.Draw(transformMatrix);
                 hero.Draw(spriteBatch);
-                foreach (var swordman in swordsmen)
+                foreach (var swordsman in swordsmen)
                 {
-                    swordman.Draw(spriteBatch);
+                    swordsman.Draw(spriteBatch);
                 }
                 spriteBatch.End();
                 spriteBatch.Begin(samplerState: SamplerState.PointClamp);

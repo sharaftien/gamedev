@@ -1,9 +1,9 @@
 ﻿
 namespace Almoravids.Characters
 {
-    public class Sahara_Swordsman : Enemy
+    public class Swordsman : Enemy
     {
-        public Sahara_Swordsman(Texture2D texture, Vector2 startPosition, Character target, string characterType = "swordman", float speed = 80f)
+        public Swordsman(Texture2D texture, Vector2 startPosition, Character target, string characterType = "swordsman", float speed = 80f)
             : base(texture, startPosition, target, characterType, speed)
         {
             CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); 

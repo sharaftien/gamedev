@@ -5,10 +5,10 @@ namespace Almoravids.GameState
     {
         private Map _map;
         private Hero _hero;
-        private List<Sahara_Swordsman> _swordsmen;
+        private List<Swordsman> _swordsmen;
         private Camera.Camera _camera;
 
-        public GameplayManager(Map map, Hero hero, List<Sahara_Swordsman> swordsmen, Camera.Camera camera)
+        public GameplayManager(Map map, Hero hero, List<Swordsman> swordsmen, Camera.Camera camera)
         {
             _map = map;
             _hero = hero;
@@ -27,9 +27,9 @@ namespace Almoravids.GameState
 
             // update enemies
             List<Vector2> swordsmenProposedPositions = _swordsmen.Select(s => s.MovementComponent.Position).ToList();
-            foreach (var swordman in _swordsmen)
+            foreach (var swordsman in _swordsmen)
             {
-                swordman.Update(gameTime);
+                swordsman.Update(gameTime);
             }
 
             // check map collisions
@@ -42,9 +42,9 @@ namespace Almoravids.GameState
             // check map collisions for enemies
             for (int i = 0; i < _swordsmen.Count; i++)
             {
-                if (_swordsmen[i].CollisionComponent.CheckMapCollision(_map.CollisionLayer, out Vector2 swordmanMapResolution))
+                if (_swordsmen[i].CollisionComponent.CheckMapCollision(_map.CollisionLayer, out Vector2 swordsmanMapResolution))
                 {
-                    _swordsmen[i].MovementComponent.Position = swordsmenProposedPositions[i] + swordmanMapResolution;
+                    _swordsmen[i].MovementComponent.Position = swordsmenProposedPositions[i] + swordsmanMapResolution;
                     _swordsmen[i].CollisionComponent.Update(_swordsmen[i].MovementComponent.Position);
                 }
             }
@@ -52,11 +52,11 @@ namespace Almoravids.GameState
             // check enemy collisions with hero
             if (_hero.HealthComponent.IsAlive)
             {
-                foreach (var swordman in _swordsmen)
+                foreach (var swordsman in _swordsmen)
                 {
-                    if (_hero.CollisionComponent.BoundingBox.Intersects(swordman.CollisionComponent.BoundingBox))
+                    if (_hero.CollisionComponent.BoundingBox.Intersects(swordsman.CollisionComponent.BoundingBox))
                     {
-                        Vector2 knockbackDirection = _hero.MovementComponent.Position - swordman.MovementComponent.Position;
+                        Vector2 knockbackDirection = _hero.MovementComponent.Position - swordsman.MovementComponent.Position;
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
                     }
                 }

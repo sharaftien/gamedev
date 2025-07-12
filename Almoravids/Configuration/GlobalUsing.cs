@@ -52,7 +52,7 @@ global using  Almoravids.Collision;
 global using  Almoravids.Health;
 
 
-//Sahara_swordman.Cs
+//Swordsman.Cs
 global using  System;
 global using  System.Collections.Generic;
 global using  System.Linq;

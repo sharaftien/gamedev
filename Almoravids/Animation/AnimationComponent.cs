@@ -24,7 +24,7 @@ namespace Almoravids.Animation
             }
             else
             {
-                DefineSwordmanAnimations(frameDuration);
+                DefineSwordsmanAnimations(frameDuration);
             }
 
             _animatedSprite = new AnimatedSprite(_spriteSheet, characterType == "hero" ? "idle_down" : "walk_down");
@@ -53,7 +53,7 @@ namespace Almoravids.Animation
             });
         }
 
-        private void DefineSwordmanAnimations(float frameDuration)
+        private void DefineSwordsmanAnimations(float frameDuration)
         {
             // define walk animations (9 frames per direction)
             DefineWalkAnimations(_spriteSheet, frameDuration);
