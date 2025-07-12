@@ -6,6 +6,8 @@
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
     <UseWindowsForms>true</UseWindowsForms>
+    <!-- console writeline hieronder -->
+    <OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType> 
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>

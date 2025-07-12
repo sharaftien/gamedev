@@ -19,6 +19,7 @@ namespace Almoravids
 
         protected override void Initialize()
         {
+            Console.WriteLine($"Game compiling at {DateTime.Now}");
             base.Initialize();
         }
 
