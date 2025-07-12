@@ -6,6 +6,7 @@ namespace Almoravids.GameState
         private Map map;
         private Hero hero;
         private List<Swordsman> swordsmen; // multiple enemies -> list
+        private List<Item> items; // explicit namespace for Item
         private Camera.Camera _camera;
         private SpriteFont _font; // for HP text
         private ContentManager _content; // store content
@@ -35,6 +36,8 @@ namespace Almoravids.GameState
             map = _levelManager.Map;
             var startPosition = _levelManager.HeroSpawn; // hero spawn
             var enemyStartPositions = _levelManager.EnemySpawns; // enemy spawn
+            var itemSpawns = _levelManager.ItemSpawns; // load items
+            items = new List<Almoravids.Items.Item>();
 
             // initialize hero
             Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
@@ -48,13 +51,20 @@ namespace Almoravids.GameState
             // initialize enemies
             Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
             swordsmen = new List<Swordsman>();
-            foreach (var pos in enemyStartPositions)
+            foreach (var spawn in enemyStartPositions)
             {
-                swordsmen.Add(new Swordsman(swordsmanTexture, pos, hero, "swordsman", 80f));
+                swordsmen.Add(new Swordsman(swordsmanTexture, spawn, hero, "swordsman", 80f)); // no type check
+            }
+
+            // initialize items
+            foreach (var pos in itemSpawns)
+            {
+                Texture2D koumiyaTexture = _contentLoader.LoadTexture2D("Items/koumiya"); // load koumiya.png
+                items.Add(new Koumiya(koumiyaTexture, pos));
             }
 
             // initialize gameplay manager
-            _gameplayManager = new GameplayManager(map, hero, swordsmen, _camera);
+            _gameplayManager = new GameplayManager(map, hero, swordsmen, items, _camera);
         }
 
         public void Update(GameTime gameTime)
@@ -83,6 +93,10 @@ namespace Almoravids.GameState
                 foreach (var swordsman in swordsmen)
                 {
                     swordsman.Draw(spriteBatch);
+                }
+                foreach (var item in items)
+                {
+                    item.Draw(spriteBatch);
                 }
                 spriteBatch.End();
                 spriteBatch.Begin(samplerState: SamplerState.PointClamp);

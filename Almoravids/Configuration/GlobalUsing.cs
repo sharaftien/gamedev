@@ -71,6 +71,8 @@ global using  System.Threading.Tasks;
 //GameplayScreen.cs
 global using Almoravids.ContentManagement;
 global using Almoravids.Level;
+global using Almoravids.Items;
+
 
 //HealthComponent.cs
 global using  Almoravids.Interfaces;

@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.Level
 {
     public class Level_2 : Level
@@ -16,8 +16,12 @@ namespace Almoravids.Level
             {
                 new Vector2(100, 100),
                 new Vector2(500, 500)
-            }; // two enemies
-            _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice); // load map
+            };
+            _itemSpawns = new List<Vector2>
+            {
+                new Vector2(300, 300) // koumiya
+            };
+            _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }
     }
 }

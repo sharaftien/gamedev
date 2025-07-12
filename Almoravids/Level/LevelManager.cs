@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.Level
 {
     public class LevelManager
@@ -30,23 +30,12 @@ namespace Almoravids.Level
                     _currentLevel = new Level_1(_contentLoader, _graphicsDevice);
                     break;
             }
-
             _currentLevel.Load();
         }
 
-        public Map Map
-        {
-            get { return _currentLevel.Map; }
-        }
-
-        public Vector2 HeroSpawn
-        {
-            get { return _currentLevel.HeroSpawn; }
-        }
-
-        public List<Vector2> EnemySpawns
-        {
-            get { return _currentLevel.EnemySpawns; }
-        }
+        public Map Map => _currentLevel.Map;
+        public Vector2 HeroSpawn => _currentLevel.HeroSpawn;
+        public List<Vector2> EnemySpawns => _currentLevel.EnemySpawns; // enemy spawns
+        public List<Vector2> ItemSpawns => _currentLevel.ItemSpawns; // item spawns
     }
 }
