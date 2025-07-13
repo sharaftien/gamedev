@@ -6,11 +6,13 @@ namespace Almoravids.Characters
         private InputManager _inputManager;
         public HealthComponent HealthComponent { get; private set; } // health component
         private bool _isDeadAnimationSet; // track if death animation is set
+        public List<string> Inventory { get; private set; } // store collected items
 
         public Hero(Texture2D texture, Vector2 startPosition, InputManager inputManager, string characterType = "hero", float speed = 100f)
             : base(texture, startPosition, characterType, speed)
         {
             HealthComponent = new HealthComponent(); // initialize HP (3 hearts)
+            Inventory = new List<string>(); // initializeer inventory
             _inputManager = inputManager;
             if (_inputManager != null)
             {
@@ -72,6 +74,14 @@ namespace Almoravids.Characters
             HealthComponent.Heal(HealthComponent.MaxHealth);
             AnimationComponent.SetAnimation("idle_down"); // reset animation (idle)
             _isDeadAnimationSet = false;
+            Inventory.Clear();
+        }
+
+        // add item to inventory
+        public void AddItem(string itemName)
+        {
+            Inventory.Add(itemName);
+            Console.WriteLine($"Added {itemName} to inventory");
         }
     }
 }

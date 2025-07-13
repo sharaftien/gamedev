@@ -11,6 +11,7 @@ namespace Almoravids.Items
         public override void OnPickup(Hero hero)
         {
             base.OnPickup(hero);
+            hero.AddItem("Koumiya");
         }
     }
 }
