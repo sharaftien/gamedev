@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.Health
 {
     public class HealthComponent : IHealth
@@ -26,6 +26,7 @@ namespace Almoravids.Health
         public int CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
         public bool IsAlive => _currentHealth > 0;
+        public bool IsInvulnerable => _isInvulnerable;
 
         public Vector2 KnockbackVelocity => _knockbackVelocity; // expose for Hero
 

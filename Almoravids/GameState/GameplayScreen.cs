@@ -69,6 +69,17 @@ namespace Almoravids.GameState
 
         public void Update(GameTime gameTime)
         {
+            // Handle input for restart and level menu
+            var keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.R))
+            {
+                GameStateManager.Instance.SetState(new GameplayScreen(_level)); // restart
+            }
+            if (keyboardState.IsKeyDown(Keys.Enter))
+            {
+                GameStateManager.Instance.SetState(new LevelScreen()); // return to level menu
+            }
+
             if (!_gameOver && !hero.HealthComponent.IsAlive)
             {
                 GameStateManager.Instance.SetState(new GameOverScreen());
@@ -101,10 +112,10 @@ namespace Almoravids.GameState
                 spriteBatch.End();
                 spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 // HP
-                spriteBatch.DrawString(_font, $"Alive: {hero.HealthComponent.IsAlive}", new Vector2(10, 35), Color.White);
-                spriteBatch.DrawString(_font, $"HP: {hero.HealthComponent.CurrentHealth}/{hero.HealthComponent.MaxHealth}", new Vector2(10, 10), Color.White);
+                string statusText = hero.HealthComponent.IsInvulnerable ? "You're hit!" : $"{hero.HealthComponent.CurrentHealth}HP";
+                spriteBatch.DrawString(_font, $"Health: {statusText}", new Vector2(10, 5), Color.White);
                 // Inventory
-                spriteBatch.DrawString(_font, $"Inventory: {string.Join(", ", hero.Inventory)}", new Vector2(10, 60), Color.White);
+                spriteBatch.DrawString(_font, $"Inventory: {string.Join(", ", hero.Inventory)}", new Vector2(10, 35), Color.White);
             }
             spriteBatch.End();
         }
