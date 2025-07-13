@@ -14,6 +14,7 @@ namespace Almoravids.Items
             _position = position;
             _isActive = true;
             CollisionComponent = new CollisionComponent(48f, 48f, 8f, 8f); // 48x48 box met 8px offset
+            CollisionComponent.Update(_position); // initialize collision box
         }
 
         public virtual void Update(GameTime gameTime)

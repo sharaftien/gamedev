@@ -61,6 +61,7 @@ namespace Almoravids.GameState
                 {
                     if (item.IsActive && _hero.CollisionComponent.BoundingBox.Intersects(item.CollisionComponent.BoundingBox))
                     {
+                        Console.WriteLine($"Picking up item at {_hero.MovementComponent.Position}");
                         item.OnPickup(_hero);
                     }
                 }
