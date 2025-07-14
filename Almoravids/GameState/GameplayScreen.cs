@@ -53,7 +53,7 @@ namespace Almoravids.GameState
             swordsmen = new List<Swordsman>();
             foreach (var spawn in enemyStartPositions)
             {
-                swordsmen.Add(new Swordsman(swordsmanTexture, spawn, hero, "swordsman", 80f)); // no type check
+                swordsmen.Add((Swordsman)EnemyFactory.Create("swordsman", swordsmanTexture, spawn, hero, 80f));
             }
 
             // initialize items
