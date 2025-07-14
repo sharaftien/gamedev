@@ -38,10 +38,24 @@ namespace Almoravids.GameState
 
             for (int i = 0; i < _swordsmen.Count; i++)
             {
-                if (_swordsmen[i].CollisionComponent.CheckMapCollision(_map.CollisionLayer, out Vector2 swordsmanMapResolution))
+                var swordsman = _swordsmen[i];
+                if (_hero.CollisionComponent.BoundingBox.Intersects(swordsman.CollisionComponent.BoundingBox))
                 {
-                    _swordsmen[i].MovementComponent.Position = swordsmenProposedPositions[i] + swordsmanMapResolution;
-                    _swordsmen[i].CollisionComponent.Update(_swordsmen[i].MovementComponent.Position);
+                    Vector2 knockbackDirection = _hero.MovementComponent.Position - swordsman.MovementComponent.Position;
+                    if (_hero.Inventory.Contains("Koumiya"))
+                    {
+                        swordsman.HealthComponent.TakeDamage(1, Vector2.Zero);
+                        _hero.Inventory.Remove("Koumiya");
+                        if (!swordsman.HealthComponent.IsAlive)
+                        {
+                            _swordsmen.RemoveAt(i);
+                            Console.WriteLine($"Swordsman killed at {swordsman.MovementComponent.Position}");
+                        }
+                    }
+                    else
+                    {
+                        _hero.HealthComponent.TakeDamage(1, knockbackDirection);
+                    }
                 }
             }
 
