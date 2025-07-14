@@ -59,8 +59,8 @@ namespace Almoravids.GameState
             // initialize items
             foreach (var pos in itemSpawns)
             {
-                Texture2D koumiyaTexture = _contentLoader.LoadTexture2D("Items/koumiya"); // load koumiya.png
-                items.Add(new Koumiya(koumiyaTexture, pos));
+                Texture2D koumiyaTexture = _contentLoader.LoadTexture2D("Items/koumiya");
+                items.Add(ItemFactory.Create("koumiya", koumiyaTexture, pos));
             }
 
             // initialize gameplay manager
