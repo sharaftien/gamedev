@@ -57,12 +57,20 @@ namespace Almoravids.GameState
             }
 
             // initialize items
-            string[] powerupTypes = { "adarga", "khuffayn", "koumiya", "litham", "tasbih" };
+            string[] itemTypes = { "adarga", "khuffayn", "koumiya", "litham", "tasbih" };
+            var textures = new Dictionary<string, Texture2D>
+            {
+                { "adarga", _contentLoader.LoadTexture2D("items/adarga") },
+                { "khuffayn", _contentLoader.LoadTexture2D("items/khuffayn") },
+                { "koumiya", _contentLoader.LoadTexture2D("items/koumiya") },
+                { "litham", _contentLoader.LoadTexture2D("items/litham") },
+                { "tasbih", _contentLoader.LoadTexture2D("items/tasbih") }
+            };
+    
             for (int i = 0; i < itemSpawns.Count; i++)
             {
-                string powerupType = powerupTypes[i % powerupTypes.Length];
-                Texture2D powerupTexture = _contentLoader.LoadTexture2D($"Items/{powerupType}");
-                items.Add(ItemFactory.Create(powerupType, powerupTexture, itemSpawns[i]));
+                string itemType = itemTypes[i % itemTypes.Length];
+                items.Add(ItemFactory.Create(itemType, textures[itemType], itemSpawns[i]));
             }
 
             // initialize gameplay manager

@@ -8,15 +8,15 @@ namespace Almoravids.Items
             switch (type)
             {
                 case "adarga":
-                    return new Koumiya(texture, position);
+                    return new Adarga(texture, position);
                 case "khuffayn":
-                    return new Koumiya(texture, position);
+                    return new Khuffayn(texture, position);
                 case "koumiya":
                     return new Koumiya(texture, position);
                 case "litham":
-                    return new Koumiya(texture, position);
+                    return new Litham(texture, position);
                 case "tasbih":
-                    return new Koumiya(texture, position);
+                    return new Tasbih(texture, position);
                 default:
                     throw new ArgumentException($"Unknown powerup type: {type}");
             }
