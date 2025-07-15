@@ -13,7 +13,7 @@ namespace Almoravids.Items
             _texture = texture;
             _position = position;
             _isActive = true;
-            CollisionComponent = new CollisionComponent(48f, 48f, 8f, 8f); // 48x48 box met 8px offset
+            CollisionComponent = new CollisionComponent(32f, 32f, 8f, 8f); // 32x32 box met 8px offset
             CollisionComponent.Update(_position); // initialize collision box
         }
 
