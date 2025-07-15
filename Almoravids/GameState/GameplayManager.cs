@@ -55,6 +55,7 @@ namespace Almoravids.GameState
                     else
                     {
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
+                        _hero.KnockbackComponent.ApplyKnockback(knockbackDirection);
                     }
                 }
             }
@@ -67,6 +68,7 @@ namespace Almoravids.GameState
                     {
                         Vector2 knockbackDirection = _hero.MovementComponent.Position - swordsman.MovementComponent.Position;
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
+                        _hero.KnockbackComponent.ApplyKnockback(knockbackDirection);
                     }
                 }
 

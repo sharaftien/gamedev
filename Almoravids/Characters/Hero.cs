@@ -7,11 +7,13 @@ namespace Almoravids.Characters
         public HealthComponent HealthComponent { get; private set; } // health component
         private bool _isDeadAnimationSet; // track if death animation is set
         public List<string> Inventory { get; private set; } // store collected items
+        public KnockbackComponent KnockbackComponent { get; private set; } // knockback component
 
         public Hero(Texture2D texture, Vector2 startPosition, InputManager inputManager, string characterType = "hero", float speed = 100f)
             : base(texture, startPosition, characterType, speed)
         {
             HealthComponent = new HealthComponent(); // initialize HP (3 hearts)
+            KnockbackComponent = new KnockbackComponent(); // initialize knockback
             Inventory = new List<string>(); // initializeer inventory
             _inputManager = inputManager;
             if (_inputManager != null)
@@ -48,9 +50,9 @@ namespace Almoravids.Characters
             {
                 _inputManager.Update(gameTime);
                 // apply knockback velocity if active
-                if (HealthComponent.KnockbackVelocity != Vector2.Zero)
+                if (KnockbackComponent.KnockbackVelocity != Vector2.Zero)
                 {
-                    MovementComponent.Velocity = HealthComponent.KnockbackVelocity;
+                    MovementComponent.Velocity = KnockbackComponent.KnockbackVelocity;
                 }
                 _isDeadAnimationSet = false; // reset death bool
             }
@@ -64,6 +66,7 @@ namespace Almoravids.Characters
                 }
             }
             HealthComponent.Update(gameTime); // update invulnerability timer
+            KnockbackComponent.Update(gameTime); // update knockback
             base.Update(gameTime);
         }
 
