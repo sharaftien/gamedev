@@ -24,7 +24,6 @@ namespace Almoravids.GameState
             Vector2 heroProposedPosition = _hero.MovementComponent.Position;
             _hero.Update(gameTime);
 
-            List<Vector2> swordsmenProposedPositions = _swordsmen.Select(s => s.MovementComponent.Position).ToList();
             foreach (var swordsman in _swordsmen)
             {
                 swordsman.Update(gameTime);
@@ -52,7 +51,17 @@ namespace Almoravids.GameState
                             Console.WriteLine($"Swordsman killed at {swordsman.MovementComponent.Position}");
                         }
                     }
-                    else
+                    else if (_hero.Inventory.Contains("Adarga"))
+                    {
+                        // Hero blokkeert schade en knockback
+                        swordsman.HealthComponent.TakeDamage(0, knockbackDirection); // optioneel effect
+                        swordsman.KnockbackComponent.ApplyKnockback(-knockbackDirection);
+
+                        _hero.Inventory.Remove("Adarga");
+                        Console.WriteLine("Adarga used!");
+                    }
+
+                    else if (!_hero.Inventory.Contains("Adarga"))
                     {
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
                         _hero.KnockbackComponent.ApplyKnockback(knockbackDirection);
@@ -62,16 +71,6 @@ namespace Almoravids.GameState
 
             if (_hero.HealthComponent.IsAlive)
             {
-                foreach (var swordsman in _swordsmen)
-                {
-                    if (_hero.CollisionComponent.BoundingBox.Intersects(swordsman.CollisionComponent.BoundingBox))
-                    {
-                        Vector2 knockbackDirection = _hero.MovementComponent.Position - swordsman.MovementComponent.Position;
-                        _hero.HealthComponent.TakeDamage(1, knockbackDirection);
-                        _hero.KnockbackComponent.ApplyKnockback(knockbackDirection);
-                    }
-                }
-
                 // Check item collisions
                 foreach (var item in _items)
                 {
