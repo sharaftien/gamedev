@@ -57,20 +57,17 @@ namespace Almoravids.GameState
             }
 
             // initialize items
-            string[] itemTypes = { "adarga", "khuffayn", "koumiya", "litham", "tasbih" };
             var textures = new Dictionary<string, Texture2D>
             {
-                { "adarga", _contentLoader.LoadTexture2D("items/adarga") },
-                { "khuffayn", _contentLoader.LoadTexture2D("items/khuffayn") },
-                { "koumiya", _contentLoader.LoadTexture2D("items/koumiya") },
-                { "litham", _contentLoader.LoadTexture2D("items/litham") },
-                { "tasbih", _contentLoader.LoadTexture2D("items/tasbih") }
+                { "adarga", _contentLoader.LoadTexture2D("Items/adarga") },
+                { "khuffayn", _contentLoader.LoadTexture2D("Items/khuffayn") },
+                { "koumiya", _contentLoader.LoadTexture2D("Items/koumiya") },
+                { "litham", _contentLoader.LoadTexture2D("Items/litham") },
+                { "tasbih", _contentLoader.LoadTexture2D("Items/tasbih") }
             };
-    
-            for (int i = 0; i < itemSpawns.Count; i++)
+            foreach (var (type, position) in itemSpawns)
             {
-                string itemType = itemTypes[i % itemTypes.Length];
-                items.Add(ItemFactory.Create(itemType, textures[itemType], itemSpawns[i]));
+                items.Add(ItemFactory.Create(type, textures[type], position));
             }
 
             // initialize gameplay manager

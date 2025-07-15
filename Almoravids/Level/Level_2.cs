@@ -17,9 +17,10 @@ namespace Almoravids.Level
                 new Vector2(100, 100),
                 new Vector2(500, 500)
             };
-            _itemSpawns = new List<Vector2>
+            _itemSpawns = new List<(string Type, Vector2 Position)>
             {
-                new Vector2(250, 300),new Vector2(250, 400) // koumiya
+                ("adarga", new Vector2(250, 300)),
+                ("koumiya", new Vector2(250, 400))
             };
             _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }
