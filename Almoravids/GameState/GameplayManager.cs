@@ -9,7 +9,7 @@ namespace Almoravids.GameState
         private List<Almoravids.Items.Item> _items; // explicit namespace for Item
         private Camera.Camera _camera;
 
-        public GameplayManager(Map map, Hero hero, List<Swordsman> swordsmen, List<Almoravids.Items.Item> items, Camera.Camera camera)
+        public GameplayManager(Map map, Hero hero, List<Swordsman> swordsmen, List<Item> items, Camera.Camera camera)
         {
             _map = map;
             _hero = hero;
@@ -35,7 +35,7 @@ namespace Almoravids.GameState
                 _hero.CollisionComponent.Update(_hero.MovementComponent.Position);
             }
 
-            for (int i = 0; i < _swordsmen.Count; i++)
+            for (int i = _swordsmen.Count - 1; i >= 0; i--)
             {
                 var swordsman = _swordsmen[i];
                 if (_hero.CollisionComponent.BoundingBox.Intersects(swordsman.CollisionComponent.BoundingBox))
@@ -43,8 +43,8 @@ namespace Almoravids.GameState
                     Vector2 knockbackDirection = _hero.MovementComponent.Position - swordsman.MovementComponent.Position;
                     if (_hero.Inventory.Contains("Koumiya"))
                     {
-                        swordsman.HealthComponent.TakeDamage(1, Vector2.Zero);
-                        _hero.Inventory.Remove("Koumiya");
+                        var koumiya = _items.FirstOrDefault(item => item is Koumiya) as Koumiya;
+                        koumiya?.ApplyEffect(_hero, swordsman);
                         if (!swordsman.HealthComponent.IsAlive)
                         {
                             _swordsmen.RemoveAt(i);
