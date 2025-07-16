@@ -74,6 +74,7 @@ namespace Almoravids.GameState
                         Console.WriteLine($"Picking up item at {_hero.MovementComponent.Position}");
                         item.OnPickup(_hero);
                     }
+                    item.Update(gameTime); // update all items for timers (bvb Khuffayn)
                 }
             }
 
