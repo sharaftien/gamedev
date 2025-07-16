@@ -12,6 +12,9 @@ namespace Almoravids.Items
         private float _rotation;
         private const float FullRotation = MathHelper.TwoPi;
 
+        private Vector2 _initialPosition;
+        private bool _isCancelled;
+
         public Tasbih(Texture2D texture, Vector2 position)
             : base(texture, position)
         {
@@ -19,6 +22,8 @@ namespace Almoravids.Items
             _hero = null;
             _isActivating = false;
             _rotation = 0f;
+            _initialPosition = Vector2.Zero;
+            _isCancelled = false;
         }
 
         public override void OnPickup(Hero hero)
@@ -34,26 +39,39 @@ namespace Almoravids.Items
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    if (!_isActivating)
+                    if (!_isActivating && !_isCancelled)
                     {
                         _isActivating = true;
                         _activationTimer = ActivationDuration;
                         _rotation = 0f; // reset rotation
+                        _initialPosition = _hero.MovementComponent.Position; // store starting position
                     }
-                    _activationTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    _rotation = FullRotation * (1f - _activationTimer / ActivationDuration); // rotation lasts 5 seconds
-                    Console.WriteLine($"Praying: {_activationTimer:F2} seconds remaining.");
-                    if (_activationTimer <= 0f)
+                    if (_isActivating && _hero.MovementComponent.Position != _initialPosition)
                     {
-                        _hero.HealthComponent.Heal(2);
-                        _hero.Inventory.Remove("Tasbih");
                         _isActivating = false;
-                        Console.WriteLine("You are filled with determination. HP restored");
+                        _isCancelled = true;
+                        Console.WriteLine("Stopped mid prayer.");
+                        return;
+                    }
+                    if (_isActivating)
+                    {
+                        _activationTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        _rotation = FullRotation * (1f - _activationTimer / ActivationDuration); // rotation lasts 5 seconds
+                        Console.WriteLine($"Praying: {_activationTimer:F2} seconds remaining.");
+                        if (_activationTimer <= 0f)
+                        {
+                            _hero.HealthComponent.Heal(2);
+                            _hero.Inventory.Remove("Tasbih");
+                            _isActivating = false;
+                            _isCancelled = false;
+                            Console.WriteLine("You are filled with determination. HP restored");
+                        }
                     }
                 }
-                else if (_isActivating)
+                else if (_isActivating || _isCancelled)
                 {
                     _isActivating = false;
+                    _isCancelled = false;
                     Console.WriteLine("Stopped mid prayer.");
                 }
             }
