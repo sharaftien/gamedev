@@ -53,15 +53,10 @@ namespace Almoravids.GameState
                     }
                     else if (_hero.Inventory.Contains("Adarga"))
                     {
-                        // Hero blokkeert schade en knockback
-                        swordsman.HealthComponent.TakeDamage(0, knockbackDirection); // optioneel effect
-                        swordsman.KnockbackComponent.ApplyKnockback(-knockbackDirection);
-
-                        _hero.Inventory.Remove("Adarga");
-                        Console.WriteLine("Adarga used!");
+                        var adarga = _items.FirstOrDefault(item => item is Adarga) as Adarga;
+                        adarga?.ApplyEffect(_hero, swordsman);
                     }
-
-                    else if (!_hero.Inventory.Contains("Adarga"))
+                    else
                     {
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
                         _hero.KnockbackComponent.ApplyKnockback(knockbackDirection);

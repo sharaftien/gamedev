@@ -13,5 +13,13 @@ namespace Almoravids.Items
             base.OnPickup(hero);
             hero.AddItem("Adarga");
         }
+
+        public override void ApplyEffect(Hero hero, Swordsman enemy)
+        {
+            Vector2 knockbackDirection = hero.MovementComponent.Position - enemy.MovementComponent.Position;
+            enemy.KnockbackComponent.ApplyKnockback(-knockbackDirection); // push enemy back
+            hero.Inventory.Remove("Adarga");
+            Console.WriteLine("Adarga used to block attack and was consumed.");
+        }
     }
 }

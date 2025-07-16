@@ -35,5 +35,10 @@ namespace Almoravids.Items
         {
             _isActive = false; // deactivate after pickup
         }
+
+        // Apply item effect during collision with enemy
+        public virtual void ApplyEffect(Hero hero, Swordsman enemy)
+        {
+        }
     }
 }
