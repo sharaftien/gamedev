@@ -50,10 +50,11 @@ namespace Almoravids.GameState
 
             // initialize enemies
             Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
+            Texture2D questionTexture = _contentLoader.LoadTexture2D("hud/question");
             swordsmen = new List<Swordsman>();
             foreach (var spawn in enemyStartPositions)
             {
-                swordsmen.Add((Swordsman)EnemyFactory.Create("swordsman", swordsmanTexture, spawn, hero, 80f));
+                swordsmen.Add((Swordsman)EnemyFactory.Create("swordsman", swordsmanTexture, spawn, hero, questionTexture, 80f));
             }
 
             // initialize items

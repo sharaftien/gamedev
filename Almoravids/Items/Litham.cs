@@ -3,7 +3,7 @@ namespace Almoravids.Items
 {
     public class Litham : Item
     {
-        private const float InvisibilityDuration = 7f; // 7 seconds invisibility
+        public const float InvisibilityDuration = 7f; // 7 seconds invisibility
         private float _timer;
         private Hero _hero;
 
