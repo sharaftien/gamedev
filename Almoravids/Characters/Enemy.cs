@@ -1,11 +1,11 @@
-﻿
+
 namespace Almoravids.Characters
 {
     public abstract class Enemy : Character
     {
-        protected Character target; // The target (e.g., Tashfin)
+        protected Hero target; // tashfin
 
-        public Enemy(Texture2D texture, Vector2 startPosition, Character target, string characterType, float speed)
+        public Enemy(Texture2D texture, Vector2 startPosition, Hero target, string characterType, float speed)
             : base(texture, startPosition, characterType, speed)
         {
             this.target = target;
@@ -13,15 +13,23 @@ namespace Almoravids.Characters
 
         public override void Update(GameTime gameTime)
         {
-            // Calculate the direction toward the target
-            Vector2 direction = target.MovementComponent.Position - MovementComponent.Position;  // Use Position here
-
-            // Normalize direction to ensure consistent movement
-            if (direction.Length() > 0)
+            // only move when visible
+            if (!target.IsInvisible)
             {
-                direction.Normalize();
+                // Calculate the direction toward the target
+                Vector2 direction = target.MovementComponent.Position - MovementComponent.Position;
+
+                // Normalize direction to ensure consistent movement
+                if (direction.Length() > 0)
+                {
+                    direction.Normalize();
+                }
+                MovementComponent.SetDirection(direction);
             }
-            MovementComponent.SetDirection(direction);
+            else
+            {
+                MovementComponent.SetDirection(Vector2.Zero); // else stop moving
+            }
             base.Update(gameTime);
         }
     }

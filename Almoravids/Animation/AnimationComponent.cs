@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.Animation
 {
     public class AnimationComponent
@@ -10,9 +10,11 @@ namespace Almoravids.Animation
         private Direction _lastMovingDirection;
         private string _currentAnimationName;
         private bool _isDeathAnimationPlaying; // track death animation state
+        private readonly string _characterType; // store character type
 
         public AnimationComponent(Texture2D texture, string characterType, float frameDuration = 0.1f)
         {
+            _characterType = characterType; // store character type
             // maak texture atlas voor tashfin.png
             string atlasName = characterType == "hero" ? "Atlas/tashfin" : "Atlas/lamtuni";
             Texture2DAtlas atlas = Texture2DAtlas.Create(atlasName, texture, 64, 64);
@@ -125,8 +127,12 @@ namespace Almoravids.Animation
             _currentDirection = newDirection;
 
             // choose animation
-            string newAnimationName = _isMoving ? $"walk_{_currentDirection.ToString().ToLower()}" :
-                (_spriteSheet.GetAnimation("idle_down") != null ? $"idle_{_lastMovingDirection.ToString().ToLower()}" : $"walk_{_lastMovingDirection.ToString().ToLower()}");
+            string newAnimationName = $"walk_{_currentDirection.ToString().ToLower()}";
+            if (!_isMoving && _characterType == "hero")
+            {
+                newAnimationName = $"idle_{_currentDirection.ToString().ToLower()}";
+            }
+
             if (newAnimationName != _currentAnimationName)
             {
                 _currentAnimationName = newAnimationName;

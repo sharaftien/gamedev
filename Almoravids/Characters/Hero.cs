@@ -8,6 +8,7 @@ namespace Almoravids.Characters
         private bool _isDeadAnimationSet; // track if death animation is set
         public List<string> Inventory { get; private set; } // store collected items
         public KnockbackComponent KnockbackComponent { get; private set; } // knockback component
+        public bool IsInvisible { get; set; } // to check invisibility status
 
         public Hero(Texture2D texture, Vector2 startPosition, InputManager inputManager, string characterType = "hero", float speed = 100f)
             : base(texture, startPosition, characterType, speed)
@@ -23,6 +24,7 @@ namespace Almoravids.Characters
             // collision box for hero whitespace
             CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); // 28x50 box with offset
             _isDeadAnimationSet = false;
+            IsInvisible = false;
         }
 
         public void SetInputManager(InputManager inputManager)
@@ -78,6 +80,7 @@ namespace Almoravids.Characters
             AnimationComponent.SetAnimation("idle_down"); // reset animation (idle)
             _isDeadAnimationSet = false;
             Inventory.Clear();
+            IsInvisible = false; // reset invisibility
         }
 
         // add item to inventory
