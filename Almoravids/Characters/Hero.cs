@@ -72,6 +72,13 @@ namespace Almoravids.Characters
             base.Update(gameTime);
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            // 50% opacity when invisible
+            Color drawColor = IsInvisible ? new Color(Color.Gray, 0.5f) : Color.White;
+            AnimationComponent.Draw(spriteBatch, MovementComponent.Position, drawColor);
+        }
+
         // reset hero
         public override void Reset(Vector2 startPosition)
         {

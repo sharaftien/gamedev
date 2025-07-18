@@ -152,6 +152,11 @@ namespace Almoravids.Animation
             }
         }
 
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color drawColor)
+        {
+            spriteBatch.Draw(_animatedSprite.TextureRegion.Texture, position, _animatedSprite.TextureRegion.Bounds, drawColor);
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(_animatedSprite, position);
