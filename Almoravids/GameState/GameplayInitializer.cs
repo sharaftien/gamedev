@@ -12,7 +12,7 @@ namespace Almoravids.GameState
             _graphicsDevice = graphicsDevice;
         }
 
-        public (Map map, Hero hero, List<Swordsman> swordsmen, List<Item> items, Camera.Camera camera, SpriteFont font) Initialize(int level)
+        public (Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font) Initialize(int level)
         {
             var levelManager = new LevelManager(_contentLoader, _graphicsDevice); // initialize level manager
             levelManager.LoadLevel(level); // initialize level
@@ -35,10 +35,11 @@ namespace Almoravids.GameState
             // initialize enemies
             Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/swordsman");
             Texture2D questionTexture = _contentLoader.LoadTexture2D("hud/question");
-            var swordsmen = new List<Swordsman>();
+
+            var enemies = new List<Enemy>();
             foreach (var spawn in enemyStartPositions)
             {
-                swordsmen.Add((Swordsman)EnemyFactory.Create("swordsman", swordsmanTexture, spawn, hero, questionTexture, 80f));
+                enemies.Add((Swordsman)EnemyFactory.Create("swordsman", swordsmanTexture, spawn, hero, questionTexture, 80f));
             }
 
             // initialize items
@@ -50,7 +51,7 @@ namespace Almoravids.GameState
                 items.Add(ItemFactory.Create(type, textures[type], position));
             }
 
-            return (map, hero, swordsmen, items, camera, font);
+            return (map, hero, enemies, items, camera, font);
         }
     }
 }

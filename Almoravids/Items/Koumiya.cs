@@ -14,7 +14,7 @@ namespace Almoravids.Items
             hero.AddItem("Koumiya");
         }
 
-        public override void ApplyEffect(Hero hero, Swordsman enemy)
+        public override void ApplyEffect(Hero hero, Enemy enemy)
         {
             enemy.HealthComponent.TakeDamage(1, Vector2.Zero);
             hero.Inventory.Remove("Koumiya");

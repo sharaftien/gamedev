@@ -37,7 +37,7 @@ namespace Almoravids.Items
         }
 
         // Apply item effect during collision with enemy
-        public virtual void ApplyEffect(Hero hero, Swordsman enemy)
+        public virtual void ApplyEffect(Hero hero, Enemy enemy)
         {
         }
     }

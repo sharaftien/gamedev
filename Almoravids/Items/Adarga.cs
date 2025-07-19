@@ -14,7 +14,7 @@ namespace Almoravids.Items
             hero.AddItem("Adarga");
         }
 
-        public override void ApplyEffect(Hero hero, Swordsman enemy)
+        public override void ApplyEffect(Hero hero, Enemy enemy)
         {
             Vector2 knockbackDirection = hero.MovementComponent.Position - enemy.MovementComponent.Position;
             enemy.KnockbackComponent.ApplyKnockback(-knockbackDirection); // push enemy back

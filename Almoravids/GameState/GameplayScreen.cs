@@ -5,7 +5,7 @@ namespace Almoravids.GameState
     {
         private Map map;
         private Hero hero;
-        private List<Swordsman> swordsmen; // multiple enemies -> list
+        private List<Enemy> enemies; // multiple enemies -> list
         private List<Item> items; // explicit namespace for Item
         private Camera.Camera _camera;
         private SpriteFont _font; // for HP text
@@ -28,10 +28,10 @@ namespace Almoravids.GameState
 
             var contentLoader = new ContentLoader(content); // initialize content loader
             var initializer = new GameplayInitializer(contentLoader, graphicsDevice); // initialize helper
-            (map, hero, swordsmen, items, _camera, _font) = initializer.Initialize(_level); // setup gameplay
+            (map, hero, enemies, items, _camera, _font) = initializer.Initialize(_level); // setup gameplay
 
             // initialize gameplay manager
-            _gameplayManager = new GameplayManager(map, hero, swordsmen, items, _camera);
+            _gameplayManager = new GameplayManager(map, hero, enemies, items, _camera);
         }
 
         public void Update(GameTime gameTime)
@@ -68,9 +68,9 @@ namespace Almoravids.GameState
                 spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
                 map.Draw(transformMatrix);
                 hero.Draw(spriteBatch);
-                foreach (var swordsman in swordsmen)
+                foreach (var enemy in enemies)
                 {
-                    swordsman.Draw(spriteBatch);
+                    enemy.Draw(spriteBatch);
                 }
                 foreach (var item in items)
                 {

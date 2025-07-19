@@ -42,7 +42,7 @@ namespace Almoravids.Items
             }
         }
 
-        public override void ApplyEffect(Hero hero, Swordsman enemy)
+        public override void ApplyEffect(Hero hero, Enemy enemy)
         {
         }
     }

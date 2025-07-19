@@ -5,15 +5,15 @@ namespace Almoravids.GameState
     {
         private Map _map;
         private Hero _hero;
-        private List<Swordsman> _swordsmen;
+        private List<Enemy> _enemies;
         private List<Almoravids.Items.Item> _items; // explicit namespace for Item
         private Camera.Camera _camera;
 
-        public GameplayManager(Map map, Hero hero, List<Swordsman> swordsmen, List<Item> items, Camera.Camera camera)
+        public GameplayManager(Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera)
         {
             _map = map;
             _hero = hero;
-            _swordsmen = swordsmen;
+            _enemies = enemies;
             _items = items;
             _camera = camera;
         }
@@ -24,9 +24,9 @@ namespace Almoravids.GameState
             Vector2 heroProposedPosition = _hero.MovementComponent.Position;
             _hero.Update(gameTime);
 
-            foreach (var swordsman in _swordsmen)
+            foreach (var enemy in _enemies)
             {
-                swordsman.Update(gameTime);
+                enemy.Update(gameTime);
             }
 
             if (_hero.CollisionComponent.CheckMapCollision(_map.CollisionLayer, out Vector2 heroMapResolution))
@@ -35,26 +35,26 @@ namespace Almoravids.GameState
                 _hero.CollisionComponent.Update(_hero.MovementComponent.Position);
             }
 
-            for (int i = _swordsmen.Count - 1; i >= 0; i--)
+            for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                var swordsman = _swordsmen[i];
-                if (_hero.CollisionComponent.BoundingBox.Intersects(swordsman.CollisionComponent.BoundingBox))
+                var enemy = _enemies[i];
+                if (_hero.CollisionComponent.BoundingBox.Intersects(enemy.CollisionComponent.BoundingBox))
                 {
-                    Vector2 knockbackDirection = _hero.MovementComponent.Position - swordsman.MovementComponent.Position;
+                    Vector2 knockbackDirection = _hero.MovementComponent.Position - enemy.MovementComponent.Position;
                     if (_hero.Inventory.Contains("Koumiya"))
                     {
                         var koumiya = _items.FirstOrDefault(item => item is Koumiya) as Koumiya;
-                        koumiya?.ApplyEffect(_hero, swordsman);
-                        if (!swordsman.HealthComponent.IsAlive)
+                        koumiya?.ApplyEffect(_hero, enemy);
+                        if (!enemy.HealthComponent.IsAlive && enemy.AnimationComponent.IsDeathAnimationFinished)
                         {
-                            _swordsmen.RemoveAt(i);
-                            Console.WriteLine($"Swordsman killed at {swordsman.MovementComponent.Position}");
+                            Console.WriteLine($"enemy removed after death animation at {enemy.MovementComponent.Position}");
                         }
+
                     }
                     else if (_hero.Inventory.Contains("Adarga"))
                     {
                         var adarga = _items.FirstOrDefault(item => item is Adarga) as Adarga;
-                        adarga?.ApplyEffect(_hero, swordsman);
+                        adarga?.ApplyEffect(_hero, enemy);
                     }
                     else
                     {
