@@ -6,7 +6,7 @@ namespace Almoravids.Characters
         protected Hero target; // tashfin
 
         public Enemy(Texture2D texture, Vector2 startPosition, Hero target, string characterType, float speed)
-            : base(texture, startPosition, characterType, speed)
+            : base(texture, startPosition, characterType, speed, 600f, 400f, speed, false)
         {
             this.target = target;
         }

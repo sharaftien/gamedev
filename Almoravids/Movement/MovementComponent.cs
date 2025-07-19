@@ -8,19 +8,22 @@ namespace Almoravids.Movement
         public float Speed { get; set; }
 
         private Vector2 _direction;
-
-        private const float AccelerationRate = 600f;
-        private const float DecelerationRate = 400f;
-        private const float MaxSpeed = 160f;
-
+        private readonly float _accelerationRate;
+        private readonly float _decelerationRate;
+        private readonly float _maxSpeed;
+        private readonly bool _useAcceleration;
         private bool _isVelocityOverridden = false;
 
-        public MovementComponent(Vector2 startPosition, float speed)
+        public MovementComponent(Vector2 startPosition, float speed, float accelerationRate = 600f, float decelerationRate = 400f, float maxSpeed = 160f, bool useAcceleration = true)
         {
             Position = startPosition;
             Speed = speed;
             Velocity = Vector2.Zero;
             _direction = Vector2.Zero;
+            _accelerationRate = accelerationRate;
+            _decelerationRate = decelerationRate;
+            _maxSpeed = maxSpeed;
+            _useAcceleration = useAcceleration;
         }
 
         public void SetDirection(Vector2 direction)
@@ -45,25 +48,42 @@ namespace Almoravids.Movement
                 return;
             }
 
-            if (_direction != Vector2.Zero)
+            if (_useAcceleration)
             {
-                _direction.Normalize();
-                Velocity += _direction * AccelerationRate * deltaTime;
-
-                if (Velocity.Length() > MaxSpeed)
+                // Acceleratie en momentum van held
+                if (_direction != Vector2.Zero)
                 {
-                    Velocity = Vector2.Normalize(Velocity) * MaxSpeed;
+                    _direction.Normalize();
+                    Velocity += _direction * _accelerationRate * deltaTime;
+
+                    if (Velocity.Length() > _maxSpeed)
+                    {
+                        Velocity = Vector2.Normalize(Velocity) * _maxSpeed;
+                    }
+                }
+                else
+                {
+                    if (Velocity.Length() > 0)
+                    {
+                        Vector2 deceleration = Vector2.Normalize(Velocity) * _decelerationRate * deltaTime;
+                        if (deceleration.Length() > Velocity.Length())
+                            Velocity = Vector2.Zero;
+                        else
+                            Velocity -= deceleration;
+                    }
                 }
             }
             else
             {
-                if (Velocity.Length() > 0)
+                // vaste snelheid voor enemies
+                if (_direction != Vector2.Zero)
                 {
-                    Vector2 deceleration = Vector2.Normalize(Velocity) * DecelerationRate * deltaTime;
-                    if (deceleration.Length() > Velocity.Length())
-                        Velocity = Vector2.Zero;
-                    else
-                        Velocity -= deceleration;
+                    _direction.Normalize();
+                    Velocity = _direction * _maxSpeed;
+                }
+                else
+                {
+                    Velocity = Vector2.Zero;
                 }
             }
 
