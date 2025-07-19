@@ -3,23 +3,23 @@ namespace Almoravids.Items
 {
     public static class ItemFactory
     {
+        private static readonly Dictionary<string, Func<Texture2D, Vector2, Item>> _itemCreators = new()
+        {
+            { "adarga", (texture, position) => new Adarga(texture, position) },
+            { "khuffayn", (texture, position) => new Khuffayn(texture, position) },
+            { "koumiya", (texture, position) => new Koumiya(texture, position) },
+            { "litham", (texture, position) => new Litham(texture, position) },
+            { "tasbih", (texture, position) => new Tasbih(texture, position) }
+        };
+
         public static Item Create(string type, Texture2D texture, Vector2 position)
         {
-            switch (type)
+            if (!_itemCreators.TryGetValue(type, out var creator))
             {
-                case "adarga":
-                    return new Adarga(texture, position);
-                case "khuffayn":
-                    return new Khuffayn(texture, position);
-                case "koumiya":
-                    return new Koumiya(texture, position);
-                case "litham":
-                    return new Litham(texture, position);
-                case "tasbih":
-                    return new Tasbih(texture, position);
-                default:
-                    throw new ArgumentException($"Unknown powerup type: {type}");
+                throw new ArgumentException($"Unknown powerup type: {type}");
             }
+            return creator(texture, position);
         }
+
     }
 }
