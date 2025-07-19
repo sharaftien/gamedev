@@ -39,10 +39,10 @@ namespace Almoravids.Animation
         private void DefineHeroAnimations(float walkFrameDuration, float idleFrameDuration)
         {
             // define idle animations (2 frames per direction)
-            DefineIdleAnimations(_spriteSheet, idleFrameDuration, new int[] { 61, 74, 87, 100 });
+            DefineAnimations("idle", idleFrameDuration, new int[] { 61, 74, 87, 100 }, 2);
 
             // define walk animations (9 frames per direction)
-            DefineWalkAnimations(_spriteSheet, walkFrameDuration);
+            DefineAnimations("walk", walkFrameDuration, new int[] { 104, 117, 130, 143 }, 9);
 
             // define death animation (sprite 260-265)
             _spriteSheet.DefineAnimation("death", builder =>
@@ -58,39 +58,20 @@ namespace Almoravids.Animation
         private void DefineSwordsmanAnimations(float frameDuration)
         {
             // define walk animations (9 frames per direction)
-            DefineWalkAnimations(_spriteSheet, frameDuration);
+            DefineAnimations("walk", frameDuration, new int[] { 104, 117, 130, 143 }, 9);
         }
 
-        private void DefineIdleAnimations(SpriteSheet sheet, float frameDuration, int[] startIndexPerDirection)
+        private void DefineAnimations(string animationType, float frameDuration, int[] startIndices, int frameAmount, bool isLooping = true)
         {
             string[] directions = { "up", "left", "down", "right" };
-            for (int i = 0; i < directions.Length; i++)
-            {
-                string direction = directions[i];
-                int startIndex = startIndexPerDirection[i];
-                sheet.DefineAnimation($"idle_{direction}", builder =>
-                {
-                    builder.IsLooping(true);
-                    for (int j = 0; j < 2; j++)
-                    {
-                        builder.AddFrame(regionIndex: startIndex + j, duration: TimeSpan.FromSeconds(frameDuration));
-                    }
-                });
-            }
-        }
-
-        private void DefineWalkAnimations(SpriteSheet sheet, float frameDuration)
-        {
-            string[] directions = { "up", "left", "down", "right" };
-            int[] startIndices = { 104, 117, 130, 143 }; // firsts index of each walk animation
             for (int i = 0; i < directions.Length; i++)
             {
                 string direction = directions[i];
                 int startIndex = startIndices[i];
-                sheet.DefineAnimation($"walk_{direction}", builder =>
+                _spriteSheet.DefineAnimation($"{animationType}_{direction}", builder =>
                 {
-                    builder.IsLooping(true);
-                    for (int j = 0; j < 9; j++)
+                    builder.IsLooping(isLooping);
+                    for (int j = 0; j < frameAmount; j++)
                     {
                         builder.AddFrame(regionIndex: startIndex + j, duration: TimeSpan.FromSeconds(frameDuration));
                     }
