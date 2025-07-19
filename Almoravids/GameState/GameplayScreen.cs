@@ -49,7 +49,7 @@ namespace Almoravids.GameState
             _camera = new Camera.Camera(startPosition);
 
             // initialize enemies
-            Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/lamtuni");
+            Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/swordsman");
             Texture2D questionTexture = _contentLoader.LoadTexture2D("hud/question");
             swordsmen = new List<Swordsman>();
             foreach (var spawn in enemyStartPositions)
