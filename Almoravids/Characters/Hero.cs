@@ -54,7 +54,9 @@ namespace Almoravids.Characters
                 // apply knockback velocity if active
                 if (KnockbackComponent.KnockbackVelocity != Vector2.Zero)
                 {
-                    MovementComponent.Velocity = KnockbackComponent.KnockbackVelocity;
+                    MovementComponent.OverrideVelocity(KnockbackComponent.KnockbackVelocity);
+                    MovementComponent.SetDirection(Vector2.Zero);
+
                 }
                 _isDeadAnimationSet = false; // reset death bool
             }
