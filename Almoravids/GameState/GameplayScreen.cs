@@ -58,14 +58,8 @@ namespace Almoravids.GameState
             }
 
             // initialize items
-            var textures = new Dictionary<string, Texture2D>
-            {
-                { "adarga", _contentLoader.LoadTexture2D("Items/adarga") },
-                { "khuffayn", _contentLoader.LoadTexture2D("Items/khuffayn") },
-                { "koumiya", _contentLoader.LoadTexture2D("Items/koumiya") },
-                { "litham", _contentLoader.LoadTexture2D("Items/litham") },
-                { "tasbih", _contentLoader.LoadTexture2D("Items/tasbih") }
-            };
+            var textureLoader = new ItemTextureLoader(_contentLoader);
+            var textures = textureLoader.LoadItemTextures();
             foreach (var (type, position) in itemSpawns)
             {
                 items.Add(ItemFactory.Create(type, textures[type], position));
