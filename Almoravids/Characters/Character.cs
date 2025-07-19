@@ -21,12 +21,7 @@ namespace Almoravids.Characters
             CollisionComponent = new CollisionComponent(48, 48); // (tile size)
         }
 
-        public virtual void Update(GameTime gameTime)
-        {
-            MovementComponent.Update(gameTime);
-            CollisionComponent.Update(MovementComponent.Position);
-            AnimationComponent.Update(gameTime, MovementComponent.Velocity);
-        }
+        public abstract void Update(GameTime gameTime);
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

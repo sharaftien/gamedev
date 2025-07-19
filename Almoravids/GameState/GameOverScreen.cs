@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.GameState
 {
     public class GameOverScreen : IGameState
@@ -39,7 +39,7 @@ namespace Almoravids.GameState
             }
 
             // hero death animation
-            _deathAnimation.Update(gameTime, Vector2.Zero);
+            _deathAnimation.Update(gameTime, Vector2.Zero, false); // false to play death animation
         }
 
         public void Draw(SpriteBatch spriteBatch)

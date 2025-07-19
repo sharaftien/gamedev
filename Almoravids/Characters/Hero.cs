@@ -5,7 +5,6 @@ namespace Almoravids.Characters
     {
         private InputManager _inputManager;
         public HealthComponent HealthComponent { get; private set; } // health component
-        private bool _isDeadAnimationSet; // track if death animation is set
         public List<string> Inventory { get; private set; } // store collected items
         public KnockbackComponent KnockbackComponent { get; private set; } // knockback component
         public bool IsInvisible { get; set; } // to check invisibility status
@@ -23,7 +22,6 @@ namespace Almoravids.Characters
             }
             // collision box for hero whitespace
             CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); // 28x50 box with offset
-            _isDeadAnimationSet = false;
             IsInvisible = false;
         }
 
@@ -56,22 +54,13 @@ namespace Almoravids.Characters
                 {
                     MovementComponent.OverrideVelocity(KnockbackComponent.KnockbackVelocity);
                     MovementComponent.SetDirection(Vector2.Zero);
-
-                }
-                _isDeadAnimationSet = false; // reset death bool
-            }
-            else
-            {
-                MovementComponent.Velocity = Vector2.Zero; // stop movement when dead
-                if (!_isDeadAnimationSet)
-                {
-                    AnimationComponent.SetAnimation("death"); // play death animation
-                    _isDeadAnimationSet = true;
                 }
             }
             HealthComponent.Update(gameTime); // update invulnerability timer
             KnockbackComponent.Update(gameTime); // update knockback
-            base.Update(gameTime);
+            AnimationComponent.Update(gameTime, MovementComponent.Velocity, HealthComponent.IsAlive);
+            MovementComponent.Update(gameTime);
+            CollisionComponent.Update(MovementComponent.Position);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -86,8 +75,7 @@ namespace Almoravids.Characters
         {
             MovementComponent.Position = startPosition;
             HealthComponent.Heal(HealthComponent.MaxHealth);
-            AnimationComponent.SetAnimation("idle_down"); // reset animation (idle)
-            _isDeadAnimationSet = false;
+            AnimationComponent.Reset(); // reset animation (AnimationComponent)
             Inventory.Clear();
             IsInvisible = false; // reset invisibility
         }

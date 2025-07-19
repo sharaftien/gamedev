@@ -11,6 +11,9 @@ namespace Almoravids.Animation
         private string _currentAnimationName;
         private bool _isDeathAnimationPlaying; // track death animation state
         private readonly string _characterType; // store character type
+        private bool _isDeathAnimationFinished; // track if death animation has completed
+        private float _deathAnimationTimer; // timer for death animation duration
+        private const float DeathAnimationDuration = 1.8f; // 6 frames * 0.3s per frame
 
         public AnimationComponent(Texture2D texture, string characterType, float frameDuration = 0.1f)
         {
@@ -34,6 +37,8 @@ namespace Almoravids.Animation
             _currentAnimationName = characterType == "hero" ? "idle_down" : "walk_down";
             _lastMovingDirection = Direction.Down;
             _isDeathAnimationPlaying = false;
+            _isDeathAnimationFinished = false;
+            _deathAnimationTimer = 0f;
         }
 
         private void DefineHeroAnimations(float walkFrameDuration, float idleFrameDuration)
@@ -59,6 +64,16 @@ namespace Almoravids.Animation
         {
             // define walk animations (9 frames per direction)
             DefineAnimations("walk", frameDuration, new int[] { 104, 117, 130, 143 }, 9);
+
+            // define death animation (same as hero)
+            _spriteSheet.DefineAnimation("death", builder =>
+            {
+                builder.IsLooping(false);
+                for (int i = 260; i <= 265; i++)
+                {
+                    builder.AddFrame(regionIndex: i, duration: TimeSpan.FromSeconds(0.3f));
+                }
+            });
         }
 
         private void DefineAnimations(string animationType, float frameDuration, int[] startIndices, int frameAmount, bool isLooping = true)
@@ -79,11 +94,29 @@ namespace Almoravids.Animation
             }
         }
 
-        public void Update(GameTime gameTime, Vector2 direction)
+        public void Update(GameTime gameTime, Vector2 direction, bool isAlive)
         {
             // skip other animations if death animation is playing
-            if (_isDeathAnimationPlaying)
+            if (_isDeathAnimationPlaying || _isDeathAnimationFinished)
             {
+                _animatedSprite.Update(gameTime);
+                if (_isDeathAnimationPlaying)
+                {
+                    _deathAnimationTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (_deathAnimationTimer <= 0f)
+                    {
+                        _isDeathAnimationPlaying = false;
+                        _isDeathAnimationFinished = true;
+                    }
+                }
+                return;
+            }
+
+            // if not alive start death animation
+            if (!isAlive)
+            {
+                SetAnimation("death");
+                _deathAnimationTimer = DeathAnimationDuration;
                 _animatedSprite.Update(gameTime);
                 return;
             }
@@ -130,6 +163,11 @@ namespace Almoravids.Animation
                 _currentAnimationName = animationName;
                 _animatedSprite.SetAnimation(animationName);
                 _isDeathAnimationPlaying = animationName == "death"; // check if death animation is playing
+                if (_isDeathAnimationPlaying)
+                {
+                    _isDeathAnimationFinished = false; // reset finished state when starting death animation
+                    _deathAnimationTimer = DeathAnimationDuration; // reset timer
+                }
             }
         }
 
@@ -141,6 +179,17 @@ namespace Almoravids.Animation
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(_animatedSprite, position);
+        }
+
+        public bool IsDeathAnimationFinished => _isDeathAnimationFinished;
+
+        public void Reset()
+        {
+            _isDeathAnimationPlaying = false;
+            _isDeathAnimationFinished = false;
+            _deathAnimationTimer = 0f;
+            _currentAnimationName = _characterType == "hero" ? "idle_down" : "walk_down";
+            _animatedSprite.SetAnimation(_currentAnimationName);
         }
     }
 }

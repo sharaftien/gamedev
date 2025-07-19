@@ -49,17 +49,14 @@ namespace Almoravids.Characters
                             _rotation -= FullRotation; // reset
                         }
                     }
-                    base.Update(gameTime); // business as usual
+                    MovementComponent.Update(gameTime);
+                    CollisionComponent.Update(MovementComponent.Position);
                 }
-            }
-            else
-            {
-                MovementComponent.SetDirection(Vector2.Zero);
-                AnimationComponent.SetAnimation("death"); // need to add it
             }
 
             _healthComponent.Update(gameTime);
             _knockbackComponent.Update(gameTime);
+            AnimationComponent.Update(gameTime, MovementComponent.Velocity, _healthComponent.IsAlive);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
