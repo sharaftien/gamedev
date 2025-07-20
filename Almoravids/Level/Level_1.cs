@@ -11,10 +11,10 @@ namespace Almoravids.Level
         public override void Load()
         {
             _mapName = "map/testing"; // set map name
-            _heroSpawn = new Vector2(800 / 2 - 50, 480 / 2 - 50);
+            _heroSpawn = new Vector2(300, 200);
             _enemySpawns = new List<(string Type, Vector2 Position)>
             {
-                ("archer", new Vector2(100, 100))
+                ("archer", new Vector2(300, 100))
             };
             _itemSpawns = new List<(string Type, Vector2 Position)>
             {
