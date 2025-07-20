@@ -8,7 +8,7 @@ namespace Almoravids.Characters
         private float _cooldown = 4f;
         private float _timer = 0f;
 
-        public Archer(Texture2D texture, Vector2 startPosition, Hero target, Texture2D questionTexture, ContentLoader contentLoader, string characterType = "archer", float speed = 0f)
+        public Archer(Texture2D texture, Vector2 startPosition, Hero target, Texture2D questionTexture, ContentLoader contentLoader, string characterType = "archer", float speed = 10f)
             : base(texture, startPosition, target, questionTexture, characterType, speed)
         {
             _arrowTexture = contentLoader.LoadTexture2D("items/arrow");
@@ -16,9 +16,6 @@ namespace Almoravids.Characters
 
         protected override void Attack(GameTime gameTime)
         {
-            AnimationComponent.SetAnimation("walk_down");
-            MovementComponent.SetDirection(Vector2.Zero); // stand still
-
             _timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer <= 0f)
             {
@@ -36,6 +33,8 @@ namespace Almoravids.Characters
                 _arrow.Deactivate();
             }
 
+            // facing correct way
+            MovementComponent.SetDirection(target.MovementComponent.Position - MovementComponent.Position);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -43,7 +42,5 @@ namespace Almoravids.Characters
             base.Draw(spriteBatch);
             _arrow?.Draw(spriteBatch);
         }
-
-
     }
 }

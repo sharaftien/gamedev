@@ -43,7 +43,7 @@ namespace Almoravids.GameState
             {
                 Texture2D texture = type switch
                 {
-                    "swordsman" => archerTexture,
+                    "swordsman" => swordsmanTexture,
                     "archer" => archerTexture,
                     "guard" => guardTexture  
                 };

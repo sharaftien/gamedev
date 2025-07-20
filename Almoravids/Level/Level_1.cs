@@ -14,7 +14,10 @@ namespace Almoravids.Level
             _heroSpawn = new Vector2(300, 200);
             _enemySpawns = new List<(string Type, Vector2 Position)>
             {
-                ("archer", new Vector2(300, 100))
+                ("archer", new Vector2(100, 100)),
+                ("archer", new Vector2(300, 400)),
+                ("archer", new Vector2(600, 100)),
+                ("archer", new Vector2(300, 10))
             };
             _itemSpawns = new List<(string Type, Vector2 Position)>
             {
