@@ -1,4 +1,4 @@
-﻿
+
 namespace Almoravids.GameState
 {
     public class GameplayInitializer
@@ -18,7 +18,7 @@ namespace Almoravids.GameState
             levelManager.LoadLevel(level); // initialize level
             var map = levelManager.Map;
             var startPosition = levelManager.HeroSpawn; // hero spawn
-            var enemyStartPositions = levelManager.EnemySpawns; // enemy spawn
+            var enemySpawns = levelManager.EnemySpawns; // enemy spawn
             var itemSpawns = levelManager.ItemSpawns; // load items
 
             var font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
@@ -34,12 +34,20 @@ namespace Almoravids.GameState
 
             // initialize enemies
             Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/swordsman");
+            Texture2D archerTexture = _contentLoader.LoadTexture2D("characters/archer");
+            Texture2D guardTexture = _contentLoader.LoadTexture2D("characters/guard");
             Texture2D questionTexture = _contentLoader.LoadTexture2D("hud/question");
 
             var enemies = new List<Enemy>();
-            foreach (var spawn in enemyStartPositions)
+            foreach (var (type, position) in enemySpawns)
             {
-                enemies.Add((Swordsman)EnemyFactory.Create("swordsman", swordsmanTexture, spawn, hero, questionTexture, 80f));
+                Texture2D texture = type switch
+                {
+                    "swordsman" => archerTexture,
+                    "archer" => archerTexture,
+                    "guard" => guardTexture  
+                };
+                enemies.Add(EnemyFactory.Create(type, texture, position, hero, questionTexture, _contentLoader, 80f));
             }
 
             // initialize items

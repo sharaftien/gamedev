@@ -3,7 +3,7 @@ namespace Almoravids.Characters
 {
     public class Archer : Enemy
     {
-        public Archer(Texture2D texture, Vector2 startPosition, Hero target, Texture2D questionTexture, string characterType = "archer", float speed = 80f)
+        public Archer(Texture2D texture, Vector2 startPosition, Hero target, Texture2D questionTexture, ContentLoader contentLoader, string characterType = "archer", float speed = 0f)
             : base(texture, startPosition, target, questionTexture, characterType, speed)
         {
         }
