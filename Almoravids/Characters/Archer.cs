@@ -19,7 +19,12 @@ namespace Almoravids.Characters
             _timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer <= 0f)
             {
-                _arrow = new Arrow(_arrowTexture, MovementComponent.Position + new Vector2(16, 16), Vector2.UnitY);
+                Vector2 arrowDir = target.MovementComponent.Position - MovementComponent.Position;
+                if (arrowDir.LengthSquared() > 0.01f)
+                    arrowDir.Normalize();
+
+                _arrow = new Arrow(_arrowTexture, MovementComponent.Position + new Vector2(16, 16), arrowDir);
+                
                 _timer = _cooldown;
             }
 
