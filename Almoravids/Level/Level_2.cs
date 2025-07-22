@@ -12,11 +12,11 @@ namespace Almoravids.Level
         {
             _mapName = "map/marrakech"; // set map name
             _heroSpawn = new Vector2(800 / 2 - 50, 480 / 2 - 50); // hero spawn
-            _enemySpawns = new List<(string Type, Vector2 Position)>
+            _enemySpawns = new List<EnemySpawnInfo>
             {
-                ("archer", new Vector2(100, 100)),
-                ("swordsman", new Vector2(500, 500)),
-                ("guard", new Vector2(200, 200))
+                new EnemySpawnInfo { Type = "archer", Position = new Vector2(100, 100) },
+                new EnemySpawnInfo { Type = "swordsman", Position = new Vector2(500, 500) },
+                new EnemySpawnInfo { Type = "guard", Position = new Vector2(200, 200) }
             };
             _itemSpawns = new List<(string Type, Vector2 Position)>
             {

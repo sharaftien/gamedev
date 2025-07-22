@@ -39,8 +39,10 @@ namespace Almoravids.GameState
             var questionTexture = _contentLoader.LoadTexture2D("hud/question");
 
             var enemies = new List<Enemy>();
-            foreach (var (type, position) in enemySpawns)
+            foreach (var spawn in enemySpawns)
             {
+                var type = spawn.Type;
+                var position = spawn.Position;
                 var texture = type switch
                 {
                     "swordsman" => swordsmanTexture,
