@@ -16,7 +16,28 @@ namespace Almoravids.Level
             {
                 new EnemySpawn { Type = "archer", Position = new Vector2(100, 100) },
                 new EnemySpawn { Type = "swordsman", Position = new Vector2(600, 100) },
-                new EnemySpawn { Type = "guard", Position = new Vector2(400, 400) }
+                new EnemySpawn {
+                    Type = "guard",
+                    Position = new Vector2(400, 400),
+                    PathPoints = new List<Vector2> {
+                        new Vector2(400, 400),
+                        new Vector2(600, 400)
+                    },
+                    Loop = false
+                },
+                // walk in square
+                new EnemySpawn {
+                    Type = "guard",
+                    Position = new Vector2(200, 200),
+                    PathPoints = new List<Vector2> {
+                        new Vector2(200, 200),
+                        new Vector2(300, 200),
+                        new Vector2(300, 300),
+                        new Vector2(200, 300)
+                    },
+                    WaitTimes = new List<float> { 0f, 2f, 0f, 2f },
+                    Loop = true
+                }
             };
             _itemSpawns = new List<ItemSpawn>
             {

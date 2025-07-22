@@ -49,8 +49,14 @@ namespace Almoravids.GameState
                     "archer" => archerTexture,
                     "guard" => guardTexture,
                 };
-                var guardPath = type == "guard" ? new List<Vector2> { position, position + new Vector2(0, 200) } : null;
-                enemies.Add(EnemyFactory.Create(type, texture, position, hero, questionTexture, _contentLoader, 80f, guardPath));
+                List<Vector2> guardPath = null;
+                List<float> waitTimes = null;
+                if (type == "guard")
+                {
+                    guardPath = spawn.PathPoints ?? new List<Vector2> { position, position + new Vector2(0, 200) };
+                    waitTimes = spawn.WaitTimes;
+                }
+                enemies.Add(EnemyFactory.Create(type, texture, position, hero, questionTexture, _contentLoader, 80f, guardPath, waitTimes));
             }
 
             // initialize items
