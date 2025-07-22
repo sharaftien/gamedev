@@ -24,7 +24,7 @@ namespace Almoravids.GameState
             var font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
 
             // initialize hero
-            Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
+            var heroTexture = _contentLoader.LoadTexture2D("tashfin");
             var hero = new Hero(heroTexture, startPosition, null, "hero", 100f);
             var inputManager = new InputManager(hero);
             hero.SetInputManager(inputManager);
@@ -33,21 +33,22 @@ namespace Almoravids.GameState
             var camera = new Camera.Camera(startPosition);
 
             // initialize enemies
-            Texture2D swordsmanTexture = _contentLoader.LoadTexture2D("characters/swordsman");
-            Texture2D archerTexture = _contentLoader.LoadTexture2D("characters/archer");
-            Texture2D guardTexture = _contentLoader.LoadTexture2D("characters/guard");
-            Texture2D questionTexture = _contentLoader.LoadTexture2D("hud/question");
+            var swordsmanTexture = _contentLoader.LoadTexture2D("characters/swordsman");
+            var archerTexture = _contentLoader.LoadTexture2D("characters/archer");
+            var guardTexture = _contentLoader.LoadTexture2D("characters/guard");
+            var questionTexture = _contentLoader.LoadTexture2D("hud/question");
 
             var enemies = new List<Enemy>();
             foreach (var (type, position) in enemySpawns)
             {
-                Texture2D texture = type switch
+                var texture = type switch
                 {
                     "swordsman" => swordsmanTexture,
                     "archer" => archerTexture,
-                    "guard" => guardTexture  
+                    "guard" => guardTexture,
                 };
-                enemies.Add(EnemyFactory.Create(type, texture, position, hero, questionTexture, _contentLoader, 80f));
+                var guardPath = type == "guard" ? new List<Vector2> { position, position + new Vector2(0, 200) } : null;
+                enemies.Add(EnemyFactory.Create(type, texture, position, hero, questionTexture, _contentLoader, 80f, guardPath));
             }
 
             // initialize items
