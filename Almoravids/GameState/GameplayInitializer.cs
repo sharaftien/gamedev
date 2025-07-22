@@ -57,8 +57,10 @@ namespace Almoravids.GameState
             var textureLoader = new ItemTextureLoader(_contentLoader);
             var textures = textureLoader.LoadItemTextures();
             var items = new List<Item>();
-            foreach (var (type, position) in itemSpawns)
+            foreach (var spawn in itemSpawns)
             {
+                var type = spawn.Type;
+                var position = spawn.Position;
                 items.Add(ItemFactory.Create(type, textures[type], position));
             }
 

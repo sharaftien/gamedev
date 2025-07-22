@@ -7,23 +7,23 @@ namespace Almoravids.Level
         protected readonly GraphicsDevice _graphicsDevice; // store graphics device
         protected Map _map; // store map
         protected Vector2 _heroSpawn; // store hero spawn position
-        protected List<EnemySpawnInfo> _enemySpawns; // store enemy spawn positions
-        protected List<(string Type, Vector2 Position)> _itemSpawns; // store item spawn positions
+        protected List<EnemySpawn> _enemySpawns; // store enemy spawn positions
+        protected List<ItemSpawn> _itemSpawns; // store item spawn positions
         protected string _mapName; // store map name
 
         protected Level(ContentLoader contentLoader, GraphicsDevice graphicsDevice)
         {
             _contentLoader = contentLoader; // initialize content loader
             _graphicsDevice = graphicsDevice; // initialize graphics device
-            _enemySpawns = new List<EnemySpawnInfo>();
-            _itemSpawns = new List<(string Type, Vector2 Position)>();
+            _enemySpawns = new List<EnemySpawn>();
+            _itemSpawns = new List<ItemSpawn>();
         }
 
         public abstract void Load(); // load level-specific data and map
 
         public Map Map => _map;
         public Vector2 HeroSpawn => _heroSpawn;
-        public List<EnemySpawnInfo> EnemySpawns => _enemySpawns; // return EnemySpawnInfo list
-        public List<(string Type, Vector2 Position)> ItemSpawns => _itemSpawns;
+        public List<EnemySpawn> EnemySpawns => _enemySpawns;
+        public List<ItemSpawn> ItemSpawns => _itemSpawns;
     }
 }

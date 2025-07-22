@@ -1,7 +1,7 @@
 
 namespace Almoravids.Characters
 {
-    public class EnemySpawnInfo
+    public class EnemySpawn
     {
         public string Type { get; set; }
         public Vector2 Position { get; set; }

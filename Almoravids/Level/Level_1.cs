@@ -12,19 +12,19 @@ namespace Almoravids.Level
         {
             _mapName = "map/testing"; // set map name
             _heroSpawn = new Vector2(300, 200);
-            _enemySpawns = new List<EnemySpawnInfo>
+            _enemySpawns = new List<EnemySpawn>
             {
-                new EnemySpawnInfo { Type = "archer", Position = new Vector2(100, 100) },
-                new EnemySpawnInfo { Type = "swordsman", Position = new Vector2(600, 100) },
-                new EnemySpawnInfo { Type = "guard", Position = new Vector2(400, 400) }
+                new EnemySpawn { Type = "archer", Position = new Vector2(100, 100) },
+                new EnemySpawn { Type = "swordsman", Position = new Vector2(600, 100) },
+                new EnemySpawn { Type = "guard", Position = new Vector2(400, 400) }
             };
-            _itemSpawns = new List<(string Type, Vector2 Position)>
+            _itemSpawns = new List<ItemSpawn>
             {
-                ("adarga", new Vector2(400, 200)),
-                ("khuffayn", new Vector2(480, 200)),
-                ("koumiya", new Vector2(560, 200)),
-                ("litham", new Vector2(640, 200)),
-                ("tasbih", new Vector2(720, 200))
+                new ItemSpawn { Type = "adarga", Position = new Vector2(400, 200) },
+                new ItemSpawn { Type = "khuffayn", Position = new Vector2(480, 200) },
+                new ItemSpawn { Type = "koumiya", Position = new Vector2(560, 200) },
+                new ItemSpawn { Type = "litham", Position = new Vector2(640, 200) },
+                new ItemSpawn { Type = "tasbih", Position = new Vector2(720, 200) }
             };
             _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }
