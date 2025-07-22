@@ -32,10 +32,18 @@ namespace Almoravids.Characters
 
             if (_arrow != null && _arrow.IsActive && _arrow.BoundingBox.Intersects(target.CollisionComponent.BoundingBox))
             {
-                Vector2 knockback = target.MovementComponent.Position - MovementComponent.Position;
-                target.HealthComponent.TakeDamage(1, knockback);
-                target.KnockbackComponent.ApplyKnockback(knockback);
-                _arrow.Deactivate();
+                // Check if hero has Adarga; if so, block the arrow without damage or knockback
+                if (target.Inventory.Contains("Adarga"))
+                {
+                    _arrow.Deactivate();
+                }
+                else
+                {
+                    Vector2 knockback = target.MovementComponent.Position - MovementComponent.Position;
+                    target.HealthComponent.TakeDamage(1, knockback);
+                    target.KnockbackComponent.ApplyKnockback(knockback);
+                    _arrow.Deactivate();
+                }
             }
 
             // facing correct way

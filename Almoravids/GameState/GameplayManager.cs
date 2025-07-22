@@ -8,6 +8,8 @@ namespace Almoravids.GameState
         private List<Enemy> _enemies;
         private List<Almoravids.Items.Item> _items; // explicit namespace for Item
         private Camera.Camera _camera;
+        private Dictionary<Enemy, float> _collisionCooldowns; // check collision cooldowns per enemy
+        private const float CollisionCooldownDuration = 1f; // avoid adarga knockback when walking towards enemy
 
         public GameplayManager(Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera)
         {
@@ -16,6 +18,7 @@ namespace Almoravids.GameState
             _enemies = enemies;
             _items = items;
             _camera = camera;
+            _collisionCooldowns = new Dictionary<Enemy, float>();
         }
 
         public void Update(GameTime gameTime)
@@ -35,32 +38,50 @@ namespace Almoravids.GameState
                 _hero.CollisionComponent.Update(_hero.MovementComponent.Position);
             }
 
+            // collision cooldowns
+            var cooldownsToRemove = new List<Enemy>();
+            foreach (var pair in _collisionCooldowns)
+            {
+                _collisionCooldowns[pair.Key] -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_collisionCooldowns[pair.Key] <= 0f)
+                {
+                    cooldownsToRemove.Add(pair.Key);
+                }
+            }
+            foreach (var enemy in cooldownsToRemove)
+            {
+                _collisionCooldowns.Remove(enemy);
+            }
+
             for (int i = _enemies.Count - 1; i >= 0; i--)
             {
                 var enemy = _enemies[i];
+                if (_collisionCooldowns.ContainsKey(enemy) || !enemy.HealthComponent.IsAlive)
+                {
+                    continue;
+                }
+
                 if (_hero.CollisionComponent.BoundingBox.Intersects(enemy.CollisionComponent.BoundingBox))
                 {
                     Vector2 knockbackDirection = _hero.MovementComponent.Position - enemy.MovementComponent.Position;
                     if (_hero.Inventory.Contains("Koumiya"))
                     {
                         var koumiya = _items.FirstOrDefault(item => item is Koumiya) as Koumiya;
-                        koumiya?.ApplyEffect(_hero, enemy);
-                        if (!enemy.HealthComponent.IsAlive && enemy.AnimationComponent.IsDeathAnimationFinished)
-                        {
-                            Console.WriteLine($"enemy removed after death animation at {enemy.MovementComponent.Position}");
-                        }
-
+                        koumiya?.ApplyEffect(_hero, enemy); // damage enemy
                     }
                     else if (_hero.Inventory.Contains("Adarga"))
                     {
                         var adarga = _items.FirstOrDefault(item => item is Adarga) as Adarga;
-                        adarga?.ApplyEffect(_hero, enemy);
+                        adarga?.ApplyEffect(_hero, enemy); // Enemy is knocked back
+                        // No hero damage or knockback
                     }
                     else
                     {
                         _hero.HealthComponent.TakeDamage(1, knockbackDirection);
                         _hero.KnockbackComponent.ApplyKnockback(knockbackDirection);
                     }
+                    // add collision to cooldown
+                    _collisionCooldowns[enemy] = CollisionCooldownDuration;
                 }
             }
 
