@@ -7,12 +7,15 @@ namespace Almoravids.GameState
         private GraphicsDevice _graphicsDevice;
         private ContentLoader _contentLoader;
         private List<TextRenderer> _textRenderers;
+        private Texture2D _background;
+
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
             _contentLoader = new ContentLoader(content);
             _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
+            _background = _contentLoader.LoadTexture2D("screens/finished");
 
             // initialize text renderers
             _textRenderers = new List<TextRenderer>
@@ -49,6 +52,7 @@ namespace Almoravids.GameState
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(_background, Vector2.Zero, Color.White);
             _textRenderers[0].Draw(spriteBatch, 0f, -200f);
             _textRenderers[1].Draw(spriteBatch, 0f, -150f);
             _textRenderers[2].Draw(spriteBatch, 0f, 0f);
