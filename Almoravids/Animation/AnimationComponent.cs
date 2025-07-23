@@ -52,7 +52,7 @@ namespace Almoravids.Animation
             // define death animation (sprite 260-265)
             _spriteSheet.DefineAnimation("death", builder =>
             {
-                builder.IsLooping(false); 
+                builder.IsLooping(false);
                 for (int i = 260; i <= 265; i++)
                 {
                     builder.AddFrame(regionIndex: i, duration: TimeSpan.FromSeconds(0.3f));
@@ -127,13 +127,32 @@ namespace Almoravids.Animation
             Direction newDirection = _currentDirection;
             if (_isMoving)
             {
-                if (direction.X > 0) newDirection = Direction.Right;
-                else if (direction.X < 0) newDirection = Direction.Left;
-                else if (direction.Y > 0) newDirection = Direction.Down;
-                else if (direction.Y < 0) newDirection = Direction.Up;
+                // normalize direction
+                Vector2 normalizedDirection = direction;
+                if (normalizedDirection != Vector2.Zero)
+                {
+                    normalizedDirection.Normalize();
+                }
+
+                float absX = Math.Abs(normalizedDirection.X);
+                float absY = Math.Abs(normalizedDirection.Y);
+
+                if (absX > absY + 0.1f) // if X is larger look sideways
+                {
+                    newDirection = normalizedDirection.X > 0 ? Direction.Right : Direction.Left;
+                }
+                else if (absY > absX + 0.1f) // if Y is larger look up or down
+                {
+                    newDirection = normalizedDirection.Y > 0 ? Direction.Down : Direction.Up;
+                }
+                else
+                {
+                    // else keep last moving direction
+                    newDirection = _lastMovingDirection;
+                }
             }
 
-            // double look glitch oplossing
+            // double look glitch fix
             if (_isMoving && newDirection != _currentDirection)
             {
                 _lastMovingDirection = newDirection;
