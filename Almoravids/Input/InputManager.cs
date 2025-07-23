@@ -1,16 +1,16 @@
-﻿
+
 namespace Almoravids.Input
 {
     public class InputManager
     {
         private readonly Dictionary<Keys, ICommand> _keyCommands;
-        private readonly Character _character;
+        private readonly IControllable _controllable;
         private Vector2 _combinedDirection;
 
-        public InputManager(Character character)
+        public InputManager(IControllable controllable)
         {
             _keyCommands = new Dictionary<Keys, ICommand>();
-            _character = character;
+            _controllable = controllable;
             _combinedDirection = Vector2.Zero;
         }
 
@@ -35,11 +35,11 @@ namespace Almoravids.Input
             if (_combinedDirection != Vector2.Zero)
             {
                 _combinedDirection.Normalize();
-                _character.MovementComponent.SetDirection(_combinedDirection);
+                _controllable.SetDirection(_combinedDirection);
             }
             else
             {
-                _character.MovementComponent.SetDirection(Vector2.Zero);
+                _controllable.SetDirection(Vector2.Zero);
             }
         }
 

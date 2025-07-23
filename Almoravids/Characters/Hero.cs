@@ -1,7 +1,7 @@
 
 namespace Almoravids.Characters
 {
-    public class Hero : Character
+    public class Hero : Character, IControllable
     {
         private InputManager _inputManager;
         public HealthComponent HealthComponent { get; private set; } // health component
@@ -85,6 +85,12 @@ namespace Almoravids.Characters
         {
             Inventory.Add(itemName);
             Console.WriteLine($"Added {itemName} to inventory");
+        }
+
+        // IControllable implementation
+        public void SetDirection(Vector2 direction)
+        {
+            MovementComponent.SetDirection(direction);
         }
     }
 }
