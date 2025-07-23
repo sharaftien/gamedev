@@ -15,85 +15,19 @@ namespace Almoravids.Animation
         private float _deathAnimationTimer; // timer for death animation duration
         private const float DeathAnimationDuration = 1.8f; // 6 frames * 0.3s per frame
 
-        public AnimationComponent(Texture2D texture, string characterType, float frameDuration = 0.1f)
+        public AnimationComponent(IAnimation animationSetup, string characterType)
         {
             _characterType = characterType; // store character type
-            // maak texture atlas voor tashfin.png
-            string atlasName = characterType == "hero" ? "Atlas/tashfin" : "Atlas/lamtuni";
-            Texture2DAtlas atlas = Texture2DAtlas.Create(atlasName, texture, 64, 64);
-            _spriteSheet = new SpriteSheet($"SpriteSheet/{characterType}", atlas);
-
-            if (characterType == "hero")
-            {
-                DefineHeroAnimations(frameDuration, idleFrameDuration: 0.2f);
-            }
-            else
-            {
-                DefineSwordsmanAnimations(frameDuration);
-            }
-
-            _animatedSprite = new AnimatedSprite(_spriteSheet, characterType == "hero" ? "idle_down" : "walk_down");
-            _currentDirection = Direction.Down;
+            _animatedSprite = new AnimatedSprite(animationSetup.GetSpriteSheet(), characterType == "hero" ? "idle_down" : "walk_down");
             _currentAnimationName = characterType == "hero" ? "idle_down" : "walk_down";
+            _currentDirection = Direction.Down;
             _lastMovingDirection = Direction.Down;
             _isDeathAnimationPlaying = false;
             _isDeathAnimationFinished = false;
             _deathAnimationTimer = 0f;
         }
 
-        private void DefineHeroAnimations(float walkFrameDuration, float idleFrameDuration)
-        {
-            // define idle animations (2 frames per direction)
-            DefineAnimations("idle", idleFrameDuration, new int[] { 61, 74, 87, 100 }, 2);
-
-            // define walk animations (9 frames per direction)
-            DefineAnimations("walk", walkFrameDuration, new int[] { 104, 117, 130, 143 }, 9);
-
-            // define death animation (sprite 260-265)
-            _spriteSheet.DefineAnimation("death", builder =>
-            {
-                builder.IsLooping(false);
-                for (int i = 260; i <= 265; i++)
-                {
-                    builder.AddFrame(regionIndex: i, duration: TimeSpan.FromSeconds(0.3f));
-                }
-            });
-        }
-
-        private void DefineSwordsmanAnimations(float frameDuration)
-        {
-            // define walk animations (9 frames per direction)
-            DefineAnimations("walk", frameDuration, new int[] { 104, 117, 130, 143 }, 9);
-
-            // define death animation (same as hero)
-            _spriteSheet.DefineAnimation("death", builder =>
-            {
-                builder.IsLooping(false);
-                for (int i = 260; i <= 265; i++)
-                {
-                    builder.AddFrame(regionIndex: i, duration: TimeSpan.FromSeconds(0.3f));
-                }
-            });
-        }
-
-        private void DefineAnimations(string animationType, float frameDuration, int[] startIndices, int frameAmount, bool isLooping = true)
-        {
-            string[] directions = { "up", "left", "down", "right" };
-            for (int i = 0; i < directions.Length; i++)
-            {
-                string direction = directions[i];
-                int startIndex = startIndices[i];
-                _spriteSheet.DefineAnimation($"{animationType}_{direction}", builder =>
-                {
-                    builder.IsLooping(isLooping);
-                    for (int j = 0; j < frameAmount; j++)
-                    {
-                        builder.AddFrame(regionIndex: startIndex + j, duration: TimeSpan.FromSeconds(frameDuration));
-                    }
-                });
-            }
-        }
-
+        // Updates the animation based on movement and health
         public void Update(GameTime gameTime, Vector2 direction, bool isAlive)
         {
             // skip other animations if death animation is playing
@@ -116,7 +50,6 @@ namespace Almoravids.Animation
             if (!isAlive)
             {
                 SetAnimation("death");
-                _deathAnimationTimer = DeathAnimationDuration;
                 _animatedSprite.Update(gameTime);
                 return;
             }
@@ -127,7 +60,6 @@ namespace Almoravids.Animation
             Direction newDirection = _currentDirection;
             if (_isMoving)
             {
-                // normalize direction
                 Vector2 normalizedDirection = direction;
                 if (normalizedDirection != Vector2.Zero)
                 {
@@ -139,11 +71,25 @@ namespace Almoravids.Animation
 
                 if (absX > absY + 0.1f) // if X is larger look sideways
                 {
-                    newDirection = normalizedDirection.X > 0 ? Direction.Right : Direction.Left;
+                    if (normalizedDirection.X > 0)
+                    {
+                        newDirection = Direction.Right;
+                    }
+                    else
+                    {
+                        newDirection = Direction.Left;
+                    }
                 }
                 else if (absY > absX + 0.1f) // if Y is larger look up or down
                 {
-                    newDirection = normalizedDirection.Y > 0 ? Direction.Down : Direction.Up;
+                    if (normalizedDirection.Y > 0)
+                    {
+                        newDirection = Direction.Down;
+                    }
+                    else
+                    {
+                        newDirection = Direction.Up;
+                    }
                 }
                 else
                 {
@@ -168,8 +114,7 @@ namespace Almoravids.Animation
 
             if (newAnimationName != _currentAnimationName)
             {
-                _currentAnimationName = newAnimationName;
-                _animatedSprite.SetAnimation(newAnimationName);
+                SetAnimation(newAnimationName);
             }
 
             _animatedSprite.Update(gameTime);
@@ -181,34 +126,47 @@ namespace Almoravids.Animation
             {
                 _currentAnimationName = animationName;
                 _animatedSprite.SetAnimation(animationName);
-                _isDeathAnimationPlaying = animationName == "death"; // check if death animation is playing
-                if (_isDeathAnimationPlaying)
+                if (animationName == "death")
                 {
-                    _isDeathAnimationFinished = false; // reset finished state when starting death animation
-                    _deathAnimationTimer = DeathAnimationDuration; // reset timer
+                    _isDeathAnimationPlaying = true;
+                    _isDeathAnimationFinished = false;
+                    _deathAnimationTimer = DeathAnimationDuration;
                 }
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color drawColor)
+        public bool IsDeathAnimationFinished()
         {
-            spriteBatch.Draw(_animatedSprite.TextureRegion.Texture, position, _animatedSprite.TextureRegion.Bounds, drawColor);
+            return _isDeathAnimationFinished;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
-        {
-            spriteBatch.Draw(_animatedSprite, position);
-        }
-
-        public bool IsDeathAnimationFinished => _isDeathAnimationFinished;
-
+        // Resets the animation state
         public void Reset()
         {
             _isDeathAnimationPlaying = false;
             _isDeathAnimationFinished = false;
             _deathAnimationTimer = 0f;
-            _currentAnimationName = _characterType == "hero" ? "idle_down" : "walk_down";
+            if (_characterType == "hero")
+            {
+                _currentAnimationName = "idle_down";
+            }
+            else
+            {
+                _currentAnimationName = "walk_down";
+            }
             _animatedSprite.SetAnimation(_currentAnimationName);
+        }
+
+        // animation with custom color
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color drawColor)
+        {
+            spriteBatch.Draw(_animatedSprite.TextureRegion.Texture, position, _animatedSprite.TextureRegion.Bounds, drawColor);
+        }
+
+        // animation with default color
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        {
+            spriteBatch.Draw(_animatedSprite, position);
         }
     }
 }

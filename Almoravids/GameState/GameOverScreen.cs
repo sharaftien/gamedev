@@ -13,10 +13,11 @@ namespace Almoravids.GameState
         {
             _graphicsDevice = graphicsDevice;
             _contentLoader = new ContentLoader(content);
-            _font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for UI
+            _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
             Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
-            _deathAnimation = new AnimationComponent(heroTexture, "hero");
-            _deathAnimation.SetAnimation("death");
+            IAnimation animationSetup = new HeroAnimation(heroTexture);
+            animationSetup.DefineAnimations();
+            _deathAnimation = new AnimationComponent(animationSetup, "hero");
 
             _textRenderers = new List<TextRenderer>
             {
