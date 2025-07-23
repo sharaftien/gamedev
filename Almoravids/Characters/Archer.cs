@@ -5,13 +5,15 @@ namespace Almoravids.Characters
     {
         private Arrow _arrow;
         private Texture2D _arrowTexture;
-        private float _cooldown = 4f;
+        private float _cooldown = 5f;
         private float _timer = 0f;
+        private readonly float _speed; // get speed from constructor
 
-        public Archer(Texture2D texture, Vector2 startPosition, Hero target, Texture2D questionTexture, ContentLoader contentLoader, string characterType = "archer", float speed = 10f)
+        public Archer(Texture2D texture, Vector2 startPosition, Hero target, Texture2D questionTexture, ContentLoader contentLoader, string characterType = "archer", float speed = 0.00000001f)
             : base(texture, startPosition, target, questionTexture, characterType, speed)
         {
             _arrowTexture = contentLoader.LoadTexture2D("items/arrow");
+            _speed = speed;
         }
 
         protected override void Attack(GameTime gameTime)
@@ -32,7 +34,7 @@ namespace Almoravids.Characters
 
             if (_arrow != null && _arrow.IsActive && _arrow.BoundingBox.Intersects(target.CollisionComponent.BoundingBox))
             {
-                // Check if hero has Adarga; if so, block the arrow without damage or knockback
+                // ADARGA CHECK
                 if (target.Inventory.Contains("Adarga"))
                 {
                     _arrow.Deactivate();
@@ -47,7 +49,13 @@ namespace Almoravids.Characters
             }
 
             // facing correct way
-            MovementComponent.SetDirection(target.MovementComponent.Position - MovementComponent.Position);
+            Vector2 direction = target.MovementComponent.Position - MovementComponent.Position;
+            if (direction.LengthSquared() > 0.01f)
+            {
+                direction.Normalize();
+                direction *= _speed; // speed for animation direction
+                MovementComponent.SetDirection(direction);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

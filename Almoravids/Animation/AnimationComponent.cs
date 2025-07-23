@@ -18,8 +18,8 @@ namespace Almoravids.Animation
         public AnimationComponent(IAnimation animationSetup, string characterType)
         {
             _characterType = characterType; // store character type
-            _animatedSprite = new AnimatedSprite(animationSetup.GetSpriteSheet(), characterType == "hero" ? "idle_down" : "walk_down");
-            _currentAnimationName = characterType == "hero" ? "idle_down" : "walk_down";
+            _animatedSprite = new AnimatedSprite(animationSetup.GetSpriteSheet(), characterType == "hero" ? "idle_down" : characterType == "archer" ? "shoot_down" : "walk_down");
+            _currentAnimationName = characterType == "hero" ? "idle_down" : characterType == "archer" ? "shoot_down" : "walk_down";
             _currentDirection = Direction.Down;
             _lastMovingDirection = Direction.Down;
             _isDeathAnimationPlaying = false;
@@ -106,15 +106,23 @@ namespace Almoravids.Animation
             _currentDirection = newDirection;
 
             // choose animation
-            string newAnimationName = $"walk_{_currentDirection.ToString().ToLower()}";
-            if (!_isMoving && _characterType == "hero")
+            string selectedAnimationName;
+            if (_characterType == "archer")
             {
-                newAnimationName = $"idle_{_currentDirection.ToString().ToLower()}";
+                selectedAnimationName = $"shoot_{_currentDirection.ToString().ToLower()}";
+            }
+            else
+            {
+                selectedAnimationName = $"walk_{_currentDirection.ToString().ToLower()}";
+                if (!_isMoving && _characterType == "hero")
+                {
+                    selectedAnimationName = $"idle_{_currentDirection.ToString().ToLower()}";
+                }
             }
 
-            if (newAnimationName != _currentAnimationName)
+            if (selectedAnimationName != _currentAnimationName)
             {
-                SetAnimation(newAnimationName);
+                SetAnimation(selectedAnimationName);
             }
 
             _animatedSprite.Update(gameTime);
@@ -149,6 +157,10 @@ namespace Almoravids.Animation
             if (_characterType == "hero")
             {
                 _currentAnimationName = "idle_down";
+            }
+            else if (_characterType == "archer")
+            {
+                _currentAnimationName = "shoot_down";
             }
             else
             {

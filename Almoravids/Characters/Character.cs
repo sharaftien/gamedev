@@ -22,6 +22,10 @@ namespace Almoravids.Characters
             {
                 animationSetup = new HeroAnimation(texture);
             }
+            else if (characterType == "archer")
+            {
+                animationSetup = new ArcherAnimation(texture);
+            }
             else
             {
                 animationSetup = new EnemyAnimation(texture, characterType);
