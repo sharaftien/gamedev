@@ -7,11 +7,13 @@ namespace Almoravids
         private SpriteBatch _spriteBatch;
         private GameStateManager _gameStateManager;
 
+        public static Texture2D Pixel { get; private set; }
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 960; // 1248
-            _graphics.PreferredBackBufferHeight = 720; // 960
+            _graphics.PreferredBackBufferWidth = 960;
+            _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -25,6 +27,11 @@ namespace Almoravids
 
         protected override void LoadContent()
         {
+            // pixel instead of loading texture
+            Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { Color.White });
+            Pixel = pixel;
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _gameStateManager = GameStateManager.Instance;
             _gameStateManager.Initialize(Content, GraphicsDevice);
