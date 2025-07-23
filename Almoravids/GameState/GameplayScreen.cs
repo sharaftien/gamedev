@@ -14,6 +14,7 @@ namespace Almoravids.GameState
         private int _level; // store selected level
         private GameplayManager _gameplayManager; // manage game logic
         private bool _gameOver; // track if game over was triggered
+        private InputSystem _inputSystem; // manage character inputs
 
         public GameplayScreen(int level = 1)
         {
@@ -28,7 +29,7 @@ namespace Almoravids.GameState
 
             var contentLoader = new ContentLoader(content); // initialize content loader
             var initializer = new GameplayInitializer(contentLoader, graphicsDevice); // initialize helper
-            (map, hero, enemies, items, _camera, _font) = initializer.Initialize(_level); // setup gameplay
+            (map, hero, enemies, items, _camera, _font, _inputSystem) = initializer.Initialize(_level); // setup gameplay
 
             // initialize gameplay manager
             _gameplayManager = new GameplayManager(map, hero, enemies, items, _camera);
@@ -54,6 +55,7 @@ namespace Almoravids.GameState
             }
             else
             {
+                _inputSystem.Update(gameTime); // update character inputs
                 _gameplayManager.Update(gameTime);
             }
         }

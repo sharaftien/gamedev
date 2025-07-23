@@ -12,7 +12,7 @@ namespace Almoravids.GameState
             _graphicsDevice = graphicsDevice;
         }
 
-        public (Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font) Initialize(int level)
+        public (Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font, InputSystem inputSystem) Initialize(int level)
         {
             var levelManager = new LevelManager(_contentLoader, _graphicsDevice); // initialize level manager
             levelManager.LoadLevel(level); // initialize level
@@ -25,9 +25,12 @@ namespace Almoravids.GameState
 
             // initialize hero
             var heroTexture = _contentLoader.LoadTexture2D("tashfin");
-            var hero = new Hero(heroTexture, startPosition, null, "hero", 100f);
+            var hero = new Hero(heroTexture, startPosition, "hero", 100f);
             var inputManager = new InputManager(hero);
-            hero.SetInputManager(inputManager);
+
+            // initialize input system
+            var inputSystem = new InputSystem();
+            inputSystem.AddInputManager(inputManager, hero); // register input manager for hero
 
             // initialize camera
             var camera = new Camera.Camera(startPosition);
@@ -70,7 +73,7 @@ namespace Almoravids.GameState
                 items.Add(ItemFactory.Create(type, textures[type], position));
             }
 
-            return (map, hero, enemies, items, camera, font);
+            return (map, hero, enemies, items, camera, font, inputSystem);
         }
     }
 }
