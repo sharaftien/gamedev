@@ -4,59 +4,71 @@ namespace Almoravids.GameState
     public class GameOverScreen : IGameState
     {
         private SpriteFont _font;
-        private AnimationComponent _deathAnimation;
         private GraphicsDevice _graphicsDevice;
         private ContentLoader _contentLoader;
-        private List<TextRenderer> _textRenderers;
+        private AnimationComponent _deathAnimation;
+        private List<ButtonRenderer> _buttons;
+        private TextRenderer _youDiedText;
+        private int _currentLevel;
+
+        public GameOverScreen(int currentLevel)
+        {
+            _currentLevel = currentLevel;
+        }
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
             _contentLoader = new ContentLoader(content);
             _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
+
             Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
             IAnimation animationSetup = new HeroAnimation(heroTexture);
             animationSetup.DefineAnimations();
             _deathAnimation = new AnimationComponent(animationSetup, "hero");
 
-            _textRenderers = new List<TextRenderer>
+            _youDiedText = new TextRenderer(_font, "YOU DIED", Color.Red, 2.5f, true, true, _graphicsDevice);
+
+            _buttons = new List<ButtonRenderer>
             {
-                new TextRenderer(_font, "You died!", Color.Red, 2.5f, true, true, _graphicsDevice),
-                new TextRenderer(_font, "Press [R] to restart.", Color.White, 1f, true, true, _graphicsDevice),
-                new TextRenderer(_font, "Press [Enter] to return to menu.", Color.White, 1f, true, true, _graphicsDevice)
+                new ButtonRenderer(_font, "Try Again", Color.Red, new Vector2(0, 120), _graphicsDevice, () =>
+                {
+                    GameStateManager.Instance.SetState(new GameplayScreen(_currentLevel));
+                }),
+                new ButtonRenderer(_font, "Choose Level", Color.Red, new Vector2(0, 190), _graphicsDevice, () =>
+                {
+                    GameStateManager.Instance.SetState(new LevelScreen());
+                })
             };
         }
 
         public void Update(GameTime gameTime)
         {
-            // handle input for restart or menu
+            foreach (var b in _buttons)
+                b.Update(Mouse.GetState());
+
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                GameStateManager.Instance.SetState(new GameplayScreen());
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-            {
-                GameStateManager.Instance.SetState(new StartScreen());
+                GameStateManager.Instance.SetState(new GameplayScreen(_currentLevel));
             }
 
-            // hero death animation
-            _deathAnimation.Update(gameTime, Vector2.Zero, false); // false to play death animation
+            _deathAnimation.Update(gameTime, Vector2.Zero, false);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-
-            _textRenderers[0].Draw(spriteBatch, 0f, -120f); // "You died!" (up)
-            _textRenderers[1].Draw(spriteBatch, 0f, 100f); // "Press [R]" (down)
-            _textRenderers[2].Draw(spriteBatch, 0f, 150f); // "Press [Enter]" (further down)
+            _youDiedText.Draw(spriteBatch, 0f, -150f);
+            foreach (var button in _buttons)
+                button.Draw(spriteBatch);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1.5f));
+            // death animation
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.25f));
             Vector2 animationPos = new Vector2(
-                (_graphicsDevice.Viewport.Width - 64 * 1.5f) / 2 / 1.5f,
-                (_graphicsDevice.Viewport.Height - 64 * 1.5f) / 2 / 1.5f - 5f);
-            _deathAnimation?.Draw(spriteBatch, animationPos);
+                (_graphicsDevice.Viewport.Width - 64 * 2.25f) / 2 / 2.25f,
+                (_graphicsDevice.Viewport.Height - 80 * 2.25f) / 2 / 2.25f - 5f);
+            _deathAnimation.Draw(spriteBatch, animationPos);
             spriteBatch.End();
         }
     }

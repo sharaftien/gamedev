@@ -50,7 +50,7 @@ namespace Almoravids.GameState
 
             if (!_gameOver && !hero.HealthComponent.IsAlive)
             {
-                GameStateManager.Instance.SetState(new GameOverScreen());
+                GameStateManager.Instance.SetState(new GameOverScreen(_level));
                 _gameOver = true;
             }
             else
