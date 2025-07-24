@@ -70,7 +70,7 @@ namespace Almoravids.GameState
             {
                 var type = spawn.Type;
                 var position = spawn.Position;
-                items.Add(ItemFactory.Create(type, textures[type], position));
+                items.Add(ItemFactory.Create(type, textures[type], position, _contentLoader));
             }
 
             return (map, hero, enemies, items, camera, font, inputSystem);

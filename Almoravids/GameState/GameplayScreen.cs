@@ -85,6 +85,8 @@ namespace Almoravids.GameState
                 spriteBatch.DrawString(_font, $"Health: {statusText}", new Vector2(10, 5), Color.White);
                 // Inventory
                 spriteBatch.DrawString(_font, $"Inventory: {string.Join(", ", hero.Inventory)}", new Vector2(10, 35), Color.White);
+                // Banner count
+                spriteBatch.DrawString(_font, $"Banners: {hero.BannerCount}", new Vector2(10, 65), Color.White);
             }
             spriteBatch.End();
         }

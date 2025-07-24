@@ -7,6 +7,7 @@ namespace Almoravids.Characters
         public List<string> Inventory { get; private set; } // store collected items
         public KnockbackComponent KnockbackComponent { get; private set; } // knockback component
         public bool IsInvisible { get; set; } // to check invisibility status
+        public int BannerCount { get; private set; } // track collected banners
 
         public Hero(Texture2D texture, Vector2 startPosition, string characterType = "hero", float speed = 100f)
             : base(texture, startPosition, characterType, speed)
@@ -17,6 +18,7 @@ namespace Almoravids.Characters
             // collision box for hero whitespace
             CollisionComponent = new CollisionComponent(28f, 50f, 18f, 14f); // 28x50 box with offset
             IsInvisible = false;
+            BannerCount = 0; // initialize banner counter
         }
 
         public override void Update(GameTime gameTime)
@@ -52,6 +54,7 @@ namespace Almoravids.Characters
             AnimationComponent.Reset(); // reset animation (AnimationComponent)
             Inventory.Clear();
             IsInvisible = false; // reset invisibility
+            BannerCount = 0; // reset banner counter
         }
 
         // add item to inventory
@@ -59,6 +62,12 @@ namespace Almoravids.Characters
         {
             Inventory.Add(itemName);
             Console.WriteLine($"Added {itemName} to inventory");
+        }
+
+        // add banner to counter
+        public void AddBanner()
+        {
+            BannerCount++;
         }
 
         // IControllable implementation

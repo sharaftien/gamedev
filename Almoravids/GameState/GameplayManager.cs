@@ -90,7 +90,11 @@ namespace Almoravids.GameState
                 // Check item collisions
                 foreach (var item in _items)
                 {
-                    if (item.IsActive && _hero.CollisionComponent.BoundingBox.Intersects(item.CollisionComponent.BoundingBox))
+                    if (item is Banner banner)
+                    {
+                        banner.UpdateCollisionTimer(gameTime, _hero);
+                    }
+                    else if (item.IsActive && _hero.CollisionComponent.BoundingBox.Intersects(item.CollisionComponent.BoundingBox))
                     {
                         Console.WriteLine($"Picking up item at {_hero.MovementComponent.Position}");
                         item.OnPickup(_hero);

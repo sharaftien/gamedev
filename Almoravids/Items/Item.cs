@@ -7,6 +7,7 @@ namespace Almoravids.Items
         protected readonly Texture2D _texture;
         protected Vector2 _position;
         protected bool _isActive;
+        public Vector2 Position => _position; // expose position (banner)
 
         protected Item(Texture2D texture, Vector2 position)
         {
