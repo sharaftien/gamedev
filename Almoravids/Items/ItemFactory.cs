@@ -11,7 +11,7 @@ namespace Almoravids.Items
             { "litham", (texture, position, contentLoader) => new Litham(texture, position) },
             { "tasbih", (texture, position, contentLoader) => new Tasbih(texture, position) },
             { "banner", (texture, position, contentLoader) => new Banner(texture, position, contentLoader) },
-            { "bayaah", (texture, position, contentLoader) => new Bayaah(texture, position) }
+            { "bayaah", (texture, position, contentLoader) => new Bayaah(texture, position, 1) } // default level gets overidden
         };
 
         public static Item Create(string type, Texture2D texture, Vector2 position, ContentLoader contentLoader = null)

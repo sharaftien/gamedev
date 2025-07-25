@@ -70,7 +70,14 @@ namespace Almoravids.GameState
             {
                 var type = spawn.Type;
                 var position = spawn.Position;
-                items.Add(ItemFactory.Create(type, textures[type], position, _contentLoader));
+                if (type == "bayaah")
+                {
+                    items.Add(new Bayaah(textures[type], position, level)); // pass level to bayaah class
+                }
+                else
+                {
+                    items.Add(ItemFactory.Create(type, textures[type], position, _contentLoader));
+                }
             }
 
             return (map, hero, enemies, items, camera, font, inputSystem);
