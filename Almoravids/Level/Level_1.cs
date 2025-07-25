@@ -48,7 +48,8 @@ namespace Almoravids.Level
                 new ItemSpawn { Type = "tasbih", Position = new Vector2(720, 200) },
                 new ItemSpawn { Type = "banner", Position = new Vector2(300, 300) },
                 new ItemSpawn { Type = "banner", Position = new Vector2(500, 300) },
-                new ItemSpawn { Type = "banner", Position = new Vector2(700, 300) }
+                new ItemSpawn { Type = "banner", Position = new Vector2(700, 300) },
+                new ItemSpawn { Type = "bayaah", Position = new Vector2(800, 250) }
             };
             _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }

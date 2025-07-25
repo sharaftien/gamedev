@@ -4,7 +4,7 @@ namespace Almoravids.Items
     public class Banner : Item
     {
         private float _collisionTime;
-        private const float RequiredCollisionTime = 4f;
+        private const float RequiredCollisionTime = 1f;
         private readonly Texture2D _almoravidTexture;
         private bool _isCollected; // check if banner is collected
 

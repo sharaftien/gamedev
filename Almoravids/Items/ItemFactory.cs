@@ -10,7 +10,8 @@ namespace Almoravids.Items
             { "koumiya", (texture, position, contentLoader) => new Koumiya(texture, position) },
             { "litham", (texture, position, contentLoader) => new Litham(texture, position) },
             { "tasbih", (texture, position, contentLoader) => new Tasbih(texture, position) },
-            { "banner", (texture, position, contentLoader) => new Banner(texture, position, contentLoader) }
+            { "banner", (texture, position, contentLoader) => new Banner(texture, position, contentLoader) },
+            { "bayaah", (texture, position, contentLoader) => new Bayaah(texture, position) }
         };
 
         public static Item Create(string type, Texture2D texture, Vector2 position, ContentLoader contentLoader = null)

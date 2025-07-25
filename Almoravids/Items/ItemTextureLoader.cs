@@ -19,7 +19,8 @@ namespace Almoravids.Items
                 { "koumiya", _contentLoader.LoadTexture2D("Items/koumiya") },
                 { "litham", _contentLoader.LoadTexture2D("Items/litham") },
                 { "tasbih", _contentLoader.LoadTexture2D("Items/tasbih") },
-                { "banner", _contentLoader.LoadTexture2D("items/banner") }
+                { "banner", _contentLoader.LoadTexture2D("items/banner") },
+                { "bayaah", _contentLoader.LoadTexture2D("items/bayaah") }
             };
         }
     }
