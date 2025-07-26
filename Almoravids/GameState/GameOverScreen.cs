@@ -27,7 +27,8 @@ namespace Almoravids.GameState
             _font = _contentLoader.LoadSpriteFont("Fonts/Arial");
 
             Texture2D heroTexture = _contentLoader.LoadTexture2D("tashfin");
-            IAnimation animationSetup = new HeroAnimation(heroTexture);
+            HeroAnimation heroAnimation = new(heroTexture);
+            IAnimation animationSetup = heroAnimation;
             animationSetup.DefineAnimations();
             _deathAnimation = new AnimationComponent(animationSetup, "hero");
 

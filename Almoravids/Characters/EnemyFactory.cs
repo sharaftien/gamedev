@@ -18,6 +18,7 @@ namespace Almoravids.Characters
                 "archer" => 0.00000000000000000001f, // stand still
                 "swordsman" => 20f,   // normal
                 "guard" => 85f,       // slow
+                _ => throw new NotImplementedException(),
             };
 
             if (_enemyCreators.TryGetValue(type, out var creator))

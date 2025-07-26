@@ -9,7 +9,6 @@ namespace Almoravids.GameState
         private SpriteFont _font;
         private GraphicsDevice _graphicsDevice;
         private ContentLoader _contentLoader;
-        private List<TextRenderer> _textRenderers;
         private Texture2D _background;
         private List<ButtonRenderer> _buttons;
 

@@ -56,6 +56,7 @@ namespace Almoravids.GameState
                     "swordsman" => swordsmanTexture,
                     "archer" => archerTexture,
                     "guard" => guardTexture,
+                    _ => throw new NotImplementedException(),
                 };
                 List<Vector2> guardPath = null;
                 List<float> waitTimes = null;

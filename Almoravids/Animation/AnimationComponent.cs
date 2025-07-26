@@ -6,7 +6,6 @@ namespace Almoravids.Animation
 {
     public class AnimationComponent
     {
-        private readonly SpriteSheet _spriteSheet;
         private readonly AnimatedSprite _animatedSprite;
         private bool _isMoving;
         private Direction _currentDirection;
