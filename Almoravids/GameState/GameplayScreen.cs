@@ -67,18 +67,39 @@ namespace Almoravids.GameState
             {
                 var transformMatrix = _camera.GetTransformMatrix();
                 spriteBatch.End();
+
+                // draw map background without trees
                 spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
-                map.Draw(transformMatrix);
-                hero.Draw(spriteBatch);
-                foreach (var enemy in enemies)
-                {
-                    enemy.Draw(spriteBatch);
-                }
+                map.DrawWithoutTrees(transformMatrix);
+                spriteBatch.End();
+
+                // draw items
+                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
                 foreach (var item in items)
                 {
                     item.Draw(spriteBatch);
                 }
                 spriteBatch.End();
+
+                // draw enemies
+                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+                foreach (var enemy in enemies)
+                {
+                    enemy.Draw(spriteBatch);
+                }
+                spriteBatch.End();
+
+                // draw hero
+                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+                hero.Draw(spriteBatch);
+                spriteBatch.End();
+
+                // draw trees
+                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+                map.DrawTrees(transformMatrix);
+                spriteBatch.End();
+
+                // draw UI
                 spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 // HP
                 string statusText = hero.HealthComponent.IsInvulnerable ? "You're hit!" : $"{hero.HealthComponent.CurrentHealth}HP";

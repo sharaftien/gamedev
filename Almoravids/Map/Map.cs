@@ -19,9 +19,27 @@ public class Map
         _tiledMapRenderer.Update(gameTime);
     }
 
-    public void Draw(Matrix viewMatrix)
+    public void DrawWithoutTrees(Matrix viewMatrix)
     {
-        _tiledMapRenderer.Draw(viewMatrix);
+        // draw everything except trees
+        for (int i = 0; i < _tiledMap.TileLayers.Count; i++)
+        {
+            var layer = _tiledMap.TileLayers[i];
+            if (layer.Name != "Trees")
+            {
+                _tiledMapRenderer.Draw(layer, viewMatrix);
+            }
+        }
+    }
+
+    public void DrawTrees(Matrix viewMatrix)
+    {
+        // only draw trees
+        TiledMapTileLayer treesLayer = _tiledMap.GetLayer<TiledMapTileLayer>("Trees");
+        if (treesLayer != null)
+        {
+            _tiledMapRenderer.Draw(treesLayer, viewMatrix);
+        }
     }
 
     public TiledMapObjectLayer CollisionLayer
