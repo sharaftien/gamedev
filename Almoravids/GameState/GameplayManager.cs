@@ -30,6 +30,13 @@ namespace Almoravids.GameState
             foreach (var enemy in _enemies)
             {
                 enemy.Update(gameTime);
+
+                // Enemy map collision
+                if (enemy.CollisionComponent.CheckMapCollision(_map.CollisionLayer, out Vector2 enemyMapResolution))
+                {
+                    enemy.MovementComponent.Position += enemyMapResolution;
+                    enemy.CollisionComponent.Update(enemy.MovementComponent.Position);
+                }
             }
 
             if (_hero.CollisionComponent.CheckMapCollision(_map.CollisionLayer, out Vector2 heroMapResolution))
