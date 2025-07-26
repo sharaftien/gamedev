@@ -22,7 +22,7 @@ namespace Almoravids.Level
                     break;
 
                 case 3:
-                    _currentLevel = new Level_1(_contentLoader, _graphicsDevice); // soon
+                    _currentLevel = new Level_3(_contentLoader, _graphicsDevice);
                     break;
 
                 case 1:

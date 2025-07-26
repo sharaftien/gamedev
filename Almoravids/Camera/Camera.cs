@@ -54,7 +54,8 @@ namespace Almoravids.Camera
         public Matrix GetTransformMatrix()
         {
             // center camera on screen
-            return Matrix.CreateTranslation(-Position.X + _screenWidth / 2, -Position.Y + _screenHeight / 2, 0);
+            Vector2 snappedPosition = new Vector2((int)Position.X, (int)Position.Y);
+            return Matrix.CreateTranslation(-snappedPosition.X + _screenWidth / 2, -snappedPosition.Y + _screenHeight / 2, 0);
         }
     }
 }

@@ -10,12 +10,12 @@ namespace Almoravids.Level
 
         public override void Load()
         {
-            _mapName = "map/testing"; // set map name
+            _mapName = "map/sahara"; // set map name
             _heroSpawn = new Vector2(300, 200);
             _enemySpawns = new List<EnemySpawn>
             {
-                new EnemySpawn { Type = "archer", Position = new Vector2(100, 100) },
-                new EnemySpawn { Type = "swordsman", Position = new Vector2(600, 100) },
+                //new EnemySpawn { Type = "archer", Position = new Vector2(100, 100) },
+                //new EnemySpawn { Type = "swordsman", Position = new Vector2(600, 100) },
                 new EnemySpawn {
                     Type = "guard",
                     Position = new Vector2(400, 400),

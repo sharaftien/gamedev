@@ -177,10 +177,20 @@
 /processorParam:TextureFormat=Color
 /build:items/tasbih.png
 
+#begin map/gibraltar.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map/gibraltar.tmx
+
 #begin map/marrakech.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:map/marrakech.tmx
+
+#begin map/sahara.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map/sahara.tmx
 
 #begin map/testing.tmx
 /importer:TiledMapImporter
