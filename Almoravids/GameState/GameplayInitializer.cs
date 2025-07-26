@@ -29,7 +29,7 @@ namespace Almoravids.GameState
             var font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
 
             // initialize hero
-            var heroTexture = _contentLoader.LoadTexture2D("tashfin");
+            var heroTexture = _contentLoader.LoadTexture2D("characters/hero");
             var hero = new Hero(heroTexture, startPosition, "hero", 100f);
             var inputManager = new InputManager(hero);
 

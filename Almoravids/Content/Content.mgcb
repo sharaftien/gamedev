@@ -38,6 +38,18 @@
 /processorParam:TextureFormat=Color
 /build:characters/guard.png
 
+#begin characters/hero.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:characters/hero.png
+
 #begin characters/swordsman.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -261,16 +273,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:screens/title.png
-
-#begin tashfin.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:tashfin.png
 

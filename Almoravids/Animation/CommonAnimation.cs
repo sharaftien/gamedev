@@ -25,7 +25,7 @@ namespace Almoravids.Animation
 
         protected virtual SpriteSheet CreateSpriteSheet()
         {
-            string atlasName = characterType == "hero" ? "Atlas/tashfin" : "Atlas/lamtuni";
+            string atlasName = characterType == "hero" ? "Atlas/hero" : "Atlas/lamtuni";
             Texture2DAtlas atlas = Texture2DAtlas.Create(atlasName, texture, 64, 64);
             return new SpriteSheet($"SpriteSheet/{characterType}", atlas);
         }
