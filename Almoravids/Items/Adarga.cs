@@ -1,4 +1,5 @@
-﻿
+﻿using Almoravids.Characters;
+
 namespace Almoravids.Items
 {
     public class Adarga : Item

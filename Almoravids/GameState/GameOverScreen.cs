@@ -1,3 +1,7 @@
+using Almoravids.Interfaces;
+using Almoravids.UI;
+using Almoravids.Animation;
+using Almoravids.ContentManagement;
 
 namespace Almoravids.GameState
 {

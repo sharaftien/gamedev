@@ -1,3 +1,6 @@
+using Almoravids.Interfaces;
+using Almoravids.Collision;
+using Almoravids.Characters;
 
 namespace Almoravids.Items
 {

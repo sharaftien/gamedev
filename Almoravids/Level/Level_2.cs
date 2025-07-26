@@ -1,3 +1,6 @@
+using Almoravids.Characters;
+using Almoravids.Items;
+using Almoravids.ContentManagement;
 
 namespace Almoravids.Level
 {
@@ -23,7 +26,7 @@ namespace Almoravids.Level
                 new ItemSpawn { Type = "khuffayn", Position = new Vector2(250, 300) },
                 new ItemSpawn { Type = "litham", Position = new Vector2(250, 400) }
             };
-            _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
+            _map = new Map.Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }
     }
 }

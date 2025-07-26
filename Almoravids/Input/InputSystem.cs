@@ -1,3 +1,4 @@
+using Almoravids.Interfaces;
 
 namespace Almoravids.Input
 {

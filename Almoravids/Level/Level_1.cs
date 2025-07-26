@@ -1,3 +1,6 @@
+using Almoravids.Characters;
+using Almoravids.Items;
+using Almoravids.ContentManagement;
 
 namespace Almoravids.Level
 {
@@ -51,7 +54,7 @@ namespace Almoravids.Level
                 new ItemSpawn { Type = "banner", Position = new Vector2(700, 300) },
                 new ItemSpawn { Type = "bayaah", Position = new Vector2(800, 250) }
             };
-            _map = new Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
+            _map = new Map.Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }
     }
 }

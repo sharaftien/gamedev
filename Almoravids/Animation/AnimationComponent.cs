@@ -1,3 +1,6 @@
+using Almoravids.Characters;
+using MonoGame.Extended.Graphics;
+using Almoravids.Interfaces;
 
 namespace Almoravids.Animation
 {

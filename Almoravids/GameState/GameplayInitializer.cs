@@ -1,3 +1,8 @@
+using Almoravids.Characters;
+using Almoravids.Items;
+using Almoravids.Input;
+using Almoravids.Level;
+using Almoravids.ContentManagement;
 
 namespace Almoravids.GameState
 {
@@ -12,7 +17,7 @@ namespace Almoravids.GameState
             _graphicsDevice = graphicsDevice;
         }
 
-        public (Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font, InputSystem inputSystem) Initialize(int level)
+        public (Almoravids.Map.Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font, InputSystem inputSystem) Initialize(int level)
         {
             var levelManager = new LevelManager(_contentLoader, _graphicsDevice); // initialize level manager
             levelManager.LoadLevel(level); // initialize level

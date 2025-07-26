@@ -1,4 +1,5 @@
-﻿
+﻿using MonoGame.Extended.Tiled;
+
 namespace Almoravids.Collision
 {
     public class CollisionComponent

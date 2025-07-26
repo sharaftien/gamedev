@@ -1,4 +1,5 @@
-﻿
+﻿using Almoravids.Interfaces;
+
 namespace Almoravids.Camera
 {
     public class Camera : ICamera

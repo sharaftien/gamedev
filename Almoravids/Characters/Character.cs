@@ -1,3 +1,7 @@
+using Almoravids.Animation;
+using Almoravids.Interfaces;
+using Almoravids.Movement;
+using Almoravids.Collision;
 
 namespace Almoravids.Characters
 {

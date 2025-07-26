@@ -1,4 +1,5 @@
-﻿
+﻿using Almoravids.Interfaces;
+
 namespace Almoravids.GameState
 {
     public class GameStateManager

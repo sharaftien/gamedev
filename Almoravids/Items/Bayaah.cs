@@ -1,4 +1,6 @@
-﻿
+﻿using Almoravids.Characters;
+using Almoravids.GameState;
+
 namespace Almoravids.Items
 {
     public class Bayaah : Item

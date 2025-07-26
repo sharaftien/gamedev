@@ -1,4 +1,7 @@
-﻿
+﻿using Almoravids.Characters;
+using Almoravids.Collision;
+using Almoravids.ContentManagement;
+
 namespace Almoravids.Items
 {
     public class Banner : Item

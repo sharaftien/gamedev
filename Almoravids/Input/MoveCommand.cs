@@ -1,4 +1,5 @@
-﻿
+﻿using Almoravids.Interfaces;
+
 namespace Almoravids.Input
 {
     public class MoveCommand : ICommand

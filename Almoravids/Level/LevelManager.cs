@@ -1,3 +1,6 @@
+using Almoravids.Characters;
+using Almoravids.Items;
+using Almoravids.ContentManagement;
 
 namespace Almoravids.Level
 {
@@ -33,7 +36,7 @@ namespace Almoravids.Level
             _currentLevel.Load();
         }
 
-        public Map Map => _currentLevel.Map;
+        public Map.Map Map => _currentLevel.Map;
         public Vector2 HeroSpawn => _currentLevel.HeroSpawn;
         public List<EnemySpawn> EnemySpawns => _currentLevel.EnemySpawns; // enemy spawns
         public List<ItemSpawn> ItemSpawns => _currentLevel.ItemSpawns; // item spawns

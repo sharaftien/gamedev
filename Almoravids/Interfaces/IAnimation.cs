@@ -1,4 +1,5 @@
-﻿
+﻿using MonoGame.Extended.Graphics;
+
 namespace Almoravids.Interfaces
 {
     public interface IAnimation

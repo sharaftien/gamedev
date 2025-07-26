@@ -1,3 +1,4 @@
+
 namespace Almoravids.Animation
 {
     public class ArcherAnimation : CommonAnimation

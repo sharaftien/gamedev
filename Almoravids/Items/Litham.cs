@@ -1,3 +1,4 @@
+using Almoravids.Characters;
 
 namespace Almoravids.Items
 {

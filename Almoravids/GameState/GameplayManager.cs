@@ -1,9 +1,11 @@
+using Almoravids.Characters;
+using Almoravids.Items;
 
 namespace Almoravids.GameState
 {
     public class GameplayManager
     {
-        private Map _map;
+        private Map.Map _map;
         private Hero _hero;
         private List<Enemy> _enemies;
         private List<Almoravids.Items.Item> _items; // explicit namespace for Item
@@ -11,7 +13,7 @@ namespace Almoravids.GameState
         private Dictionary<Enemy, float> _collisionCooldowns; // check collision cooldowns per enemy
         private const float CollisionCooldownDuration = 1f; // avoid adarga knockback when walking towards enemy
 
-        public GameplayManager(Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera)
+        public GameplayManager(Map.Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera)
         {
             _map = map;
             _hero = hero;

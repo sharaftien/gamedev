@@ -1,9 +1,14 @@
+using Almoravids.Characters;
+using Almoravids.Items;
+using Almoravids.Input;
+using Almoravids.ContentManagement;
+using Almoravids.Interfaces;
 
 namespace Almoravids.GameState
 {
     public class GameplayScreen : IGameState
     {
-        private Map map;
+        private Map.Map map;
         private Hero hero;
         private List<Enemy> enemies; // multiple enemies -> list
         private List<Item> items; // explicit namespace for Item
