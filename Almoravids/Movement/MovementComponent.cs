@@ -6,6 +6,7 @@ namespace Almoravids.Movement
         public Vector2 Position;
         public Vector2 Velocity { get; set; }
         public float Speed { get; set; }
+        public float MaxSpeed { get; set; } // expose max speed
 
         private Vector2 _direction;
         private readonly float _accelerationRate;
@@ -23,6 +24,7 @@ namespace Almoravids.Movement
             _accelerationRate = accelerationRate;
             _decelerationRate = decelerationRate;
             _maxSpeed = maxSpeed;
+            MaxSpeed = maxSpeed; // public property
             _useAcceleration = useAcceleration;
         }
 
@@ -50,15 +52,15 @@ namespace Almoravids.Movement
 
             if (_useAcceleration)
             {
-                // Acceleratie en momentum van held
+                // acceleration and momentum of hero
                 if (_direction != Vector2.Zero)
                 {
                     _direction.Normalize();
                     Velocity += _direction * _accelerationRate * deltaTime;
 
-                    if (Velocity.Length() > _maxSpeed)
+                    if (Velocity.Length() > MaxSpeed) // use public property
                     {
-                        Velocity = Vector2.Normalize(Velocity) * _maxSpeed;
+                        Velocity = Vector2.Normalize(Velocity) * MaxSpeed;
                     }
                 }
                 else
@@ -75,7 +77,7 @@ namespace Almoravids.Movement
             }
             else
             {
-                // vaste snelheid voor enemies
+                // fixed speed for enemies
                 if (_direction != Vector2.Zero)
                 {
                     _direction.Normalize();

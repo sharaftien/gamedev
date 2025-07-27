@@ -14,7 +14,7 @@ namespace Almoravids.Characters
         public int BannerCount { get; private set; } // track collected banners
 
         public Hero(Texture2D texture, Vector2 startPosition, string characterType = "hero", float speed = 100f)
-            : base(texture, startPosition, characterType, speed)
+            : base(texture, startPosition, characterType, speed, accelerationRate: 250f, decelerationRate: 250f, maxSpeed: 135f)
         {
             HealthComponent = new HealthComponent(); // initialize HP (3 hearts)
             KnockbackComponent = new KnockbackComponent(); // initialize knockback
