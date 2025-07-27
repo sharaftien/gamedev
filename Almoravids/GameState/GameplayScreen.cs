@@ -70,16 +70,17 @@ namespace Almoravids.GameState
             spriteBatch.Begin();
             if (map != null)
             {
-                var transformMatrix = _camera.GetTransformMatrix();
+                var snappedMatrix = _camera.GetSnappedTransformMatrix();
+                var smoothMatrix = _camera.GetSmoothTransformMatrix();
                 spriteBatch.End();
 
                 // draw map background without trees
-                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
-                map.DrawWithoutTrees(transformMatrix);
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: snappedMatrix, samplerState: SamplerState.PointClamp);
+                map.DrawWithoutTrees(snappedMatrix);
                 spriteBatch.End();
 
                 // draw items
-                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: smoothMatrix, samplerState: SamplerState.PointClamp);
                 foreach (var item in items)
                 {
                     item.Draw(spriteBatch);
@@ -87,25 +88,25 @@ namespace Almoravids.GameState
                 spriteBatch.End();
 
                 // draw enemies
-                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: smoothMatrix, samplerState: SamplerState.PointClamp);
                 foreach (var enemy in enemies)
                 {
                     enemy.Draw(spriteBatch);
                 }
                 spriteBatch.End();
 
-                // draw hero
-                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+                // draw hero (smooth)
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: smoothMatrix, samplerState: SamplerState.PointClamp);
                 hero.Draw(spriteBatch);
                 spriteBatch.End();
 
-                // draw trees
-                spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
-                map.DrawTrees(transformMatrix);
+                // draw trees (snapped)
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: snappedMatrix, samplerState: SamplerState.PointClamp);
+                map.DrawTrees(snappedMatrix);
                 spriteBatch.End();
 
                 // draw UI
-                spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp);
                 // HP
                 string statusText = hero.HealthComponent.IsInvulnerable ? "You're hit!" : $"{hero.HealthComponent.CurrentHealth}HP";
                 spriteBatch.DrawString(_font, $"Health: {statusText}", new Vector2(10, 5), Color.White);
@@ -113,8 +114,12 @@ namespace Almoravids.GameState
                 spriteBatch.DrawString(_font, $"Inventory: {string.Join(", ", hero.Inventory)}", new Vector2(10, 35), Color.White);
                 // Banner count
                 spriteBatch.DrawString(_font, $"Banners: {hero.BannerCount}", new Vector2(10, 65), Color.White);
+                spriteBatch.End();
             }
-            spriteBatch.End();
+            else
+            {
+                spriteBatch.End();
+            }
         }
     }
 }

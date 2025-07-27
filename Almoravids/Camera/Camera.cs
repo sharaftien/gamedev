@@ -52,11 +52,17 @@ namespace Almoravids.Camera
             }
         }
 
-        public Matrix GetTransformMatrix()
+        public Matrix GetSnappedTransformMatrix()
         {
-            // center camera on screen
+            // snap to whole pixels to avoid tile seams
             Vector2 snappedPosition = new Vector2((int)Position.X, (int)Position.Y);
             return Matrix.CreateTranslation(-snappedPosition.X + _screenWidth / 2, -snappedPosition.Y + _screenHeight / 2, 0);
+        }
+
+        public Matrix GetSmoothTransformMatrix()
+        {
+            // do not snap, allows smooth motion
+            return Matrix.CreateTranslation(-Position.X + _screenWidth / 2, -Position.Y + _screenHeight / 2, 0);
         }
     }
 }
