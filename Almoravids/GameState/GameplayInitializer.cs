@@ -17,14 +17,15 @@ namespace Almoravids.GameState
             _graphicsDevice = graphicsDevice;
         }
 
-        public (Almoravids.Map.Map map, Hero hero, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font, InputSystem inputSystem) Initialize(int level)
+        public (Almoravids.Map.Map map, Hero hero, Tether tether, List<Enemy> enemies, List<Item> items, Camera.Camera camera, SpriteFont font, InputSystem inputSystem) Initialize(int level)
         {
             var levelManager = new LevelManager(_contentLoader, _graphicsDevice); // initialize level manager
             levelManager.LoadLevel(level); // initialize level
             var map = levelManager.Map;
             var startPosition = levelManager.HeroSpawn; // hero spawn
+            var tetherPosition = levelManager.TetherSpawn; // tether spawn
             var enemySpawns = levelManager.EnemySpawns; // enemy spawn
-            var itemSpawns = levelManager.ItemSpawns; // load items
+            var itemSpawns = levelManager.ItemSpawns; // item spawns
 
             var font = _contentLoader.LoadSpriteFont("Fonts/Arial"); // load font for HP
 
@@ -33,9 +34,15 @@ namespace Almoravids.GameState
             var hero = new Hero(heroTexture, startPosition, "hero", 100f);
             var inputManager = new InputManager(hero);
 
+            // initialize tether
+            var tetherTexture = _contentLoader.LoadTexture2D("characters/tether");
+            var tether = new Tether(tetherTexture, tetherPosition);
+            var tetherInput = new InputManager(tether);
+
             // initialize input system
             var inputSystem = new InputSystem();
-            inputSystem.AddInputManager(inputManager, hero); // register input manager for hero
+            inputSystem.AddHeroInput(inputManager, hero);         // wasd
+            inputSystem.AddTetherInput(tetherInput, tether);      // arrows
 
             // initialize camera
             var camera = new Camera.Camera(startPosition);
@@ -86,7 +93,7 @@ namespace Almoravids.GameState
                 }
             }
 
-            return (map, hero, enemies, items, camera, font, inputSystem);
+            return (map, hero, tether, enemies, items, camera, font, inputSystem);
         }
     }
 }

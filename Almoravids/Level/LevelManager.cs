@@ -38,6 +38,7 @@ namespace Almoravids.Level
 
         public Map.Map Map => _currentLevel.Map;
         public Vector2 HeroSpawn => _currentLevel.HeroSpawn;
+        public Vector2 TetherSpawn => _currentLevel.TetherSpawn;
         public List<EnemySpawn> EnemySpawns => _currentLevel.EnemySpawns; // enemy spawns
         public List<ItemSpawn> ItemSpawns => _currentLevel.ItemSpawns; // item spawns
     }

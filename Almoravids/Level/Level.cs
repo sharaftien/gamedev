@@ -10,6 +10,7 @@ namespace Almoravids.Level
         protected readonly GraphicsDevice _graphicsDevice; // store graphics device
         protected Map.Map _map; // store map
         protected Vector2 _heroSpawn; // store hero spawn position
+        protected Vector2 _tetherSpawn; // store tether spawn position
         protected List<EnemySpawn> _enemySpawns; // store enemy spawn positions
         protected List<ItemSpawn> _itemSpawns; // store item spawn positions
         protected string _mapName; // store map name
@@ -26,6 +27,7 @@ namespace Almoravids.Level
 
         public Almoravids.Map.Map Map => _map;
         public Vector2 HeroSpawn => _heroSpawn;
+        public Vector2 TetherSpawn => _tetherSpawn;
         public List<EnemySpawn> EnemySpawns => _enemySpawns;
         public List<ItemSpawn> ItemSpawns => _itemSpawns;
     }

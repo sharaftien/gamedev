@@ -11,7 +11,18 @@ namespace Almoravids.Input
             _inputManagers = new List<InputManager>(); 
         }
 
-        public void AddInputManager(InputManager inputManager, IControllable controllable)
+        public void AddHeroInput(InputManager inputManager, IControllable controllable)
+        {
+            _inputManagers.Add(inputManager);
+            inputManager.AddCommand(Keys.Q, new MoveCommand(inputManager, new Vector2(-1, 0)));
+            inputManager.AddCommand(Keys.W, new MoveCommand(inputManager, new Vector2(-1, 0)));
+            inputManager.AddCommand(Keys.D, new MoveCommand(inputManager, new Vector2(1, 0)));
+            inputManager.AddCommand(Keys.Z, new MoveCommand(inputManager, new Vector2(0, -1)));
+            inputManager.AddCommand(Keys.A, new MoveCommand(inputManager, new Vector2(0, -1)));
+            inputManager.AddCommand(Keys.S, new MoveCommand(inputManager, new Vector2(0, 1)));
+        }
+
+        public void AddTetherInput(InputManager inputManager, IControllable controllable)
         {
             _inputManagers.Add(inputManager);
 
@@ -19,11 +30,6 @@ namespace Almoravids.Input
             inputManager.AddCommand(Keys.Right, new MoveCommand(inputManager, new Vector2(1, 0)));
             inputManager.AddCommand(Keys.Up, new MoveCommand(inputManager, new Vector2(0, -1)));
             inputManager.AddCommand(Keys.Down, new MoveCommand(inputManager, new Vector2(0, 1)));
-            // wasd
-            inputManager.AddCommand(Keys.Q, new MoveCommand(inputManager, new Vector2(-1, 0)));
-            inputManager.AddCommand(Keys.D, new MoveCommand(inputManager, new Vector2(1, 0)));
-            inputManager.AddCommand(Keys.Z, new MoveCommand(inputManager, new Vector2(0, -1)));
-            inputManager.AddCommand(Keys.S, new MoveCommand(inputManager, new Vector2(0, 1)));
         }
 
         public void Update(GameTime gameTime)

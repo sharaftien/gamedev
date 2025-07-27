@@ -15,6 +15,7 @@ namespace Almoravids.Level
         {
             _mapName = "map/sahara"; // set map name
             _heroSpawn = new Vector2(300, 200);
+            _tetherSpawn = new Vector2(600, 250);
             _enemySpawns = new List<EnemySpawn>
             {
                 //new EnemySpawn { Type = "archer", Position = new Vector2(100, 100) },

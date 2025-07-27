@@ -10,6 +10,7 @@ namespace Almoravids.GameState
     {
         private Map.Map map;
         private Hero hero;
+        private Tether tether;
         private List<Enemy> enemies; // multiple enemies -> list
         private List<Item> items; // explicit namespace for Item
         private Camera.Camera _camera;
@@ -34,7 +35,7 @@ namespace Almoravids.GameState
 
             var contentLoader = new ContentLoader(content); // initialize content loader
             var initializer = new GameplayInitializer(contentLoader, graphicsDevice); // initialize helper
-            (map, hero, enemies, items, _camera, _font, _inputSystem) = initializer.Initialize(_level); // setup gameplay
+            (map, hero, tether, enemies, items, _camera, _font, _inputSystem) = initializer.Initialize(_level); // setup gameplay
 
             // initialize gameplay manager
             _gameplayManager = new GameplayManager(map, hero, enemies, items, _camera);
@@ -61,6 +62,7 @@ namespace Almoravids.GameState
             else
             {
                 _inputSystem.Update(gameTime); // update character inputs
+                tether.Update(gameTime);
                 _gameplayManager.Update(gameTime);
             }
         }
@@ -98,6 +100,11 @@ namespace Almoravids.GameState
                 // draw hero (smooth)
                 spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: smoothMatrix, samplerState: SamplerState.PointClamp);
                 hero.Draw(spriteBatch);
+                spriteBatch.End();
+
+                // draw tether
+                spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: smoothMatrix, samplerState: SamplerState.PointClamp);
+                tether.Draw(spriteBatch);
                 spriteBatch.End();
 
                 // draw trees (snapped)
