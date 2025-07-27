@@ -11,7 +11,7 @@ namespace Almoravids.Items
         private float _rotation;
         private const float Speed = 250f; // arrow speed
         private bool _isActive;
-        private CollisionComponent _collision;
+        private ArrowCollision _collision;
 
         public Arrow(Texture2D texture, Vector2 startPosition, Vector2 direction)
         {
@@ -21,8 +21,7 @@ namespace Almoravids.Items
             _rotation = (float)Math.Atan2(direction.Y, direction.X); // calculate rotation
             _isActive = true;
 
-            _collision = new CollisionComponent(32f, 5f, 0f, 14f); // horizontal box (whitespace fix)
-            _collision.Update(_position);
+            _collision = new ArrowCollision(32f, 5f, 0f, 14f, () => _position, () => _rotation);
         }
 
         public void Update(GameTime gameTime)
@@ -30,7 +29,6 @@ namespace Almoravids.Items
             if (!_isActive) return;
 
             _position += _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _collision.Update(_position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
