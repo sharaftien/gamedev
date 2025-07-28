@@ -1,4 +1,4 @@
-﻿using Almoravids.Interfaces;
+using Almoravids.Interfaces;
 using Almoravids.UI;
 using Almoravids.Animation;
 using Almoravids.ContentManagement;
@@ -14,7 +14,11 @@ namespace Almoravids.GameState
         private List<ButtonRenderer> _buttons;
         private TextRenderer _BayaahText;
         private int _currentLevel;
-
+        private IGameState _nextState = null;
+        public IGameState GetNextState()
+        {
+            return _nextState;
+        }
         public StageClearedScreen(int currentLevel)
         {
             _currentLevel = currentLevel;
@@ -38,15 +42,15 @@ namespace Almoravids.GameState
             {
                 new ButtonRenderer(_font, "Continue", Color.Green, new Vector2(0, 100), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new LevelScreen());
+                    _nextState = new LevelScreen();
                 }),
                 new ButtonRenderer(_font, "Play again", Color.Orange, new Vector2(0, 170), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new GameplayScreen(_currentLevel));
+                    _nextState = new GameplayScreen(_currentLevel);
                 }),
                 new ButtonRenderer(_font, "Go to Start", Color.Orange, new Vector2(0, 240), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new StartScreen());
+                    _nextState = new StartScreen();
                 })
             };
         }

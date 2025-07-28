@@ -14,6 +14,11 @@ namespace Almoravids.GameState
         private List<ButtonRenderer> _buttons;
         private TextRenderer _youDiedText;
         private int _currentLevel;
+        private IGameState _nextState = null;
+        public IGameState GetNextState()
+        {
+            return _nextState;
+        }
 
         public GameOverScreen(int currentLevel)
         {
@@ -38,11 +43,11 @@ namespace Almoravids.GameState
             {
                 new ButtonRenderer(_font, "Try Again", Color.Red, new Vector2(0, 120), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new GameplayScreen(_currentLevel));
+                    _nextState = new GameplayScreen(_currentLevel);
                 }),
                 new ButtonRenderer(_font, "Choose Level", Color.Red, new Vector2(0, 190), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new LevelScreen());
+                    _nextState = new LevelScreen();;
                 })
             };
         }

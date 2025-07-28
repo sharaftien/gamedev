@@ -11,6 +11,11 @@ namespace Almoravids.GameState
         private ContentLoader _contentLoader;
         private Texture2D _background;
         private List<ButtonRenderer> _buttons;
+        private IGameState _nextState = null;
+        public IGameState GetNextState()
+        {
+            return _nextState;
+        }
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
@@ -24,19 +29,19 @@ namespace Almoravids.GameState
             {
                 new ButtonRenderer(_font, "Sahara", Color.NavajoWhite, new Vector2(-230+16*4, 127+16*3), _graphicsDevice, () => // -228, 127 corner check
                 {
-                    GameStateManager.Instance.SetState(new GameplayScreen(1));
+                    _nextState = new GameplayScreen(1);
                 }),
                 new ButtonRenderer(_font, "Marrakech", Color.NavajoWhite, new Vector2(-88+16*5, -47), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new GameplayScreen(2));
+                    _nextState = new GameplayScreen(2);
                 }),
                 new ButtonRenderer(_font, "Strait of Gibraltar", Color.NavajoWhite, new Vector2(-24+16*9, -143), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new GameplayScreen(3));
+                    _nextState = new GameplayScreen(3);
                 }),
                 new ButtonRenderer(_font, "Return", Color.Red, new Vector2(-406+16*4, -251), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new StartScreen());
+                    _nextState = new StartScreen();
                 })
             };
         }

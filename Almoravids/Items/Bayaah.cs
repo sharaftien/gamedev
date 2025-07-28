@@ -1,4 +1,4 @@
-﻿using Almoravids.Characters;
+using Almoravids.Characters;
 using Almoravids.GameState;
 
 namespace Almoravids.Items

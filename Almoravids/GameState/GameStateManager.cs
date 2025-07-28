@@ -32,6 +32,11 @@ namespace Almoravids.GameState
         public void Update(GameTime gameTime)
         {
             _currentState?.Update(gameTime);
+            var next = _currentState?.GetNextState();
+            if (next != null && next != _currentState)
+            {
+                SetState(next);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

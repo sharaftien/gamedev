@@ -11,6 +11,11 @@ namespace Almoravids.GameState
         private GraphicsDevice _graphicsDevice;
         private Texture2D _background;
         private List<ButtonRenderer> _buttons;
+        private IGameState _nextState = null;
+        public IGameState GetNextState()
+        {
+            return _nextState;
+        }
 
         public void Initialize(ContentManager content, GraphicsDevice graphicsDevice)
         {
@@ -24,7 +29,7 @@ namespace Almoravids.GameState
             {
                 new ButtonRenderer(_font, "Start Game", Color.Orange, new Vector2(0, 35), _graphicsDevice, () =>
                 {
-                    GameStateManager.Instance.SetState(new LevelScreen());
+                    _nextState = new LevelScreen();
                 }),
                 new ButtonRenderer(_font, "Quit", Color.Red, new Vector2(0, 100), _graphicsDevice, () =>
                 {

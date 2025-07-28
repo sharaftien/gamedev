@@ -22,6 +22,11 @@ namespace Almoravids.GameState
         private bool _gameOver; // track if game over was triggered
         private InputSystem _inputSystem; // manage character inputs
         private List<Particles.Particle> _particles = new(); // bloedpartikels
+        private IGameState _nextState = null;
+        public IGameState GetNextState()
+        {
+            return _nextState;
+        }
 
         public GameplayScreen(int level = 1)
         {
@@ -48,16 +53,16 @@ namespace Almoravids.GameState
             var keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.R))
             {
-                GameStateManager.Instance.SetState(new GameplayScreen(_level)); // restart
+                _nextState = new GameplayScreen(_level); ; // restart
             }
             if (keyboardState.IsKeyDown(Keys.Enter))
             {
-                GameStateManager.Instance.SetState(new LevelScreen()); // return to level menu
+                _nextState = new LevelScreen(); ; ; // return to level menu
             }
 
             if (!_gameOver && !hero.HealthComponent.IsAlive)
             {
-                GameStateManager.Instance.SetState(new GameOverScreen(_level));
+                _nextState = new GameOverScreen(_level); ; ;
                 _gameOver = true;
             }
             else
