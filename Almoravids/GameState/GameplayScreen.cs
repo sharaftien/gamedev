@@ -21,6 +21,7 @@ namespace Almoravids.GameState
         private GameplayManager _gameplayManager; // manage game logic
         private bool _gameOver; // track if game over was triggered
         private InputSystem _inputSystem; // manage character inputs
+        private List<Particles.Particle> _particles = new(); // bloedpartikels
 
         public GameplayScreen(int level = 1)
         {
@@ -63,7 +64,26 @@ namespace Almoravids.GameState
             {
                 _inputSystem.Update(gameTime); // update character inputs
                 tether.Update(gameTime);
+
+                if (hero.HealthComponent.IsInvulnerable)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Vector2 dir = new Vector2(
+                            (float)(Random.Shared.NextDouble() * 2 - 1),
+                            (float)(Random.Shared.NextDouble() * 2 - 1)
+                        );
+                        if (dir != Vector2.Zero)
+                            dir.Normalize();
+                        _particles.Add(new Particles.BloodParticle(hero.MovementComponent.Position + new Vector2(24, 24), dir));
+                    }
+                }
+
                 _gameplayManager.Update(gameTime);
+
+                foreach (var p in _particles)
+                    p.Update(gameTime);
+                _particles.RemoveAll(p => p.IsDead);
             }
         }
 
@@ -97,9 +117,11 @@ namespace Almoravids.GameState
                 }
                 spriteBatch.End();
 
-                // draw hero (smooth)
+                // draw hero + blood
                 spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: smoothMatrix, samplerState: SamplerState.PointClamp);
-                hero.Draw(spriteBatch);
+                foreach (var p in _particles)
+                    p.Draw(spriteBatch);
+                hero.Draw(spriteBatch);                
                 spriteBatch.End();
 
                 // draw tether
