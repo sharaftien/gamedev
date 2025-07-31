@@ -16,7 +16,7 @@ namespace Almoravids.Characters
             float enemySpeed = type switch
             {
                 "archer" => 0.00000000000000000001f, // stand still
-                "swordsman" => 20f,   // normal
+                "swordsman" => 50f,   // normal
                 "guard" => 85f,       // slow
                 _ => throw new NotImplementedException(),
             };

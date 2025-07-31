@@ -29,6 +29,11 @@ namespace Almoravids.GameState
             Vector2 heroProposedPosition = _hero.MovementComponent.Position;
             _hero.Update(gameTime);
 
+            if (Keyboard.GetState().IsKeyDown(Keys.T))
+            {
+                Console.WriteLine($"Position:{_hero.MovementComponent.Position}");
+            }
+
             foreach (var enemy in _enemies)
             {
                 enemy.Update(gameTime);
