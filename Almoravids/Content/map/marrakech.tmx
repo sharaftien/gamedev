@@ -814,7 +814,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="37" name="Oasis" visible="0">
+ <objectgroup id="37" name="Oasis">
   <object id="24" x="1047.5" y="511" width="100.5" height="66"/>
   <object id="25" x="1029.5" y="527.5" width="41.5" height="49"/>
   <object id="26" x="1039" y="519" width="32.5" height="19.5"/>
@@ -825,11 +825,11 @@
   <object id="32" x="1280" y="697" width="47.5" height="28"/>
   <object id="33" x="1302.5" y="683.5" width="16" height="17.5"/>
   <object id="34" x="1260" y="711" width="34.5" height="17.5"/>
-  <object id="36" x="181" y="144" width="11" height="817"/>
-  <object id="37" x="-17" y="-18" width="20" height="194"/>
-  <object id="38" x="-49" y="-57" width="1789" height="59"/>
-  <object id="39" x="1439" y="-129" width="38" height="1093"/>
-  <object id="40" x="-12" y="958" width="1502" height="36"/>
+  <object id="36" x="181" y="144" width="11" height="891.667"/>
+  <object id="37" x="-38.3333" y="-31.3333" width="20" height="194"/>
+  <object id="38" x="-46.3333" y="-79.6667" width="1789" height="59"/>
+  <object id="39" x="1471" y="-95.6667" width="38" height="1093"/>
+  <object id="40" x="-8" y="986" width="1502" height="36"/>
   <object id="41" x="343.333" y="192.667" width="404.667" height="131.333"/>
   <object id="43" x="722" y="498" width="40" height="118.667"/>
   <object id="44" x="728.667" y="532" width="83.3333" height="86"/>
