@@ -6,7 +6,7 @@ namespace Almoravids.Items
     {
         private Hero _hero;
 
-        private const float ActivationDuration = 5f; // 5 seconds to activate
+        private const float ActivationDuration = 3f; // 5 seconds to activate
         private bool _isActivating; // check if spatiebalk is being held
         private float _activationTimer; // check for how long          
 

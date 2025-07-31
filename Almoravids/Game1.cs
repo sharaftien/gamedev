@@ -37,7 +37,7 @@ namespace Almoravids
             _gameStateManager = GameStateManager.Instance;
             _gameStateManager.Initialize(Content, GraphicsDevice);
             //_gameStateManager.SetState(new GameState.StartScreen());
-            _gameStateManager.SetState(new GameState.GameplayScreen(1));
+            _gameStateManager.SetState(new GameState.GameplayScreen(2));
         }
 
         protected override void Update(GameTime gameTime)
