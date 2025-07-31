@@ -216,6 +216,11 @@
 /processor:TiledMapProcessor
 /build:map/sahara.tmx
 
+#begin map/tangier.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map/tangier.tmx
+
 #begin map/testing.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor

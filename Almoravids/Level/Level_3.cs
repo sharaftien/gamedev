@@ -11,7 +11,7 @@ namespace Almoravids.Level
 
         public override void Load()
         {
-            _mapName = "map/gibraltar"; // set map name
+            _mapName = "map/tangier"; // set map name
             _heroSpawn = new Vector2(800 / 2 - 50, 480 / 2 - 50); // hero spawn
             _map = new Map.Map(_contentLoader.LoadTiledMap(_mapName), _graphicsDevice);
         }

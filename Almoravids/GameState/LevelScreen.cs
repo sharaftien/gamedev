@@ -35,7 +35,7 @@ namespace Almoravids.GameState
                 {
                     _nextState = new GameplayScreen(2);
                 }),
-                new ButtonRenderer(_font, "Strait of Gibraltar", Color.NavajoWhite, new Vector2(-24+16*9, -143), _graphicsDevice, () =>
+                new ButtonRenderer(_font, "Tangier", Color.NavajoWhite, new Vector2(-24+17*3+3, -148), _graphicsDevice, () =>
                 {
                     _nextState = new GameplayScreen(3);
                 }),
