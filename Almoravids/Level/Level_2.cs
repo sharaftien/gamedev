@@ -15,6 +15,7 @@ namespace Almoravids.Level
         {
             _mapName = "map/marrakech"; // set map name
             _heroSpawn = new Vector2(540, 345); // hero spawn
+            _tetherSpawn = new Vector2(500, 345);
             _enemySpawns = new List<EnemySpawn>
             {
                 new EnemySpawn { Type = "archer", Position = new Vector2(85, 470) },
@@ -101,14 +102,12 @@ namespace Almoravids.Level
                 new ItemSpawn { Type = "tasbih", Position = new Vector2(800, 360) },
                 new ItemSpawn { Type = "litham", Position = new Vector2(827, 110) },
                 new ItemSpawn { Type = "adarga", Position = new Vector2(280, 108) },
-
                 new ItemSpawn { Type = "khuffayn", Position = new Vector2(30, 223) },
                 new ItemSpawn { Type = "koumiya", Position = new Vector2(224, 854) },
-                //Banners
+
                 new ItemSpawn { Type = "banner", Position = new Vector2(1243+15, 76) },
                 new ItemSpawn { Type = "banner", Position = new Vector2(83+15, 62) },
                 new ItemSpawn { Type = "banner", Position = new Vector2(493+15, 844) },
-                new ItemSpawn { Type = "banner", Position = new Vector2(500+15, 130) },
 
                 new ItemSpawn { Type = "bayaah", Position = new Vector2(1069+15, 686+32) }
             };

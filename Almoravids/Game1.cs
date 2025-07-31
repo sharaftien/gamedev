@@ -36,8 +36,7 @@ namespace Almoravids
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _gameStateManager = GameStateManager.Instance;
             _gameStateManager.Initialize(Content, GraphicsDevice);
-            //_gameStateManager.SetState(new GameState.StartScreen());
-            _gameStateManager.SetState(new GameState.GameplayScreen(2));
+            _gameStateManager.SetState(new GameState.StartScreen());
         }
 
         protected override void Update(GameTime gameTime)
