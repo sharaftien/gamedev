@@ -102,7 +102,7 @@ namespace Almoravids.Level
                 new ItemSpawn { Type = "tasbih", Position = new Vector2(800, 360) },
                 new ItemSpawn { Type = "litham", Position = new Vector2(827, 110) },
                 new ItemSpawn { Type = "adarga", Position = new Vector2(280, 108) },
-                new ItemSpawn { Type = "khuffayn", Position = new Vector2(30, 223) },
+                new ItemSpawn { Type = "khuffayn", Position = new Vector2(330, 623) },
                 new ItemSpawn { Type = "koumiya", Position = new Vector2(224, 854) },
 
                 new ItemSpawn { Type = "banner", Position = new Vector2(1243+15, 76) },
