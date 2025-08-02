@@ -6,7 +6,7 @@ bin/
 obj/
 
 # Ignore MonoGame content cache
-*.mgcb
+
 
 # Ignore user-specific files
 .vs/
